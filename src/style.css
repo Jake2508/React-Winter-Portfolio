@@ -20,7 +20,7 @@ html, body, #root {
 @font-face
 {
     font-family: 'Bangers';
-    src: url('/bangers-v20-latin-regular.woff') format('woff');
+    src: url('/Fonts/bangers-v20-latin-regular.woff') format('woff');
 }
 
 

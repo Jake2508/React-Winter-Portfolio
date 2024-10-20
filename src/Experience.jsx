@@ -8,13 +8,13 @@ import ProjectDisplay from './ProjectDisplay';
 
 export default function Experience() {
     // Setup Models
-    const environment = useGLTF('/SnowScene-v3.gltf');
-    const arcadeMachine = useGLTF('/ArcadeMachine-v4.gltf');
-    const machineSwitch = useGLTF('/switch.gltf');
-    const cable = useGLTF('/cable.gltf');
-    const box = useGLTF('/Box.gltf');
-    const stereo = useGLTF('/Stereo.gltf');
-    const tree = useGLTF('/TreeTest.gltf');
+    const environment = useGLTF('/Models/SnowScene-v3.gltf');
+    const arcadeMachine = useGLTF('/Models/ArcadeMachine-v4.gltf');
+    const machineSwitch = useGLTF('/Models/switch.gltf');
+    const cable = useGLTF('/Models/cable.gltf');
+    const box = useGLTF('/Models/Box.gltf');
+    const stereo = useGLTF('/Models/Stereo.gltf');
+    const tree = useGLTF('/Models/TreeTest.gltf');
 
     // Store Obj Colors to Map & Setup Hover Highlight Effects
     const originalColors = useRef(new Map());
