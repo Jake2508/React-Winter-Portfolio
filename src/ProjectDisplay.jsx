@@ -119,6 +119,7 @@ const ProjectDisplay = ({ onClose }) => {
         setTimeout(() => {
             setSelectedProject(project); 
             setFade(true); 
+            setCurrentImageIndex(0);  // Reset to the first image
 
             // Scroll to top when selecting a new project
             if (containerRef.current) 
@@ -152,8 +153,6 @@ const ProjectDisplay = ({ onClose }) => {
         });
     };
     
-    
-
     // Tab Main Sections
     const content = {
         about: (
@@ -176,7 +175,7 @@ const ProjectDisplay = ({ onClose }) => {
                         <p><a href="https://www.staffs.ac.uk/course/computer-games-design-programming-bsc" target='_blank'>Staffordshire University</a></p>
                         <p className='subInformation'>Graduation Grade: 80</p>
                     </div>
-                    <img src="/Images/staffs-logo.png" alt="Staffordshire University" className='educationImage' />
+                    <img src="/Images/staffs-logo.jpg" alt="Staffordshire University" className='educationImage' />
                 </div>
 
                 <h2>Experience</h2>
@@ -194,7 +193,7 @@ const ProjectDisplay = ({ onClose }) => {
                     <li>Pull Requests</li>
                     <li>Postman API Testing</li>
                     <li>.NET Automation Experience</li>
-                    <li>Bonus Point 6</li>
+                    <li>Selenium Web Driver</li>
                 </ul>
             </div>
         ),
@@ -276,7 +275,7 @@ const ProjectDisplay = ({ onClose }) => {
                 <h2>Resume</h2>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '10px' }}>
                     <a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">View Online</a>
-                    <img src="/Images/pdf-icon.png" alt="PDF Icon" style={{ width: '120px', height: '120px' }} />
+                    <img src="/Images/pdf-icon.jpg" alt="PDF Icon" style={{ width: '120px', height: '120px' }} />
                     <a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">Download</a>
                 </div>
                 {/* Fill Blank Space */}
@@ -356,6 +355,7 @@ const ProjectGrid = React.memo(({ data, onSelect, selectedProject, projectConten
 
 // ProjectCard Component : React memo -> lets you skip re-rendering a component when its props are unchanged
 const ProjectCard = React.memo(({ project, onSelect }) => {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const firstMedia = project.media[0];
     const mediaPreviewUrl = project.media.find(mediaItem => mediaItem.type === 'image')?.url
 

@@ -9,7 +9,7 @@ export const projectData = [
                 miniTitle: '2024',
                 subtitle: 'React Three Fiber Application',
                 media: [
-                    { type: 'image', url: '/Images/portfolio-v1.PNG' },
+                    { type: 'image', url: '/Images/portfolio-v1.jpg' },
                     { type: 'embed', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
     
                 ],
@@ -33,7 +33,7 @@ export const projectData = [
                 miniTitle: '2024',
                 subtitle: 'Three.js Visualization',
                 media: [
-                    { type: 'image', url: '/Images/portfolio-v1.PNG' },
+                    { type: 'image', url: '/Images/portfolio-v1.jpg' },
                     { type: 'embed', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
     
                 ],
@@ -57,11 +57,12 @@ export const projectData = [
                 subtitle: 'Endless Action Roguelike',
                 media: [
                     { type: 'embed', url: 'https://www.youtube.com/embed/MCiUNEL0EaY?si=5YdXJN5stWTy' },
-                    { type: 'image', url: '/Images/Games/Tankeo-Promo2.png' },
-                    { type: 'image', url: '/Images/Games/Tankeo-Promo1.png' },
-                    { type: 'image', url: '/Images/Games/Tankeo-Promo3.png' },
-                    { type: 'image', url: '/Images/Games/Tankeo-Promo4.png' },
+                    { type: 'image', url: '/Images/Games/Tankeo-Promo2.jpg' },
+                    { type: 'image', url: '/Images/Games/Tankeo-Promo1.jpg' },
+                    { type: 'image', url: '/Images/Games/Tankeo-Promo3.jpg' },
+                    { type: 'image', url: '/Images/Games/Tankeo-Promo4.jpg' },
                     { type: 'image', url: '/Images/Games/Tankeo-Promo5.jpg' },
+                    { type: 'image', url: '/Images/Games/Tankeo-Promo6.jpg' },
                 ],
                 technologies: ['Unity', 'C#', 'Blender', 'Photoshop'],
                 description: ['Tankeo Drift is an action-packed rogue-like game built in Unity, where you battle endless waves of enemies, gather experience, and upgrade your tank as you progress.',
@@ -85,12 +86,13 @@ export const projectData = [
                 subtitle: 'Farming Roguelike Exploration',
                 media: [
                     { type: 'embed', url: 'https://www.youtube.com/embed/AQUKyF2cjNM?si=rlF7Eh-CtIbXYHyh' },
-                    { type: 'image', url: '/Images/Games/Assembly-Promo1.png' },
-                    { type: 'image', url: '/Images/Games/Assembly-Promo3.png' },
-                    { type: 'image', url: '/Images/Games/Assembly-Promo4.png' },
-                    { type: 'image', url: '/Images/Games/Assembly-Promo2.png' },
+                    { type: 'image', url: '/Images/Games/Assembly-Promo1.jpg' },
+                    { type: 'image', url: '/Images/Games/Assembly-Promo3.jpg' },
+                    { type: 'image', url: '/Images/Games/Assembly-Promo7.jpg' },
+                    { type: 'image', url: '/Images/Games/Assembly-Promo8.jpg' },
+                    { type: 'image', url: '/Images/Games/Assembly-Promo4.jpg' },
+                    { type: 'image', url: '/Images/Games/Assembly-Promo2.jpg' },
                     { type: 'image', url: '/Images/Games/Assembly-Promo5.jpg' },
-                    { type: 'image', url: '/Images/Games/Assembly-Promo6.png' },
                 ],
                 technologies: ['Unreal Engine 4', 'Blueprint', 'Jira'],
                 description: ['Assembly Required is a third-person, farming rogue-like sci-fi exploration game developed in Unreal Engine 4. This team project was ' +
@@ -116,8 +118,8 @@ export const projectData = [
     
                     { type: 'embed', url: 'https://www.youtube.com/embed/aU5eYhggCLU?si=ILWADHAL0GvOTq-f' },
                     { type: 'image', url: '/Images/Games/Deliberation-Promo1.jpg' }, 
-                    { type: 'image', url: '/Images/Games/Deliberation-PromoT1.png' }, 
-                    { type: 'image', url: '/Images/Games/Deliberation-PromoT2.png' }, 
+                    { type: 'image', url: '/Images/Games/Deliberation-PromoT1.jpg' }, 
+                    { type: 'image', url: '/Images/Games/Deliberation-PromoT2.jpg' }, 
                     { type: 'image', url: '/Images/Games/Deliberation-PromoG.gif' }, 
                 ],
                 technologies: ['Unity', 'A* Pathfinding', 'Aseprite', 'Grid System'],
@@ -144,6 +146,7 @@ export const projectData = [
                     { type: 'embed', url: 'https://www.youtube.com/embed/8v2ZYKTqcxE?si=w1D3grpEaoYvvMXJ' },
                     { type: 'image', url: '/Images/Games/Asteroids-Promo1.jpg' },
                     { type: 'image', url: '/Images/Games/Asteroids-Promo2.jpg' },
+                    { type: 'image', url: '/Images/Games/Asteroids-Promo3.jpg' },
                 ],
                 technologies: ['Unity', 'C#', 'Aseprite'],
                 description: ['AstroHaul is a 2D retro arcade game created in Unity based on the classic Asteroids game. This project was created as part of the Typical Game Jam (within 3 days).',
