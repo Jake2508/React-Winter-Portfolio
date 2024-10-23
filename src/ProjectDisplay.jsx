@@ -355,14 +355,10 @@ const ProjectGrid = React.memo(({ data, onSelect, selectedProject, projectConten
 
 // ProjectCard Component : React memo -> lets you skip re-rendering a component when its props are unchanged
 const ProjectCard = React.memo(({ project, onSelect }) => {
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const firstMedia = project.media[0];
-    const mediaPreviewUrl = project.media.find(mediaItem => mediaItem.type === 'image')?.url
-
     return (
         <div className='projectCard' onClick={onSelect}>
             <div className='projectImage' 
-                style={{ backgroundImage: `url(${mediaPreviewUrl})` }}>
+                style={{ backgroundImage: `url(${project.previewImage})` }}> {/* Display previewImage */}
             </div>
             <div className='projectCardTextContainer'>
                 <h3>{project.title}</h3>
@@ -372,5 +368,6 @@ const ProjectCard = React.memo(({ project, onSelect }) => {
         </div>
     );
 });
+
 
 export default ProjectDisplay;

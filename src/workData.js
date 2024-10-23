@@ -8,6 +8,7 @@ export const workData = [
             company: 'West Pier Studio',
             miniTitle: '2024-Present',
             subtitle: 'Deck, Pergola & Fence Planner',
+            previewImage: '/Images/Work/wps-promo.jpg', 
             media: [
                 { type: 'embed', url: 'https://www.youtube.com/embed/XT3VvS794iY?si=QxvNAALcfBs0oGyg' }, 
                 { type: 'image', url: '/Images/Work/deck-promo-1.jpg' },
@@ -43,6 +44,7 @@ export const workData = [
             company: 'Codemasters',
             miniTitle: '2019-2020',
             subtitle: 'F1 Mobile Racing Project',
+            previewImage: '/Images/Work/f1-Promo-1.jpg', 
             media: [
                 { type: 'embed', url: 'https://www.youtube.com/embed/l37bxiB65fs?si=RF13sgJ6azFzFFkP' },
                 { type: 'image', url: '/Images/Work/f1-Promo-4.jpg' },

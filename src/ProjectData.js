@@ -8,6 +8,7 @@ export const projectData = [
                 title: 'Portfolio',
                 miniTitle: '2024',
                 subtitle: 'React Three Fiber Application',
+                previewImage: '/Images/portfolio-v1.jpg',
                 media: [
                     { type: 'image', url: '/Images/portfolio-v1.jpg' },
                     { type: 'embed', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
@@ -32,6 +33,7 @@ export const projectData = [
                 title: 'Procedural Island',
                 miniTitle: '2024',
                 subtitle: 'Three.js Visualization',
+                previewImage: '/Images/WebApplications/procedural-promo1.jpg',
                 media: [
                     { type: 'image', url: '/Images/portfolio-v1.jpg' },
                     { type: 'embed', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
@@ -55,6 +57,7 @@ export const projectData = [
                 title: 'Tankeo Drift',
                 miniTitle: '2023-2024',
                 subtitle: 'Endless Action Roguelike',
+                previewImage: '/Images/Games/Tankeo-Promo2.jpg',
                 media: [
                     { type: 'embed', url: 'https://www.youtube.com/embed/MCiUNEL0EaY?si=5YdXJN5stWTy' },
                     { type: 'image', url: '/Images/Games/Tankeo-Promo2.jpg' },
@@ -84,6 +87,7 @@ export const projectData = [
                 title: 'Assembly Required',
                 miniTitle: '2022',
                 subtitle: 'Farming Roguelike Exploration',
+                previewImage: '/Images/Games/Assembly-Promo1.jpg', 
                 media: [
                     { type: 'embed', url: 'https://www.youtube.com/embed/AQUKyF2cjNM?si=rlF7Eh-CtIbXYHyh' },
                     { type: 'image', url: '/Images/Games/Assembly-Promo1.jpg' },
@@ -114,6 +118,7 @@ export const projectData = [
                 title: 'Deliberation',
                 miniTitle: '2024',
                 subtitle: 'A* Pathfinding Prototype',
+                previewImage: '/Images/Games/Deliberation-Promo1.jpg', 
                 media: [
     
                     { type: 'embed', url: 'https://www.youtube.com/embed/aU5eYhggCLU?si=ILWADHAL0GvOTq-f' },
@@ -142,6 +147,7 @@ export const projectData = [
                 title: 'AstroHaul',
                 miniTitle: '2024',
                 subtitle: 'Asteroids Gravity Chaos',
+                previewImage: '/Images/Games/Asteroids-Promo1.jpg', 
                 media: [
                     { type: 'embed', url: 'https://www.youtube.com/embed/8v2ZYKTqcxE?si=w1D3grpEaoYvvMXJ' },
                     { type: 'image', url: '/Images/Games/Asteroids-Promo1.jpg' },
