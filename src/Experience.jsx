@@ -15,6 +15,7 @@ export default function Experience() {
     const box = useGLTF('/Models/Box.gltf');
     const stereo = useGLTF('/Models/Stereo.gltf');
     const tree = useGLTF('/Models/TreeTest.gltf');
+    const planet = useGLTF('/Models/PlanetTest.gltf');
 
     // Store Obj Colors to Map & Setup Hover Highlight Effects
     const originalColors = useRef(new Map());

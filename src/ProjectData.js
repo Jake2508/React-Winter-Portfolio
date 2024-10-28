@@ -23,7 +23,7 @@ export const projectData = [
                     'so users could understand these forces. '
                 ],
                 links: [
-                    { label: 'GitHub', url: 'https://github.com/your-portfolio' },
+                    { label: 'Code Repo', url: 'https://github.com/your-portfolio' },
                     { label: 'Live Demo', url: 'https://your-portfolio.com' },
                 ],
             },
@@ -39,7 +39,7 @@ export const projectData = [
                     { type: 'embed', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
     
                 ],
-                technologies: ['React', 'Three.js', 'JavaScript', 'CSS'],
+                technologies: ['Three.js', 'JavaScript', 'CSS'],
                 description: ['AstroHaul is a 2D retro arcade game created in Unity based on the classic Asteroids game. This project was created as part of the Typical Game Jam.',
     
                     'My goal for this project was to create a classic I enjoyed and give it a fresh look. I chose to utilise volatile gravitational fields and collection mechanics.',
@@ -48,11 +48,12 @@ export const projectData = [
                     'so users could understand these forces. '
                 ],
                 links: [
-                    { label: 'GitHub', url: 'https://github.com/your-portfolio' },
-                    { label: 'Live Demo', url: 'https://your-portfolio.com' },
+                    { label: 'Code Repo', url: 'https://github.com/Jake2508/procedural-terrain-shader/tree/main' },
+                    { label: 'CodeSandBox', url: 'https://codesandbox.io/p/devbox/github/Jake2508/procedural-terrain-shader' },
                 ],
             },
             {
+                // COMPLETE
                 id: 3,
                 title: 'Tankeo Drift',
                 miniTitle: '2023-2024',
@@ -77,12 +78,12 @@ export const projectData = [
                     'players position, creating the illusion of an infinite level.'
                 ],
                 links: [
-                    { label: 'GitHub', url: 'https://github.com/your-portfolio' },
+                    { label: 'Code Repo', url: 'https://github.com/Jake2508/Tank/tree/main/Assets/Scripts' },
                     { label: 'Download Game', url: 'https://jake12341234.itch.io/tankeo-drift' },
                 ],
             },
             {
-                // Rework Title Image & Add Enemy Image
+                // Rework Title Image ??
                 id: 4,
                 title: 'Assembly Required',
                 miniTitle: '2022',
@@ -108,12 +109,12 @@ export const projectData = [
                     'implementation, sound manager, and reviewing level designs. I also assisted with bug fixing across various areas of the game.' 
                 ],
                 links: [
-                    { label: 'GitHub', url: 'https://github.com/TomWilkinsonGames/RoboFarm' },
+                    { label: 'Code Repo', url: 'https://github.com/TomWilkinsonGames/RoboFarm' },
                     { label: 'Download Game', url: 'https://tomwilkinson.itch.io/assembly-required' },
                 ],
             },
             {
-                // MAYBE ADD CODE REPO - Besides Complete
+                // COMPLETE
                 id: 5,
                 title: 'Deliberation',
                 miniTitle: '2024',
@@ -137,8 +138,7 @@ export const projectData = [
                     'To achieve this, I expanded on an A* project I developed during university, incorporating pixel art and animations to bring the game to life.'
                 ],
                 links: [
-                    { label: 'GitHub', url: 'https://github.com/Jake2508/Deliberation/tree/main/Assets/Deliberation' },
-                    { label: 'Live Demo', url: 'https://your-portfolio.com' },
+                    { label: 'Code Repo', url: 'https://github.com/Jake2508/Deliberation/tree/main/Assets/Deliberation' },
                 ],
             },
             {
@@ -163,9 +163,9 @@ export const projectData = [
                 'so users could understand these forces. '
                 ],
                 links: [
-                    { label: 'GitHub', url: 'https://github.com/Jake2508/Asteroids/tree/main/Assets/Asteroids%20Game' },
+                    { label: 'Code Repo', url: 'https://github.com/Jake2508/Asteroids/tree/main/Assets/Asteroids%20Game' },
                     { label: 'Typical Game Jam', url: 'https://itch.io/jam/typical-game-jam' },
-                    { label: 'Play Game', url: 'https://jake12341234.itch.io/astrohaul' },
+                    { label: 'Play on WebGL', url: 'https://jake12341234.itch.io/astrohaul' },
                 ],
             },
     ];

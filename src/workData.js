@@ -8,7 +8,7 @@ export const workData = [
             company: 'West Pier Studio',
             miniTitle: '2024-Present',
             subtitle: 'Deck, Pergola & Fence Planner',
-            previewImage: '/Images/Work/wps-promo.jpg', 
+            previewImage: '/Images/Work/wps-promo-1.jpg', 
             media: [
                 { type: 'embed', url: 'https://www.youtube.com/embed/XT3VvS794iY?si=QxvNAALcfBs0oGyg' }, 
                 { type: 'image', url: '/Images/Work/deck-promo-1.jpg' },
@@ -18,13 +18,13 @@ export const workData = [
                 { type: 'image', url: '/Images/Work/pergola-promo-1.jpg' }, 
                 { type: 'image', url: '/Images/Work/pergola-promo-2.jpg' }, 
                 { type: 'image', url: '/Images/Work/pergola-promo-3.jpg' }, 
-                { type: 'embed', url: 'https://www.youtube.com/embed/EVf7U4epsxs?si=cM60qEAxqth9kPqj' }, 
+                { type: 'embed', url: 'https://www.youtube.com/embed/N5kmXCuNmaE' }, 
                 { type: 'image', url: '/Images/Work/fence-promo-1.jpg' }, 
                 { type: 'image', url: '/Images/Work/fence-promo-2.jpg' }, 
                 { type: 'image', url: '/Images/Work/fence-promo-3.jpg' }, 
             ],
-            technologies: ['TestRail', 'Jira', 'Confluence', 'Unity', 'C#', 'NUnit', 'Postman'],
-            description: ['AstroHaul is a 2D retro arcade game created in Unity based on the classic Asteroids game. This project was created as part of the Typical Game Jam (within 3 days).',
+            technologies: ['Jira', 'Confluence', 'TestRail', 'Unity', 'C#', 'NUnit', 'Postman'],
+            description: ['Employed as a QA Tester at West Pier Studio, Im part of the Unity team. This involves ',
 
                 'My goal for this project was to create a classic I enjoyed and give it a fresh look. I chose to utilise volatile gravitational fields and collection mechanics.',
     
@@ -55,15 +55,15 @@ export const workData = [
                 { type: 'image', url: '/Images/Work/f1-Promo-5.jpg' },
             ],
             technologies: ['Jira', 'Confluence', 'TestFlight', 'GameSparks'],
-            description: ['F1 Mobile Racing was a mobile project for iOS and Android that I worked on as a QA technician. The team consisted of 4-5 members, though we ' + 
+            description: ['F1 Mobile Racing is a mobile project for iOS and Android that I worked on at Codemasters, as a QA technician. The qa team consisted of 4-5 members, though we ' + 
                 'occasionally assisted other teams on larger console projects such as Grid.',
 
                 'Key responsibilities included:',
-                '- Testing game functionality, visuals, localisation and monetisation ',
+                '- Testing game functionality, ui, localisation and monetisation ',
                 '- Meeting short deadlines for timely updates on the Apple Store and Google Play Store ',
                 '- Identified, documented, and reported bugs via Atlassian suite software ',
-                '- Communicated with the design team to provide feedback and resolve issues ',
-                '- Utilised GameSparks to capture error logs, detect in-game cheating and add currency/vehicles to accounts for testing ',
+                '- Communicated with developers to provide feedback and resolve issues ',
+                '- Utilised GameSparks tool to capture error logs, detect in-game cheating and use debug tools to add currency/vehicles to accounts for testing ',
     
                 ],
             links: [
