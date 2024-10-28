@@ -298,14 +298,18 @@ const ProjectDisplay = ({ onClose }) => {
         };
     }, [onClose]);
 
-    // Handle tab change with fade-out/fade-in effect : useCallback functions to avoid creating new functions  on every render
+        // Function to handle fade transition
+        const handleFadeTransition = (callback) => {
+            setFade(false); // Start fade-out effect
+            setTimeout(() => {
+                callback(); 
+                setFade(true); // Start fade-in effect -does not work 
+            }, 300); // Timing should match your CSS transition
+        };
+
+    // Handle tab change
     const handleTabChange = useCallback((tab) => {
-        setFade(false); // Fade-out effect
-        setTimeout(() => {
-            setSelectedProject(null); // Reset the selected project
-            setActiveTab(tab); // Set new active tab
-            setFade(true); // Fade-in effect
-        }, 300);
+        handleFadeTransition(() => setActiveTab(tab));
     }, []);
 
     return (

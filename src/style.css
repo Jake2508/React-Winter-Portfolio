@@ -129,8 +129,6 @@ button:hover, .backButton:hover, .projectCard:hover {
 /* Focus Effects for selectables - Keyboard and mouse */
 
 
-
-
 /* Chrome, Edge, and Safari Scroll Bars */
 .custom-scrollbar::-webkit-scrollbar {
     width: 8px;
@@ -233,11 +231,15 @@ button:hover, .backButton:hover, .projectCard:hover {
     }
 }
 
-
 /* Main UI Container  */
 .container {
-    position: block;
+    position: absolute;
     background-color: rgba(0, 31, 63, 0.85);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    z-index: 1000;
+    pointer-events: auto;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
@@ -247,11 +249,10 @@ button:hover, .backButton:hover, .projectCard:hover {
     max-height: 650px;
     transition: all 0.3s ease-out;
     backdrop-filter: blur(10px);
-    color: white;
     overflow-y: auto;
     scroll-behavior: smooth;
-}
 
+}
 
 /* Main Page Tabs & Hover */
 .tabs {

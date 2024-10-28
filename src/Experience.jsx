@@ -3,7 +3,6 @@ import { useFrame } from '@react-three/fiber';
 import { useRef, useState, useEffect } from 'react';
 import { ToneMapping, EffectComposer, DepthOfField, Bloom, Vignette } from '@react-three/postprocessing';
 import { ToneMappingMode, BlendFunction } from 'postprocessing';
-import { gsap } from 'gsap';
 import ProjectDisplay from './ProjectDisplay';
 
 export default function Experience() {
@@ -96,22 +95,14 @@ export default function Experience() {
     const eventHandler = (project) => (event) => 
     {
         event.stopPropagation();
-        if (isVisible) 
-        {
-            gsap.to('.project-display', 
-            {
-                opacity: 0, 
-                scale: 0.5,
-                duration: 0.5,
-                ease: 'power1.inOut',
-                onComplete: () => {
-                    setIsVisible(false);
-                    setSelectedProject(null);
-                },
-            });
-        } 
-        else 
-        {
+        if (isVisible) {
+            // Fade-out logic by removing the CSS class
+            setIsVisible(false);
+            setTimeout(() => {
+                setSelectedProject(null); // Delay removing the project until fade-out finishes
+            }, 500); // Match with the CSS transition duration
+        } else {
+            // Prepare to display and fade-in
             setSelectedProject(project);
             setIsVisible(true);
         }
@@ -191,7 +182,7 @@ export default function Experience() {
             
             {/* Display UI Sections from Arcade Machine selection */}
             {isVisible && selectedProject && (
-                <Html className="ui-display" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -40%)', zIndex: 1000, pointerEvents: 'auto' }} >
+                <Html>
                     <ProjectDisplay project={selectedProject}
                     onClose={() => 
                         { 
