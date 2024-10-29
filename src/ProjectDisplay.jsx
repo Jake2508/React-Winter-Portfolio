@@ -180,7 +180,7 @@ const ProjectDisplay = ({ onClose }) => {
 
                 <h2>Experience</h2>
                 <h4>C#</h4>
-                <p>Studied 3+ years at University. Professional industry experience at my current role creating Unit Tests and making changes when relevant.</p>
+                <p>Studied 3+ years at University. Professional industry experience at my current role creating Unit & Automation tests and making changes when relevant.</p>
                 <h4>Javascript / HTML / CSS</h4>
                 <p>Experience from setting up my portfolio which utilises the Three JS & React libraries. Custom HTML and CSS code was added to create the UI elements.</p>
                 <h4>C++</h4>
@@ -209,8 +209,13 @@ const ProjectDisplay = ({ onClose }) => {
                             projectContent={projectContent}
                             onBack={handleProjectBack}
                         />
-                        <h2>Additional Projects</h2>
-                        <p>You can find additional projects of mine on my Itch.io page...</p>
+                        <h2>Bonus Projects</h2>
+                        <p className='centerElements'>
+                        Explore side projects & prototypes on my &nbsp;   
+                            <a href="https://jake12341234.itch.io/" target="_blank" rel="noopener noreferrer">
+                            itch.io Page
+                            </a>
+                        </p>
                     </>
                 )}
                 {selectedProject && (
@@ -266,14 +271,14 @@ const ProjectDisplay = ({ onClose }) => {
         contact: (
             <div>
                 <p>Hope you're having fun playing around with my website and its interactive features! <br />
-                    If you want to contact me, please reach out with any of the below methods: <br />
+                    If you'd like to contact me, please reach out with any of the below methods: <br />
                 </p><br />
                 <p>Email me at <a href="mailto:rosejake400@gmail.com">rosejake400@gmail.com</a></p>
                 <p>Message me on <a href="#" onClick={(e) => { e.preventDefault(); copyToClipboard('07561042931') }}>07561 042931</a></p>
                 <p>Contact me on <a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">LinkedIn</a></p>
 
                 <h2>Resume</h2>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '10px' }}>
+                <div className='centerElements'>
                     <a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">View Online</a>
                     <img src="/Images/pdf-icon.jpg" alt="PDF Icon" style={{ width: '120px', height: '120px' }} />
                     <a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">Download</a>
@@ -298,19 +303,24 @@ const ProjectDisplay = ({ onClose }) => {
         };
     }, [onClose]);
 
-        // Function to handle fade transition
-        const handleFadeTransition = (callback) => {
-            setFade(false); // Start fade-out effect
-            setTimeout(() => {
-                callback(); 
-                setFade(true); // Start fade-in effect -does not work 
-            }, 300); // Timing should match your CSS transition
-        };
+    // Function to handle fade transition
+    const handleFadeTransition = (callback) => {
+        setFade(false); // Start fade-out effect
+        setTimeout(() => {
+            callback(); 
+            setFade(true); // Start fade-in effect -does not work 
+        }, 300); // Timing should match your CSS transition
+    };
 
     // Handle tab change
     const handleTabChange = useCallback((tab) => {
-        handleFadeTransition(() => setActiveTab(tab));
-    }, []);
+        if (tab !== activeTab) {  // Only reset if selecting a new tab
+            handleFadeTransition(() => {
+                setActiveTab(tab);
+                setSelectedProject(null);  // Reset project selection on tab change
+            });
+        }
+    }, [activeTab]);
 
     return (
         <div ref={containerRef} className="container custom-scrollbar">

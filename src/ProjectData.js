@@ -32,7 +32,7 @@ export const projectData = [
                 id: 2,
                 title: 'Procedural Island',
                 miniTitle: '2024',
-                subtitle: 'Three.js Visualization',
+                subtitle: 'Three.js Shader',
                 previewImage: '/Images/WebApplications/procedural-promo1.jpg',
                 media: [
                     { type: 'image', url: '/Images/portfolio-v1.jpg' },
@@ -49,7 +49,7 @@ export const projectData = [
                 ],
                 links: [
                     { label: 'Code Repo', url: 'https://github.com/Jake2508/procedural-terrain-shader/tree/main' },
-                    { label: 'CodeSandBox', url: 'https://codesandbox.io/p/devbox/github/Jake2508/procedural-terrain-shader' },
+                    { label: 'Demo', url: 'https://codesandbox.io/p/devbox/github/Jake2508/procedural-terrain-shader' },
                 ],
             },
             {

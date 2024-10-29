@@ -1,5 +1,5 @@
 // Data for Work Sections! 
-// Add a new ID for new jobs & Style in CSS
+// Add a new ID for new jobs - Styles are across the board 
 
 export const workData = [
         {
@@ -55,8 +55,8 @@ export const workData = [
                 { type: 'image', url: '/Images/Work/f1-Promo-5.jpg' },
             ],
             technologies: ['Jira', 'Confluence', 'TestFlight', 'GameSparks'],
-            description: ['F1 Mobile Racing is a mobile project for iOS and Android that I worked on at Codemasters, as a QA technician. The qa team consisted of 4-5 members, though we ' + 
-                'occasionally assisted other teams on larger console projects such as Grid.',
+            description: ['F1 Mobile Racing is a mobile project for iOS and Android that I worked on at Codemasters, as a QA technician. The QA team consisted of ' + 
+                '4-5 members, and we occasionally assisted other teams on larger console projects such as Grid.',
 
                 'Key responsibilities included:',
                 '- Testing game functionality, ui, localisation and monetisation ',

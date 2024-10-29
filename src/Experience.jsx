@@ -1,9 +1,10 @@
 import { PivotControls, Stars, GradientTexture, Environment, useGLTF, OrbitControls, Float, Html, Sparkles} from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { ToneMapping, EffectComposer, DepthOfField, Bloom, Vignette } from '@react-three/postprocessing';
 import { ToneMappingMode, BlendFunction } from 'postprocessing';
 import ProjectDisplay from './ProjectDisplay';
+
 
 export default function Experience() {
     // Setup Models
@@ -85,7 +86,7 @@ export default function Experience() {
     const [selectedProject, setSelectedProject] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
     
-    // Define empty obj 
+    // Define empty obj for click events 
     const projects = {
         arcadeMachine: {},
         box: {}
@@ -142,12 +143,11 @@ export default function Experience() {
 
             <OrbitControls makeDefault enableDamping={true} dampingFactor={0.05} enablePan={false} minPolarAngle={Math.PI / 4.5} maxPolarAngle={Math.PI / 2.2}
                 minDistance={7.0} maxDistance={25} enabled={!isVisible}  
-                // autoRotate={true} autoRotateSpeed={0.35}
+                // autoRotate={true} autoRotateSpeed={0.35} - TO ENABLE LATER
             />
 
             {/* Static Objects */}
             <primitive object={environment.scene} scale={0.4} position-y={-1.4} />
-
 
             {/* Arcade Machine */}
             <primitive object={arcadeMachine.scene} scale={0.4} position-y={-1.4} castShadow receiveShadow
