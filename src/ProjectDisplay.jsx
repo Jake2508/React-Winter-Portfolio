@@ -173,7 +173,7 @@ const ProjectDisplay = ({ onClose }) => {
                     <div>
                         <h4>BSc Computer Games Design and Programming</h4>
                         <p><a href="https://www.staffs.ac.uk/course/computer-games-design-programming-bsc" target='_blank'>Staffordshire University</a></p>
-                        <p className='subInformation'>Graduation Grade: 80</p>
+                        <p className='subInformation'>Graduation Grade: 82</p>
                     </div>
                     <img src="/Images/staffs-logo.jpg" alt="Staffordshire University" className='educationImage' />
                 </div>
@@ -280,7 +280,7 @@ const ProjectDisplay = ({ onClose }) => {
                 <h2>Resume</h2>
                 <div className='centerElements'>
                     <a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">View Online</a>
-                    <img src="/Images/pdf-icon.jpg" alt="PDF Icon" style={{ width: '120px', height: '120px' }} />
+                    <img src="/Images/pdf-icon2.jpg" alt="PDF Icon" style={{ width: '120px', height: '120px' }} />
                     <a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">Download</a>
                 </div>
                 {/* Fill Blank Space */}

@@ -6,17 +6,18 @@ import { Blocks } from 'react-loader-spinner';
 const Loader = ({ progress }) => {
     return (
         <div className="loading-screen">
-            
-            <h3 style={{ fontSize: '2.2rem', marginTop: '20px', textAlign: 'center' }}>
-                <span style={{ minWidth: '50px', display: 'inline-block' }}>
+            <h4 className='loading-text'>
                 LOADING
                 <br/>
-                
-                < Blocks height="100" width="100" ariaLabel="Loading"  />
+                <img src="/Images/icons8-arcade-machine.png" alt="Loading Arcade Icon" className="arcade-icon" />
+
                 <br />
-                    [{progress}/100] 
-                </span>
-            </h3>
+                    [ {progress} / 100 ] 
+
+            </h4>
+            <div className="progress-bar">
+                <div className="progress-fill" style={{ width: `${progress}%` }}></div>
+            </div>
         </div>
     );
 };

@@ -60,16 +60,71 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
 /* Loading Screen Styling */
 .loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
-    background-color: #000; color: white; font-size: 4rem; z-index: 10;
-    opacity: 1; transition: opacity 1s ease-in-out; 
+    background: linear-gradient(135deg, #0a1631, #1b4e80); text-align: center;
+    z-index: 10; opacity: 1; transition: opacity 1s ease-in-out; 
 }
 
 /* Loading Screen Fade Out Animation */
 .loading-screen.fade-out { opacity: 0; pointer-events: none; }
 
 /* Loading Screen Text */
-.loading-screen p { font-weight: 100; font-Size: '2.2rem'; }
+/* .loading-screen p { font-weight: 100; font-Size: '2.2rem'; } */
 
+/* Loading text with matching font and glow effect */
+.loading-text {
+    font-size: 1.75rem;
+    font-family: 'GameFont', sans-serif; /* Use your custom font here */
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px rgba(0, 188, 212, 0.6);
+}
+
+/* Arcade icon animation */
+.arcade-icon {
+    width: 60px; /* Adjust size as needed */
+    height: auto;
+    animation: bounce 1.5s infinite ease-in-out, pulse 2s infinite alternate ease-in-out;
+    filter: drop-shadow(0 0 8px rgba(0, 188, 212, 0.4)); /* Initial glow */
+    margin: 25px 0; /* Adds space around the icon */
+}
+
+/* Bounce animation for the arcade icon */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px); /* Adjust height for bounce effect */
+    }
+}
+
+/* Pulse effect for arcade icon */
+@keyframes pulse {
+    from {
+        filter: drop-shadow(0 0 8px rgba(0, 188, 212, 0.45));
+    }
+    to {
+        filter: drop-shadow(0 0 18px rgba(0, 188, 212, 0.65));
+    }
+}
+
+.progress-bar {
+    width: 25%; /* Adjust width as needed */
+    height: 20px;
+    background: #1b4e80;
+    border: 2px solid #0a1631;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 20px;
+    box-shadow: 0 0 5px rgba(0, 188, 212, 0.6);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #00e5ff, #007bb8);
+    box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.5);
+    transition: width 0.3s ease;
+}
 
 /* Title Image (Logo) */
 .ui-overlay {

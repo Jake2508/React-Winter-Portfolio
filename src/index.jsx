@@ -12,7 +12,7 @@ const App = () => {
     const [progress, setProgress] = useState(0);
     const [fadeOut, setFadeOut] = useState(false); 
 
-    // Create slight load delays to force loading screen (don't want people on-site immediately) 
+    // Create slight load delays to force loading screen (don't want people on-site immediately) -- 20 ORIG
     const randomDelay = () => {
         return Math.random() < 0.0 ? Math.floor(Math.random() * 100) + 50 : 20; 
     };

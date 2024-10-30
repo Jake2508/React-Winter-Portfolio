@@ -10,9 +10,7 @@ export const projectData = [
                 subtitle: 'React Three Fiber Application',
                 previewImage: '/Images/portfolio-v1.jpg',
                 media: [
-                    { type: 'image', url: '/Images/portfolio-v1.jpg' },
-                    { type: 'embed', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-    
+                    { type: 'image', url: '/Images/portfolio-v1.jpg' },    
                 ],
                 technologies: ['React', 'ThreeJs', 'JavaScript', 'HTML', 'CSS', 'Blender'],
                 description: ['AstroHaul is a 2D retro arcade game created in Unity based on the classic Asteroids game. This project was created as part of the Typical Game Jam.',
@@ -23,8 +21,7 @@ export const projectData = [
                     'so users could understand these forces. '
                 ],
                 links: [
-                    { label: 'Code Repo', url: 'https://github.com/your-portfolio' },
-                    { label: 'Live Demo', url: 'https://your-portfolio.com' },
+                    { label: 'Code Repo', url: 'https://github.com/Jake2508/React-Winter-Portfolio/tree/main/src' },
                 ],
             },
             {
