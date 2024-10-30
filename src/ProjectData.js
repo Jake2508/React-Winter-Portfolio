@@ -83,12 +83,12 @@ export const projectData = [
                 ],
             },
             {
-                // Rework Title Image ??
+                // COMPLETE
                 id: 4,
                 title: 'Assembly Required',
                 miniTitle: '2022',
                 subtitle: 'Farming Roguelike Exploration',
-                previewImage: '/Images/Games/Assembly-Promo1.jpg', 
+                previewImage: '/Images/Games/Assembly-Promo9.jpg', 
                 media: [
                     { type: 'embed', url: 'https://www.youtube.com/embed/AQUKyF2cjNM?si=rlF7Eh-CtIbXYHyh' },
                     { type: 'image', url: '/Images/Games/Assembly-Promo1.jpg' },
@@ -168,4 +168,30 @@ export const projectData = [
                     { label: 'Play on WebGL', url: 'https://jake12341234.itch.io/astrohaul' },
                 ],
             },
+            // {
+            //     // MAYBE RE-ADD
+            //     id: 7,
+            //     title: 'Ascent',
+            //     miniTitle: '2022',
+            //     subtitle: 'Race to the end party board game',
+            //     previewImage: '/Images/Games/Ascent-Promo1.jpg', 
+            //     media: [
+            //         { type: 'image', url: '/Images/Games/Ascent-Promo2.jpg' },
+            //         { type: 'image', url: '/Images/Games/Ascent-Promo3.jpg' },
+            //         { type: 'image', url: '/Images/Games/Ascent-Promo4.jpg' },
+            //     ],
+            //     technologies: ['Photoshop', 'Google Forms'],
+            //     description: ['AstroHaul is a 2D retro arcade game created in Unity based on the classic Asteroids game. This project was created as part of the Typical Game Jam (within 3 days).',
+    
+            //     'My goal for this project was to create a classic I enjoyed and give it a fresh look. I chose to utilise volatile gravitational fields and collection mechanics.',
+    
+            //     'To achieve this, I set out to make a gravitation push/pull effect usable for all objects. The idea was to add uncertainty while maintaining responsive feedback ' +
+            //     'so users could understand these forces. '
+            //     ],
+            //     links: [
+            //         { label: 'Rulebook', url: '/Images/Games/Ascent - Rulebook.pdf' },
+            //         { label: 'Development Blog', url: '/Images/Games/Ascent Development Blog.pdf' },
+            //         { label: 'Board Games Maker', url: 'https://www.boardgamesmaker.com/' },
+            //     ],
+            // },
     ];

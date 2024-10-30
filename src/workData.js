@@ -24,12 +24,16 @@ export const workData = [
                 { type: 'image', url: '/Images/Work/fence-promo-3.jpg' }, 
             ],
             technologies: ['Jira', 'Confluence', 'TestRail', 'Unity', 'C#', 'NUnit', 'Postman'],
-            description: ['Employed as a QA Tester at West Pier Studio, Im part of the Unity team. This involves ',
+            description: ['As a QA Tester on the Unity team at West Pier Studio, I work on core projects such as Deck, Pergola, and Fence Planner. My primary role is to ' +
+                'collaborate within a two-person QA team, ensuring the quality of WebGL and mobile deployments for our client and associated partner integrations. ',
 
-                'My goal for this project was to create a classic I enjoyed and give it a fresh look. I chose to utilise volatile gravitational fields and collection mechanics.',
+                'In addition to my core responsibilities, I have proactively sought opportunities to contribute to the programming aspects of our projects. This initiative ' +
+                'led me to develop Unit Tests that support code refactoring and optimization. Utilising GitKraken I have submitted pull requests to BitBucket, with each ' + 
+                'request reviewed by team leads to ensure it meets our coding standards.',
     
-                'To achieve this, I set out to make a gravitation push/pull effect usable for all objects. The idea was to add uncertainty while maintaining responsive feedback ' +
-                'so users could understand these forces. '
+                'I was also entrusted with independently developing Automation Tests in C# for our three main applications. Leveraging Selenium WebDriver and NUnit, I ' + 
+                'designed and executed unit tests, focusing on login and account registration workflows. This role provided valuable insights into automated testing with' + 
+                'element selectors, enabling me to apply these skills creatively across multiple projects.'
                 ],
             links: [
                 { label: 'Website', url: 'https://www.westpierstudio.com/' },
