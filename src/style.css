@@ -228,7 +228,32 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
 .projectCardTextContainer 
               { display: flex; flex-direction: column; padding: 0% 0% 2% 0%; max-height: clamp(80px, 10vw, 120px); /* Dynamic height based on viewport width */
                 overflow: hidden; white-space: nowrap; }
+                
+/* .techSub Styles */
+.techSub {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Allow wrapping small screen size */
+    width: 100%;
+    max-width: 800px;
+    padding: 10px;
+    font-size: clamp(0.8rem, 1vw + 0.5rem, 1em); /* Responsive font-size */
+    color: #e0e0e0;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    border-radius: 10px;
+}
 
+/* .techSub span Styles */
+.techSub span {
+    flex-grow: 1;
+    flex-basis: 0;
+    text-align: center;
+    padding: 0 10px;
+    margin: 0;
+    white-space: nowrap; /* Prevent wrapping of text */
+    min-width: 80px; /* Minimum width to avoid shrinking too small */
+}
 
 /* Carousel Base */
 .carouselContainer  { display: flex; align-items: center; justify-content: center; gap: 10px; }

@@ -32,7 +32,7 @@ export const workData = [
                 'request reviewed by team leads to ensure it meets our coding standards.',
     
                 'I was also entrusted with independently developing Automation Tests in C# for our three main applications. Leveraging Selenium WebDriver and NUnit, I ' + 
-                'designed and executed unit tests, focusing on login and account registration workflows. This role provided valuable insights into automated testing with' + 
+                'designed and executed unit tests, focusing on login and account registration workflows. This role provided valuable insights into automated testing using ' + 
                 'element selectors, enabling me to apply these skills creatively across multiple projects.'
                 ],
             links: [
@@ -53,21 +53,21 @@ export const workData = [
                 { type: 'embed', url: 'https://www.youtube.com/embed/l37bxiB65fs?si=RF13sgJ6azFzFFkP' },
                 { type: 'image', url: '/Images/Work/f1-Promo-4.jpg' },
                 { type: 'image', url: '/Images/Work/f1-Promo-8.jpg' }, 
-                { type: 'image', url: '/Images/Work/f1-Promo-9.png' },
+                { type: 'image', url: '/Images/Work/f1-Promo-2.jpg' },
                 { type: 'image', url: '/Images/Work/f1-Promo-7.png' }, 
                 { type: 'image', url: '/Images/Work/f1-Promo-6.jpg' },
                 { type: 'image', url: '/Images/Work/f1-Promo-5.jpg' },
             ],
             technologies: ['Jira', 'Confluence', 'TestFlight', 'GameSparks'],
-            description: ['F1 Mobile Racing is a mobile project for iOS and Android that I worked on at Codemasters, as a QA technician. The QA team consisted of ' + 
-                '4-5 members, and we occasionally assisted other teams on larger console projects such as Grid.',
+            description: ['F1 Mobile Racing is a mobile project for iOS and Android that I worked on at Codemasters as a QA Technician. The QA team ' +
+                'consisted of 4-5 members, and we occasionally supported other projects for PC, Xbox, and PlayStation, such as Grid.',
 
-                'Key responsibilities included:',
-                '- Testing game functionality, ui, localisation and monetisation ',
-                '- Meeting short deadlines for timely updates on the Apple Store and Google Play Store ',
-                '- Identified, documented, and reported bugs via Atlassian suite software ',
-                '- Communicated with developers to provide feedback and resolve issues ',
-                '- Utilised GameSparks tool to capture error logs, detect in-game cheating and use debug tools to add currency/vehicles to accounts for testing ',
+                'In this role, I tested core game functionality, UI, localisation, and monetisation elements. Working within tight deadlines, I helped ' +
+                'ensure timely updates for the Apple Store and Google Play Store, maintaining quality across platforms. Using the Atlassian suite, I ' + 
+                'documented and reported bugs, tracking each issue to resolution through consistent developer communication.',
+
+                'Additionally, I leveraged tools like GameSparks to capture error logs, detect in-game cheating, and utilise debug tools to modify ' + 
+                'test accounts. This enabled test scenarios, such as adding currency or vehicles, and ensured high-quality standards in the player experience.'
     
                 ],
             links: [

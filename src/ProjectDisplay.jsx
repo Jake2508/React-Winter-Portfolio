@@ -69,7 +69,7 @@ const ProjectDisplay = ({ onClose }) => {
             {project.technologies && project.technologies.length > 0 && (
                 <div>
                     <h2>Technologies Used</h2>
-                    <p> 
+                    <p className='techSub'> 
                         {project.technologies.map((tech, index) => (
                         <span key={index}>
                         {tech}
@@ -346,7 +346,6 @@ const ProjectDisplay = ({ onClose }) => {
     
 }
     
-
 // Reusable ProjectGrid Component : React memo -> lets you skip re-rendering a component when its props are unchanged
 const ProjectGrid = React.memo(({ data, onSelect, selectedProject, projectContent, onBack }) => {
     return (

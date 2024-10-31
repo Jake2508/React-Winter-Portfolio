@@ -3,7 +3,7 @@
 
 export const projectData = [
             {
-                // IN PROGRESS
+                // IN PROGRESS --> NEEDS NEW IMAGES ONCE READY
                 id: 1,
                 title: 'Portfolio',
                 miniTitle: '2024',
@@ -13,36 +13,40 @@ export const projectData = [
                     { type: 'image', url: '/Images/portfolio-v1.jpg' },    
                 ],
                 technologies: ['React', 'ThreeJs', 'JavaScript', 'HTML', 'CSS', 'Blender'],
-                description: ['AstroHaul is a 2D retro arcade game created in Unity based on the classic Asteroids game. This project was created as part of the Typical Game Jam.',
+                description: ['This portfolio was created using React Three Fiber to showcase my game development skills through a unique and interactive design. It features ' +
+                    'custom 3D models that represent my work and personal interests in a stylized manner.',
     
-                    'My goal for this project was to create a classic I enjoyed and give it a fresh look. I chose to utilise volatile gravitational fields and collection mechanics.',
+                    'My goal was to develop a fully scalable and customizable portfolio that effectively highlights my projects. To achieve this, I utilized HTML, CSS, and ' +
+                    'JavaScript with the React library, ensuring a responsive layout that adapts to any device while aligning with the sites theme.',
         
-                    'To achieve this, I set out to make a gravitation push/pull effect usable for all objects. The idea was to add uncertainty while maintaining responsive feedback ' +
-                    'so users could understand these forces. '
+                    'I also prioritized a dynamic user experience, combining interactive 3D elements with intuitive functionality to create an engaging and personalized website.'
                 ],
                 links: [
                     { label: 'Code Repo', url: 'https://github.com/Jake2508/React-Winter-Portfolio/tree/main/src' },
                 ],
             },
             {
-                // TODO
+                // TODO - UPDATE IMAGES & PROJ SANDBOX
                 id: 2,
-                title: 'Procedural Island',
+                title: 'Procedural Islands',
                 miniTitle: '2024',
                 subtitle: 'Three.js Shader',
                 previewImage: '/Images/WebApplications/procedural-promo1.jpg',
                 media: [
-                    { type: 'image', url: '/Images/portfolio-v1.jpg' },
-                    { type: 'embed', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-    
+                    { type: 'image', url: '/Images/WebApplications/procedural-promo1.jpg' },
+                    // Add a few more variation images once sandbox is setup
                 ],
-                technologies: ['Three.js', 'JavaScript', 'CSS'],
-                description: ['AstroHaul is a 2D retro arcade game created in Unity based on the classic Asteroids game. This project was created as part of the Typical Game Jam.',
+                technologies: ['Three.js', 'Three bvh', 'GLSL Shaders'],
+                description: ['This procedural terrain shader, created with Three.js, generates a realistic, customisable landscapes. ' +
+                    'Leveraging custom vertex and fragment shaders, the terrain adapts dynamically with adjustable ' +
+                    'settings for position frequency, warp strength, and color gradients.',
     
-                    'My goal for this project was to create a classic I enjoyed and give it a fresh look. I chose to utilise volatile gravitational fields and collection mechanics.',
+                    'The goal was to develop a flexible terrain generation system with a GUI for real-time adjustments, allowing for quick, responsive tuning ' + 
+                    'of landscape features. Enhanced by an HDR skybox and custom lighting, the environment achieves a high level of realism with accurate ' + 
+                    'reflections and shadows.',
         
-                    'To achieve this, I set out to make a gravitation push/pull effect usable for all objects. The idea was to add uncertainty while maintaining responsive feedback ' +
-                    'so users could understand these forces. '
+                    'Key technical elements include high-resolution meshes, shadow-casting lights, and detailed materials for water and wood, creating ' +
+                    'a visually immersive landscape ideal for interactive applications.'
                 ],
                 links: [
                     { label: 'Code Repo', url: 'https://github.com/Jake2508/procedural-terrain-shader/tree/main' },
