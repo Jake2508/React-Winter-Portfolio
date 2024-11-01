@@ -1,6 +1,5 @@
 import React from "react";
-import "react-loader-spinner"; // Ensure this import is correct
-import { Blocks } from 'react-loader-spinner';
+import "react-loader-spinner"; 
 
 
 const Loader = ({ progress }) => {

@@ -186,7 +186,6 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
 }
 /* Tab Unique Color Hover Effect */
 .tab:hover { background-color: #6DAEDB; }
-/* Active tab style */
 .active-tab { background-color: #85C1E9; }
 
 
@@ -208,13 +207,22 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
 .educationContainer { display: grid; grid-template-columns: 1fr 0.5fr; align-items: center; }
 .educationImage { width: 80px; height: 80px; display: block; justify-self: center; }
 
-/* About Bonus Section */
-.bonusList { display: grid; grid-template-columns: repeat(2, 1fr);
-    list-style-type: square; list-style-position: inside; gap: 10px;
-}
 
-/* .List { list-style-type: square; list-style-position: inside; } -- NEED TO DOUBLE CHECK*/ 
-.li { margin-bottom: 2vh; margin-top: 1.2em; margin-bottom: 0.5em; } /* Can UPDATE COLOR later maybe */
+/* Bullet Point Items/Grid (Bonus) */
+.bonusList { display: grid; grid-template-columns: repeat(2, 1fr); justify-content: center; gap: 10px 10px; list-style-type: none; /* Remove default bullets */
+    padding: 0; margin: 0 auto; max-width: 800px; font-size: clamp(0.8rem, 1vw + 0.65rem, 1em); color: #e0e0e0; font-weight: 700; text-align: center; }
+/* Bullet Text Alignment */
+.bonusList li { display: flex; align-items: center; justify-content: flex-start; gap: 10px; width: 100%; padding: 5px 0; }
+/* Custom BulletPoints */
+.bonusList li::before { content: "•"; min-width: 1em; margin-right: 5px; color: #FFD700; font-size: 1em;  display: inline-block; text-align: center; }
+.bonusList li:hover { color: #ffffff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.2); }
+
+/* Listed Items (Tech Used, Links) */
+.tagList { display: flex; justify-content: space-between; flex-wrap: wrap; width: 100%; max-width: 800px; 
+    padding: 5px; font-size: clamp(0.8rem, 1vw + 0.65rem, 1em); color: #e0e0e0; font-weight: 700; letter-spacing: 0.4px; 
+    border-radius: 10px; }
+.tagList span { flex-grow: 1; flex-basis: 0; padding: 5 15px; white-space: nowrap; min-width: 80px; }
+.tagList span:hover { color: #ffffff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.2); }
 
 
 /* Project Grid Setup */
@@ -228,35 +236,10 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
 .projectCardTextContainer 
               { display: flex; flex-direction: column; padding: 0% 0% 2% 0%; max-height: clamp(80px, 10vw, 120px); /* Dynamic height based on viewport width */
                 overflow: hidden; white-space: nowrap; }
-                
-/* .techSub Styles */
-.techSub {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap; /* Allow wrapping small screen size */
-    width: 100%;
-    max-width: 800px;
-    padding: 10px;
-    font-size: clamp(0.8rem, 1vw + 0.5rem, 1em); /* Responsive font-size */
-    color: #e0e0e0;
-    font-weight: 700;
-    letter-spacing: 0.4px;
-    border-radius: 10px;
-}
 
-/* .techSub span Styles */
-.techSub span {
-    flex-grow: 1;
-    flex-basis: 0;
-    text-align: center;
-    padding: 0 10px;
-    margin: 0;
-    white-space: nowrap; /* Prevent wrapping of text */
-    min-width: 80px; /* Minimum width to avoid shrinking too small */
-}
 
 /* Carousel Base */
-.carouselContainer  { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.carouselContainer  { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; max-width: 90vw; overflow: hidden; }
 .carouselButton     { font-size: clamp(1.5rem, 3vw, 2.5rem); background: transparent; border: none; padding: 0 10px; }
 
 /* Ensure that both images and embedded videos occupy the same width and maintain proportions - NEEDS FIXING VID ICON NOT THE SAME */
@@ -276,5 +259,3 @@ iframe.carouselEmbed, img.carouselImage { flex: 1; height: 300px; aspect-ratio: 
 .mediaButton.active { background-color: #007BFF; /* Active button color */ border-color: #0056b3; /* Border color when active */ }
 .mediaIcon          { width: 50px; height: 50px; border-radius: 5px; }
 
-/* MOVE THIS TO ANOTHER AREA */
-.linksList{ list-style-type: none; padding: 0px; display: flex; justify-content: center; gap: 20px; padding-top: 10px; }

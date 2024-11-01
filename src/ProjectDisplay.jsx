@@ -69,7 +69,7 @@ const ProjectDisplay = ({ onClose }) => {
             {project.technologies && project.technologies.length > 0 && (
                 <div>
                     <h2>Technologies Used</h2>
-                    <p className='techSub'> 
+                    <p className='tagList'> 
                         {project.technologies.map((tech, index) => (
                         <span key={index}>
                         {tech}
@@ -95,13 +95,13 @@ const ProjectDisplay = ({ onClose }) => {
             {project.links && project.links.length > 0 && (
             <div>
             <h2>Links</h2>
-                <ul className='linksList'>
+                <ul className='tagList'>
                 {project.links.map((link, index) => (
-                    <li key={index}>
+                    <span key={index}>
                         <a href={link.url} target="_blank" rel="noopener noreferrer">
                         {link.label}
                         </a>
-                    </li>
+                    </span>
                 ))}
                 </ul>
             </div>
@@ -192,7 +192,7 @@ const ProjectDisplay = ({ onClose }) => {
                     <li>Agile Background</li>
                     <li>Pull Requests</li>
                     <li>Postman API Testing</li>
-                    <li>.NET Automation Experience</li>
+                    <li>NUnit</li>
                     <li>Selenium Web Driver</li>
                 </ul>
             </div>
