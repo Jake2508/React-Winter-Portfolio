@@ -2,8 +2,7 @@
 html, body, #root {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     font-family: Arial, Helvetica, sans-serif; font-weight: 400; color: white; font-size: 18px; line-height: 1.5;
-    background: linear-gradient(180deg, #0a0e27, black); margin: 0; padding: 0;
-}
+    background: linear-gradient(180deg, #0a0e27, black); margin: 0; padding: 0; }
 
 /* Custom Fonts */
 @font-face { font-family: 'Bangers'; src: url('/Fonts/bangers-v20-latin-regular.woff') format('woff'); }
@@ -61,8 +60,7 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
 .loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     background: linear-gradient(135deg, #0a1631, #1b4e80); text-align: center;
-    z-index: 10; opacity: 1; transition: opacity 1s ease-in-out; 
-}
+    z-index: 10; opacity: 1; transition: opacity 1s ease-in-out; }
 
 /* Loading Screen Fade Out Animation */
 .loading-screen.fade-out { opacity: 0; pointer-events: none; }
@@ -71,84 +69,42 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
 /* .loading-screen p { font-weight: 100; font-Size: '2.2rem'; } */
 
 /* Loading text with matching font and glow effect */
-.loading-text {
-    font-size: 1.75rem;
-    font-family: 'GameFont', sans-serif; /* Use your custom font here */
-    letter-spacing: 3px;
-    margin-bottom: 10px;
-    text-shadow: 0 0 5px rgba(0, 188, 212, 0.6);
-}
+.loading-text { font-size: 1.75rem; font-family: 'GameFont', sans-serif; letter-spacing: 3px; 
+    margin-bottom: 10px; text-shadow: 0 0 5px rgba(0, 188, 212, 0.6); }
 
 /* Arcade icon animation */
-.arcade-icon {
-    width: 60px; /* Adjust size as needed */
-    height: auto;
-    animation: bounce 1.5s infinite ease-in-out, pulse 2s infinite alternate ease-in-out;
-    filter: drop-shadow(0 0 8px rgba(0, 188, 212, 0.4)); /* Initial glow */
-    margin: 25px 0; /* Adds space around the icon */
-}
+.arcade-icon { width: 60px; height: auto; animation: bounce 1.5s infinite ease-in-out, pulse 2s infinite alternate ease-in-out;
+    filter: drop-shadow(0 0 8px rgba(0, 188, 212, 0.4)); margin: 25px 0; }
 
-/* Bounce animation for the arcade icon */
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px); /* Adjust height for bounce effect */
-    }
-}
+/* Bounce animation for loading arcade icon */
+@keyframes bounce { 
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); } }
 
 /* Pulse effect for arcade icon */
 @keyframes pulse {
-    from {
-        filter: drop-shadow(0 0 8px rgba(0, 188, 212, 0.45));
-    }
-    to {
-        filter: drop-shadow(0 0 18px rgba(0, 188, 212, 0.65));
-    }
+    from { filter: drop-shadow(0 0 8px rgba(0, 188, 212, 0.45));  }
+    to   { filter: drop-shadow(0 0 18px rgba(0, 188, 212, 0.65)); }
 }
 
-.progress-bar {
-    width: 25%; /* Adjust width as needed */
-    height: 20px;
-    background: #1b4e80;
-    border: 2px solid #0a1631;
-    border-radius: 5px;
-    overflow: hidden;
-    margin-top: 20px;
-    box-shadow: 0 0 5px rgba(0, 188, 212, 0.6);
-}
+.progress-bar { width: 25%; height: 20px; background: #1b4e80; border: 2px solid #0a1631;
+    border-radius: 5px; overflow: hidden; margin-top: 20px; box-shadow: 0 0 5px rgba(0, 188, 212, 0.6); }
 
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(135deg, #00e5ff, #007bb8);
-    box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.5);
-    transition: width 0.3s ease;
-}
+.progress-fill { height: 100%; background: linear-gradient(135deg, #00e5ff, #007bb8);
+    box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.5); transition: width 0.3s ease; }
 
 /* Title Image (Logo) */
-.ui-overlay {
-    position: absolute; top: 40px; left: 50%; transform: translateX(-50%); text-align: center;
+.ui-overlay { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); text-align: center;
     z-index: 10; pointer-events: none; user-select: none; max-width: 90%; padding: 0 20px; }
 
-.overlay-image {
-    width: 550px; 
-    height: auto; /* Maintain aspect ratio */
-    opacity: 0; /* Initially hidden */
-    animation: fadeInImage 0.75s ease forwards;
-    animation-delay: 0.0s;
-    transition: opacity 0.5s ease; 
-    will-change: transform, opacity; /* Optimization */
-    display: block;
-    margin: 0 auto; 
-    pointer-events: none;
-}
+.overlay-image { width: 550px; height: auto; opacity: 0; animation: fadeInImage 0.75s ease forwards; animation-delay: 0.0s;
+    transition: opacity 0.5s ease; will-change: transform, opacity; display: block; margin: 0 auto; pointer-events: none; }
 
 /* Adjust the width based on screen size  */
 @media (max-width: 768px) { .overlay-image { width: 200px; } }
 
 /* Fade-in animation keyframes */
-@keyframes fadeInImage {
+@keyframes fadeInImage { 
     0% { opacity: 0; transform: scale(0.75); }
     70% { transform: scale(1.02); }
     100% { opacity: 1; transform: scale(1); } /* Return to original size */
@@ -174,26 +130,19 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
     backdrop-filter: blur(10px);
     overflow-y: auto;
     scroll-behavior: smooth;
-
 }
 
 /* Main Page Tabs & Hover */
 .tabs { display: flex; justify-content: space-between; margin-bottom: 20px; gap: 10px; }
-
 .tab { cursor: pointer; padding: 12px 20px; border: none; background-color: rgba(0, 31, 63, 0.7);
     border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 31, 63, 0.7); flex: 1 1 auto; /* Allow buttons to resize proportionally */
-    max-width: 150px; text-align: center; font-weight: 700; transition: transform 0.3s ease; transform: scale(1); 
-}
-/* Tab Unique Color Hover Effect */
+    max-width: 150px; text-align: center; font-weight: 700; transition: transform 0.3s ease; transform: scale(1); }
 .tab:hover { background-color: #6DAEDB; }
 .active-tab { background-color: #85C1E9; }
 
-
 /* Page Basic Setup */
-.content { padding: 10px; background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 10px; box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 5px; transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
+.content { padding: 10px; background-color: rgba(255, 255, 255, 0.15); border-radius: 10px; box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 5px; transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; }
 
 /* Page Fade Effects */
 .fade-in { opacity: 1; }
@@ -218,9 +167,8 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
 .bonusList li:hover { color: #ffffff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.2); }
 
 /* Listed Items (Tech Used, Links) */
-.tagList { display: flex; justify-content: space-between; flex-wrap: wrap; width: 100%; max-width: 800px; 
-    padding: 5px; font-size: clamp(0.8rem, 1vw + 0.65rem, 1em); color: #e0e0e0; font-weight: 700; letter-spacing: 0.4px; 
-    border-radius: 10px; }
+.tagList { display: flex; justify-content: space-between; flex-wrap: wrap; width: 100%; max-width: 800px; padding: 5px; 
+    font-size: clamp(0.8rem, 1vw + 0.65rem, 1em); color: #e0e0e0; font-weight: 700; letter-spacing: 0.4px; border-radius: 10px; }
 .tagList span { flex-grow: 1; flex-basis: 0; padding: 5 15px; white-space: nowrap; min-width: 80px; }
 .tagList span:hover { color: #ffffff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.2); }
 
@@ -243,19 +191,23 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
 .carouselButton     { font-size: clamp(1.5rem, 3vw, 2.5rem); background: transparent; border: none; padding: 0 10px; }
 
 /* Ensure that both images and embedded videos occupy the same width and maintain proportions - NEEDS FIXING VID ICON NOT THE SAME */
-.carouselMedia {
-    flex: 1; width: 80%; /* This makes both images and videos 80% of the parent width */
-    display: flex; justify-content: center;
-}
+.carouselMedia { flex: 1; width: 80%; display: flex; justify-content: center; }
 
 /* Carousel item i.e -> Img & Vid */
 iframe.carouselEmbed, img.carouselImage { flex: 1; height: 300px; aspect-ratio: 16 / 9;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); margin: 0 auto; display: block; object-fit: cover; border-radius: 8px; }
 
-/* Media Button */
+/* Media Button Container */
 .mediaButtons { display: flex; justify-content: center; margin-top: 10px; }
-.mediaButton  { background: none; border: 2px solid transparent;
-                cursor: pointer; margin: 0 5px; padding: 5px; border-radius: 5px; }
-.mediaButton.active { background-color: #007BFF; /* Active button color */ border-color: #0056b3; /* Border color when active */ }
-.mediaIcon          { width: 50px; height: 50px; border-radius: 5px; }
+.mediaButton { background: none; border: 2px solid transparent; cursor: pointer; margin: 0 5px; padding: 0; 
+    border-radius: 5px; width: 50px; height: 50px; overflow: hidden; }
+.mediaButton.active { background-color: #007BFF; border-color: #0056b3; }
+/* Shared Media icon images and video thumbnails  */
+.mediaIcon { width: 100%; height: 100%; object-fit: cover; border-radius: 5px; }
 
+/* Video Icon Container */
+.videoThumbnail { position: relative; width: 100%; height: 100%; overflow: hidden; }
+/* Scale the video thumbnail image to fill container completely */
+.videoThumbnail img { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1.3); width: auto; height: 120%; object-fit: cover;}
+/* Play Button Overlay */
+.playButton { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 20px; color: white; border-radius: 50%; padding: 5px; }

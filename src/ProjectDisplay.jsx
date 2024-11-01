@@ -41,29 +41,35 @@ const ProjectDisplay = ({ onClose }) => {
                     allowFullScreen
                 />
                 )}
+            </div>
+            <button onClick={() => changeImage(1)} className='carouselButton'>▶</button>
         </div>
-        <button onClick={() => changeImage(1)} className='carouselButton'>▶</button>
-        </div>
-        )}
+    )}
 
     {/* Button Icons Below Carousel */}
     <div className="mediaButtons">
-            {project.media.map((mediaItem, index) => (
-                <button
-                    key={index}
-                    onClick={() => setCurrentImageIndex(index)}
-                    className={`mediaButton ${currentImageIndex === index ? 'active' : ''}`}
-                >
-                    {/* You can replace this with an actual icon or image */}
-                    {mediaItem.type === 'image' ? (
-                        <img src={mediaItem.url} alt={`Thumbnail ${index}`} className="mediaIcon" /> // Image Icons or specific
-                    ) : (
-                        <span>🎥</span> // Placeholder for video icons
-                    )}
-                </button>
-            ))}
+        {project.media.map((mediaItem, index) => (
+            <button 
+                key={index}
+                onClick={() => setCurrentImageIndex(index)}
+                className={`mediaButton ${currentImageIndex === index ? 'active' : ''}`}
+            >
+            {mediaItem.type === 'image' ? (
+                <img src={mediaItem.url} alt={`Thumbnail ${index}`} className="mediaIcon" />
+            ) : (
+                <div className="videoThumbnail">
+                    {/* Generate YouTube thumbnail by extracting video ID from the URL */}
+                    <img
+                        src={`https://img.youtube.com/vi/${mediaItem.url.split('/').pop().split('?')[0]}/hqdefault.jpg`}
+                        alt={`Video Thumbnail ${index}`}
+                        className="mediaIcon"
+                    />
+                    <span className="playButton">▶️</span>
+                </div>
+            )}
+            </button>
+        ))}
     </div>
-
     
             {/* Technologies Used */}
             {project.technologies && project.technologies.length > 0 && (
