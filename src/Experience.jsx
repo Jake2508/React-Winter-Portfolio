@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import { ToneMapping, EffectComposer, DepthOfField, Bloom, Vignette } from '@react-three/postprocessing';
 import { ToneMappingMode, BlendFunction } from 'postprocessing';
 import ProjectDisplay from './ProjectDisplay';
+import { Perf } from 'r3f-perf';
 
 
 export default function Experience() {
@@ -124,6 +125,9 @@ export default function Experience() {
 
     return (
         <>
+            {/* Perf component monitors performance */}
+            {/* <Perf position="top-left" /> */}
+
             {/* Background & Environment */}
             <Environment preset="forest" />
             <GradientTexture stops={[0, 0.3, 1]} colors={['#001F3F', '#1B4F72', '#85C1E9']} size={1024} attach="background" />

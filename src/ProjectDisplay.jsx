@@ -112,8 +112,6 @@ const ProjectDisplay = ({ onClose }) => {
                 </ul>
             </div>
             )}
-
-            
         </div>
     );
     
@@ -277,11 +275,12 @@ const ProjectDisplay = ({ onClose }) => {
         contact: (
             <div>
                 <p>Hope you're having fun playing around with my website and its interactive features! <br />
-                    If you'd like to contact me, please reach out with any of the below methods: <br />
-                </p><br />
+                    If you'd like to reach out, please feel free to contact me on any of the below methods: <br />
+                </p>
                 <p>Email me at <a href="mailto:rosejake400@gmail.com">rosejake400@gmail.com</a></p>
                 <p>Message me on <a href="#" onClick={(e) => { e.preventDefault(); copyToClipboard('07561042931') }}>07561 042931</a></p>
                 <p>Contact me on <a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">LinkedIn</a></p>
+                <p>View my code on <a href="https://github.com/Jake2508?tab=repositories" target="_blank">GitHub</a></p>
 
                 <h2>Resume</h2>
                 <div className='centerElements'>
@@ -349,7 +348,6 @@ const ProjectDisplay = ({ onClose }) => {
             </div>
         </div>
     );
-    
 }
     
 // Reusable ProjectGrid Component : React memo -> lets you skip re-rendering a component when its props are unchanged
