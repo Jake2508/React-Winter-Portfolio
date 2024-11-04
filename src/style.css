@@ -111,26 +111,14 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
 }
 
 /* Main UI Container  */
-.container {
-    position: absolute;
-    background-color: rgba(0, 31, 63, 0.85);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -40%);
-    z-index: 1000;
-    pointer-events: auto;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-    width: clamp(300px, 90vw, 850px);
-    height: clamp(400px, 70vh, 650px);
-    max-width: 850px;
-    max-height: 650px;
-    transition: all 0.3s ease-out;
-    backdrop-filter: blur(10px);
-    overflow-y: auto;
-    scroll-behavior: smooth;
-}
+.container { position: absolute; background-color: rgba(0, 31, 63, 0.85); top: 50%; left: 50%; transform: translate(-50%, -40%);
+    z-index: 1000; pointer-events: auto; padding: 20px; border-radius: 12px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    width: clamp(300px, 90vw, 850px); height: clamp(400px, 70vh, 650px); max-width: 850px; max-height: 650px; 
+    transition: all 0.3s ease-out; backdrop-filter: blur(10px); overflow-y: auto; scroll-behavior: smooth; }
+
+.fade-container { opacity: 0; pointer-events: none; /* Prevent interaction when hidden */ transition: opacity 0.75s ease-out; }
+.fade-container.visible { opacity: 1; pointer-events: auto; /* Enable interaction when visible */ }
+
 
 /* Main Page Tabs & Hover */
 .tabs { display: flex; justify-content: space-between; margin-bottom: 20px; gap: 10px; }

@@ -86,6 +86,7 @@ export default function Experience() {
     // State for Project Display
     const [selectedProject, setSelectedProject] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
+    const [shouldRenderVisible, setShouldRenderVisible] = useState(false);
     
     // Define empty obj for click events 
     const projects = {
@@ -98,15 +99,19 @@ export default function Experience() {
     {
         event.stopPropagation();
         if (isVisible) {
-            // Fade-out logic by removing the CSS class
+            // Fade-out logic
             setIsVisible(false);
             setTimeout(() => {
-                setSelectedProject(null); // Delay removing the project until fade-out finishes
-            }, 500); // Match with the CSS transition duration
+                setSelectedProject(null); // Delay resetting active project until fade-out finishes
+            }, 500); // Transition duration (match css)
         } else {
-            // Prepare to display and fade-in
+            // Fade-in logic
             setSelectedProject(project);
             setIsVisible(true);
+            // Delay applying the `visible` class for smooth fade-in
+            setTimeout(() => {
+                setShouldRenderVisible(true);
+            }, 20); // Tiny delay to allow initial render
         }
     };
 
@@ -185,17 +190,15 @@ export default function Experience() {
             {/* <Sparkles count={500} speed={1} opacity={0.5} color={'green'} size={5} scale={-2} noise={5} /> */}
             
             {/* Display UI Sections from Arcade Machine selection */}
-            {isVisible && selectedProject && (
-                <Html>
-                    <ProjectDisplay project={selectedProject}
-                    onClose={() => 
-                        { 
-                            setIsVisible(false);
-                            setSelectedProject(null);
-                        }}
-                    />
-                </Html>
-            )}
+            {selectedProject && (<Html className={`fade-container ${shouldRenderVisible ? 'visible' : ''}`}>
+                <ProjectDisplay project={selectedProject} 
+                onClose={() => { 
+                setIsVisible(false);
+                setShouldRenderVisible(false);
+                setTimeout(() => setSelectedProject(null), 750); 
+                }}
+                />
+            </Html>)}
         </>
     );
 }
