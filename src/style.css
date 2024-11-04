@@ -190,7 +190,7 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
 .carouselContainer  { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; max-width: 90vw; overflow: hidden; }
 .carouselButton     { font-size: clamp(1.5rem, 3vw, 2.5rem); background: transparent; border: none; padding: 0 10px; }
 
-/* Ensure that both images and embedded videos occupy the same width and maintain proportions - NEEDS FIXING VID ICON NOT THE SAME */
+/* Ensure that both images and embedded videos occupy the same width and maintain proportions */
 .carouselMedia { flex: 1; width: 80%; display: flex; justify-content: center; }
 
 /* Carousel item i.e -> Img & Vid */
@@ -201,10 +201,9 @@ iframe.carouselEmbed, img.carouselImage { flex: 1; height: 300px; aspect-ratio: 
 .mediaButtons { display: flex; justify-content: center; margin-top: 10px; }
 .mediaButton { background: none; border: 2px solid transparent; cursor: pointer; margin: 0 5px; padding: 0; 
     border-radius: 5px; width: 50px; height: 50px; overflow: hidden; }
-.mediaButton.active { background-color: #007BFF; border-color: #0056b3; }
+.mediaButton.active { background-color: #007BFF; border-color: #FF4500; }
 /* Shared Media icon images and video thumbnails  */
 .mediaIcon { width: 100%; height: 100%; object-fit: cover; border-radius: 5px; }
-
 /* Video Icon Container */
 .videoThumbnail { position: relative; width: 100%; height: 100%; overflow: hidden; }
 /* Scale the video thumbnail image to fill container completely */
