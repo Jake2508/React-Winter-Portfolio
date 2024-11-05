@@ -24,19 +24,6 @@ p       { margin: 1.2em 0 0.5em; margin-bottom: 1px; }
 a { color: #FFD700; text-decoration: underline; }
 a:hover { color:  #FF4500; } 
 
-/* UI Scaling */
-@media (max-width: 768px) 
-{
-    .container { width: 95vw; height: 80vh; padding: 1.5%; }
-    h1, h2 { font-size: clamp(1.2rem, 4vw + 0.5rem, 1.4em); }
-}
-
-@media (max-width: 480px) 
-{
-    .container { width: 98vw; height: 85vh; padding: 1%; }
-    h1, h2 { font-size: clamp(1rem, 5vw + 0.5rem, 1.2em); }
-}
-
 
 /* Buttons Defaults */
 button, .backButton {
@@ -66,9 +53,6 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
 /* Loading Screen Fade Out Animation */
 .loading-screen.fade-out { opacity: 0; pointer-events: none; }
 
-/* Loading Screen Text */
-/* .loading-screen p { font-weight: 100; font-Size: '2.2rem'; } */
-
 /* Loading text with matching font and glow effect */
 .loading-text { font-size: 1.75rem; font-family: 'GameFont', sans-serif; letter-spacing: 3px; 
     margin-bottom: 10px; text-shadow: 0 0 5px rgba(0, 188, 212, 0.6); }
@@ -94,33 +78,36 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
 .progress-fill { height: 100%; background: linear-gradient(135deg, #00e5ff, #007bb8);
     box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.5); transition: width 0.3s ease; }
 
+
+/* UI Scaling (Title Image & Container) */
+@media (max-width: 768px) 
+{
+    .container { width: 95vw; height: 80vh; padding: 1.5%; }
+    h1, h2 { font-size: clamp(1.2rem, 4vw + 0.5rem, 1.4em); }
+    .overlay-image { width: 200px; }
+}
+
+@media (max-width: 480px) 
+{
+    .container { width: 95vw; height: 85vh; padding: 1%; }
+    h1, h2 { font-size: clamp(1rem, 5vw + 0.5rem, 1.2em); }
+}
+
 /* Title Image (Logo) */
-.ui-overlay { position: absolute; top: 2vh; /* Reduced top positioning for smaller screens */; left: 50%; transform: translateX(-50%); text-align: center;
+.ui-overlay { position: absolute; top: 4vh; /* Reduced top positioning for smaller screens */; left: 50%; transform: translateX(-50%); text-align: center;
     z-index: 10; pointer-events: none; user-select: none; max-width: 90vw; padding: 0 1rem; }
 
-.overlay-image { width: clamp(150px, 50vw, 400px); height: auto; opacity: 0; animation: fadeInImage 0.75s ease forwards; animation-delay: 0.0s;
+.overlay-image { width: clamp(150px, 60vw, 500px); height: auto; opacity: 0; animation: fadeInImage 0.75s ease forwards; animation-delay: 0.0s;
     transition: opacity 0.5s ease; will-change: transform, opacity; display: block; margin: 0 auto; pointer-events: none; }
 
-/* Adjust the width based on screen size  */
-@media (max-width: 768px) { .overlay-image { width: 200px; } }
+/* Title Fade-In animation */
+@keyframes fadeInImage { 0% { opacity: 0; transform: scale(0.75); } 70% { transform: scale(1.02); } 100% { opacity: 1; transform: scale(1); } }
 
-/* Fade-in animation keyframes */
-@keyframes fadeInImage { 
-    0% { opacity: 0; transform: scale(0.75); }
-    70% { transform: scale(1.02); }
-    100% { opacity: 1; transform: scale(1); } /* Return to original size */
-}
 
 /* Main UI Container  */
-.container {
-    position: relative; background-color: rgba(0, 31, 63, 0.85); margin-top: 0.1vh;
-    transform: translate(-50%, -40%); 
-    width: 90vw; max-width: 850px;
-    height: 70vh; max-height: 650px;
-    padding: 2%; border-radius: 12px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-    overflow-y: auto; backdrop-filter: blur(10px); transition: all 0.3s ease-out;
-}
-
+.container { position: relative; background-color: rgba(0, 31, 63, 0.85); margin-top: 0.1vh; transform: translate(-50%, -40%); 
+    width: 90vw; max-width: 850px; height: 70vh; max-height: 650px; padding: 2%; border-radius: 12px; 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); overflow-y: auto; backdrop-filter: blur(10px); transition: all 0.3s ease-out; }
 
 .fade-container { opacity: 0; pointer-events: none; /* Prevent interaction when hidden */ transition: opacity 0.75s ease-out; }
 .fade-container.visible { opacity: 1; pointer-events: auto; /* Enable interaction when visible */ }
