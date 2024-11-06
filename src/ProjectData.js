@@ -165,7 +165,7 @@ export const projectData = [
                 ],
                 links: [
                     { label: 'Code Repo', url: 'https://github.com/Jake2508/Asteroids/tree/main/Assets/Asteroids%20Game' },
-                    { label: 'Typical Game Jam', url: 'https://itch.io/jam/typical-game-jam' },
+                    { label: 'Game Jam', url: 'https://itch.io/jam/typical-game-jam' },
                     { label: 'Play on WebGL', url: 'https://jake12341234.itch.io/astrohaul' },
                 ],
             },

@@ -36,10 +36,11 @@ export const workData = [
                 'element selectors, enabling me to apply these skills creatively across multiple projects.'
                 ],
             links: [
-                { label: 'Website', url: 'https://www.westpierstudio.com/' },
+               
                 { label: 'Deck Planner', url: 'https://deckplanner.strongtie.com/ols/surface/contentbuilder/deckplanner?' },
                 { label: 'Pergola Planner', url: 'https://deckplanner.strongtie.com/ols/surface/contentbuilder/pergolaplanner?' },
                 { label: 'Fence Planner', url: 'https://deckplanner.strongtie.com/ols/surface/contentbuilder/fenceplanner?' },
+                { label: 'Website', url: 'https://www.westpierstudio.com/' },
             ],
         },
         {
@@ -73,7 +74,7 @@ export const workData = [
             links: [
                 { label: 'Website', url: 'https://www.ea.com/ea-studios/codemasters' },
                 { label: 'App Link', url: 'https://apkpure.com/f1-mobile-i/com.codemasters.F1Mobile' },
-                { label: 'Project Officially Closed', url: 'https://codemasters.helpshift.com/hc/en/3-f1-mobile-racing/faq/736-i-can-t-find-the-game-in-the-app-play-store/' },
+                { label: 'Project Closed', url: 'https://codemasters.helpshift.com/hc/en/3-f1-mobile-racing/faq/736-i-can-t-find-the-game-in-the-app-play-store/' },
             ],
         },
         // Add more work items here...
