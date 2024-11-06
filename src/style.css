@@ -114,10 +114,11 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
 
 
 /* Main Page Tabs & Hover */
-.tabs { display: flex; justify-content: space-between; margin-bottom: 20px; gap: 10px; }
-.tab { cursor: pointer; padding: 12px 20px; border: none; background-color: rgba(0, 31, 63, 0.7);
-    border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 31, 63, 0.7); flex: 1 1 auto; /* Allow buttons to resize proportionally */
-    max-width: 150px; text-align: center; font-weight: 700; transition: transform 0.3s ease; transform: scale(1); }
+/* Container for Tabs */
+.tabs {  display: flex; justify-content: space-around; margin-bottom: 20px;  gap: 10px; padding: 5px; }
+.tab { flex: 1 1 auto; padding: 1vw; max-width: 150px; font-size: clamp(0.8rem, 2vw, 1rem); text-align: center;
+    font-weight: 700; background-color: rgba(0, 31, 63, 0.7); border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 31, 63, 0.7);
+    transition: transform 0.3s ease; transform: scale(1); }
 .tab:hover { background-color: #6DAEDB; }
 .active-tab { background-color: #85C1E9; }
 
