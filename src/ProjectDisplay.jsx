@@ -287,8 +287,6 @@ const ProjectDisplay = ({ onClose }) => {
                     <img src="/Images/pdf-icon2.jpg" alt="PDF Icon" className='educationImage' />
                     <p><a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">Download</a></p>
                 </div>
-                {/* Fill Blank Space */}
-                <div style={{ height: '20px' }} />
             </div>
         ),
     };

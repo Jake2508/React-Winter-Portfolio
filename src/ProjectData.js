@@ -170,7 +170,7 @@ export const projectData = [
                 ],
             },
             // {
-            //     // MAYBE RE-ADD
+            //     // MAYBE RE-ADD AT A LATER DATE - Afer we add another pixel project
             //     id: 7,
             //     title: 'Ascent',
             //     miniTitle: '2022',
