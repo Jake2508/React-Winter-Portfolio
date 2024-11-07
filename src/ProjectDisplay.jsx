@@ -169,7 +169,6 @@ const ProjectDisplay = ({ onClose }) => {
                     Learning from new insights and techniques continues to shape and enhance my approaches. <br /><br />
                     This portfolio reflects my passion for game development, showcasing skills in coding, design, and
                     3D modeling. My primary interests lie in procedural generation, roguelikes, and arcade-style games.
-                    <div style={{ height: '10px' }} />
                 </p>
 
                 <h2>Education</h2>
@@ -284,9 +283,9 @@ const ProjectDisplay = ({ onClose }) => {
 
                 <h2>Resume</h2>
                 <div className='centerElements'>
-                    <a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">View Online</a>
-                    <img src="/Images/pdf-icon2.jpg" alt="PDF Icon" style={{ width: '120px', height: '120px' }} />
-                    <a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">Download</a>
+                    <p><a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">View Online</a></p>
+                    <img src="/Images/pdf-icon2.jpg" alt="PDF Icon" className='educationImage' />
+                    <p><a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">Download</a></p>
                 </div>
                 {/* Fill Blank Space */}
                 <div style={{ height: '20px' }} />
