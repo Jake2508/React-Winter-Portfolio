@@ -25,7 +25,7 @@ const ProjectDisplay = ({ onClose }) => {
             <button onClick={() => changeImage(-1)} className='carouselButton'>◀</button>
 
             {/* Render media depending on whether it's an image or an embedded video */}
-            <div className='"carouselMedia"'>
+            <div className='carouselMedia'>
                 {project.media[currentImageIndex].type === 'image' ? 
                 (
                 <img className='carouselImage'
