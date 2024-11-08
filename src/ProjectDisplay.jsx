@@ -97,7 +97,6 @@ const ProjectDisplay = ({ onClose }) => {
             )}
     
             {/* Links */}
-
             {project.links && project.links.length > 0 && (
             <div>
             <h2>Links</h2>
