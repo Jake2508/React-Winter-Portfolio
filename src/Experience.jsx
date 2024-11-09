@@ -17,6 +17,7 @@ export default function Experience() {
     const stereo = useGLTF('/Models/Stereo.gltf');
     const tree = useGLTF('/Models/TreeTest.gltf');
     const planet = useGLTF('/Models/PlanetTest.gltf');
+    const island = useGLTF('/Models/IslandTest.gltf');
 
     // Store Obj Colors to Map & Setup Hover Highlight Effects
     const originalColors = useRef(new Map());
@@ -45,6 +46,8 @@ export default function Experience() {
                     material.emissive.set('rgb(255, 140, 0)');
                     material.emissiveIntensity = 0.25;
                 }
+                // Change the cursor to pointer
+                document.body.style.cursor = 'pointer';
             });
         }
     };
@@ -70,6 +73,8 @@ export default function Experience() {
                         material.emissiveIntensity = originalData.emissiveIntensity;
                     }
                 }
+                // Reset the cursor style
+                document.body.style.cursor = 'default';
             });
         }
     };
@@ -127,6 +132,13 @@ export default function Experience() {
         console.log("Box clicked, toggling PivotControls. Current state:", !attach);
     };
 
+    const handleMusicClick = (event) =>
+    {
+        // Play a music note animation 
+
+        // Maybe add actual music later
+    };
+
 
     return (
         <>
@@ -179,8 +191,8 @@ export default function Experience() {
             </Float>
 
             {/* Box with Pivot Controls */}
-            <PivotControls object={boxRef.current} visible={attach} rotation={[0, -Math.PI / -0.5, 0]} depthTest={true} lineWidth={4.5} anchor={[-0.5, 1.5, -0.5]}>
-                <primitive object={box.scene} ref={boxRef} scale={0.4} position-y={-1.4} position-z={-0.2} 
+            <PivotControls object={boxRef.current} visible={attach} rotation={[0, -Math.PI / -0.5, 0]} depthTest={true} lineWidth={4.5} anchor={[-0.5, 1.5, -0.5]} disableScaling={true}>
+                <primitive object={box.scene} ref={boxRef} scale={0.4} position-y={-1.4} position-z={-0.2}
                 onPointerOver={(event) => handlePointerOver(event, box.scene)} 
                 onPointerOut={(event) => handlePointerOut(event, box.scene)}
                 onClick={handleBoxClick} 
@@ -188,6 +200,7 @@ export default function Experience() {
             </PivotControls>
 
             {/* <Sparkles count={500} speed={1} opacity={0.5} color={'green'} size={5} scale={-2} noise={5} /> */}
+            
             
             {/* Display UI Sections from Arcade Machine selection */}
             {selectedProject && (<Html className={`fade-container ${shouldRenderVisible ? 'visible' : ''}`}>
