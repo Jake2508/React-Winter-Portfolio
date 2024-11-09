@@ -55,7 +55,7 @@ export const workData = [
                 { type: 'image', url: '/Images/Work/f1-Promo-4.jpg' },
                 { type: 'image', url: '/Images/Work/f1-Promo-8.jpg' }, 
                 { type: 'image', url: '/Images/Work/f1-Promo-2.jpg' },
-                { type: 'image', url: '/Images/Work/f1-Promo-7.png' }, 
+                { type: 'image', url: '/Images/Work/f1-Promo-7.jpg' }, 
                 { type: 'image', url: '/Images/Work/f1-Promo-6.jpg' },
                 { type: 'image', url: '/Images/Work/f1-Promo-5.jpg' },
             ],
