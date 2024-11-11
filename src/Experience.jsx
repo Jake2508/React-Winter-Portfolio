@@ -9,6 +9,7 @@ import Rings from './Rings.js';
 
 import Floor from './Floor.js';
 import Trees from './Trees.js';
+import Rocks from './Rocks.js';
 
 
 
@@ -174,6 +175,7 @@ export default function Experience() {
             {/* Scene Objects */}
             <Floor />
             <Trees />
+            <Rocks />
 
             {/* Rings Animation - Adding to Scene */}
             {/* <Rings /> */}
@@ -191,22 +193,22 @@ export default function Experience() {
             <primitive object={cable.scene} scale={0.4} position-y={-1.4} />
 
             {/* Stereo + Floating Effect */}
-            <Float speed={3} rotationIntensity={0.1} floatingAmplitude={0.05} floatingRange={[0.2, 0.3]} >
+            {/* <Float speed={3} rotationIntensity={0.1} floatingAmplitude={0.05} floatingRange={[0.2, 0.3]} >
                 <primitive object={stereo.scene} scale={0.4} position-y={-1.4} 
                     onPointerOver={(event) => handlePointerOver(event, stereo.scene)} 
                     onPointerOut={(event) => handlePointerOut(event, stereo.scene)}
                     onClick={() => { }} 
                 />
-            </Float>
+            </Float> */}
 
             {/* Box with Pivot Controls */}
-            <PivotControls object={boxRef.current} visible={attach} rotation={[0, -Math.PI / -0.5, 0]} depthTest={true} lineWidth={4.5} anchor={[-0.5, 1.5, -0.5]} disableScaling={true}>
+            {/* <PivotControls object={boxRef.current} visible={attach} rotation={[0, -Math.PI / -0.5, 0]} depthTest={true} lineWidth={4.5} anchor={[-0.5, 1.5, -0.5]} disableScaling={true}>
                 <primitive object={box.scene} ref={boxRef} scale={0.4} position-y={-1.4} position-z={-0.2}
                 onPointerOver={(event) => handlePointerOver(event, box.scene)} 
                 onPointerOut={(event) => handlePointerOut(event, box.scene)}
                 onClick={handleBoxClick} 
                 />
-            </PivotControls>
+            </PivotControls> */}
 
             {/* <Sparkles count={500} speed={1} opacity={0.5} color={'green'} size={5} scale={-2} noise={5} /> */}
             
