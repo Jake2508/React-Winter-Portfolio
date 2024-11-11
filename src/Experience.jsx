@@ -1,23 +1,27 @@
-import { PivotControls, Stars, GradientTexture, Environment, useGLTF, OrbitControls, Float, Html, Sparkles} from '@react-three/drei';
+import { useAnimations, PivotControls, Stars, GradientTexture, Environment, useGLTF, OrbitControls, Float, Html, Sparkles} from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { ToneMapping, EffectComposer, DepthOfField, Bloom, Vignette } from '@react-three/postprocessing';
 import { ToneMappingMode, BlendFunction } from 'postprocessing';
 import ProjectDisplay from './ProjectDisplay';
 import { Perf } from 'r3f-perf';
+import Rings from './Rings.js';
+
+import Floor from './Floor.js';
+import Trees from './Trees.js';
+
 
 
 export default function Experience() {
     // Setup Models
-    const environment = useGLTF('/Models/SnowScene-v3.gltf');
     const arcadeMachine = useGLTF('/Models/ArcadeMachine-v4.gltf');
     const machineSwitch = useGLTF('/Models/switch.gltf');
     const cable = useGLTF('/Models/cable.gltf');
     const box = useGLTF('/Models/Box.gltf');
     const stereo = useGLTF('/Models/Stereo.gltf');
-    const tree = useGLTF('/Models/TreeTest.gltf');
     const planet = useGLTF('/Models/PlanetTest.gltf');
-    const island = useGLTF('/Models/IslandTest.gltf');
+
+
 
     // Store Obj Colors to Map & Setup Hover Highlight Effects
     const originalColors = useRef(new Map());
@@ -167,8 +171,13 @@ export default function Experience() {
                 // autoRotate={true} autoRotateSpeed={0.35} - TO ENABLE LATER
             />
 
-            {/* Static Objects */}
-            <primitive object={environment.scene} scale={0.4} position-y={-1.4} />
+            {/* Scene Objects */}
+            <Floor />
+            <Trees />
+
+            {/* Rings Animation - Adding to Scene */}
+            {/* <Rings /> */}
+            
 
             {/* Arcade Machine */}
             <primitive object={arcadeMachine.scene} scale={0.4} position-y={-1.4} castShadow receiveShadow
