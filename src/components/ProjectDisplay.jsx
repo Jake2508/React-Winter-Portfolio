@@ -177,7 +177,9 @@ const ProjectDisplay = ({ onClose }) => {
                         <p><a href="https://www.staffs.ac.uk/course/computer-games-design-programming-bsc" target='_blank'>Staffordshire University</a></p>
                         <p className='subInformation'>Graduation Grade: 82</p>
                     </div>
-                    <img src="/Images/staffs-logo.jpg" alt="Staffordshire University" className='educationImage' />
+                    <a href="https://www.staffs.ac.uk/" target='_blank' rel='noopener noreferrer'>
+                        <img src="/Images/staffs-logo.jpg" alt="Staffordshire University" className='educationImage' /> 
+                    </a>
                 </div>
 
                 <h2>Experience</h2>
