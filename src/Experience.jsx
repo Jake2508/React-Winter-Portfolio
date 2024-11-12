@@ -1,16 +1,23 @@
+// Core Extensions
 import { useAnimations, PivotControls, Stars, GradientTexture, Environment, useGLTF, OrbitControls, Float, Html, Sparkles} from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
+
+// Post Processing Effects
 import { ToneMapping, EffectComposer, DepthOfField, Bloom, Vignette } from '@react-three/postprocessing';
 import { ToneMappingMode, BlendFunction } from 'postprocessing';
-import ProjectDisplay from './ProjectDisplay';
-import { Perf } from 'r3f-perf';
-import Rings from './Rings.js';
 
+// Custom Hooks & Components
+import { useHover } from './hooks/useHover.js'; 
+import ProjectDisplay from './ProjectDisplay';
+
+// Model Components
+import Rings from './Rings.js';
 import Floor from './Floor.js';
 import Trees from './Trees.js';
 import Rocks from './Rocks.js';
 
+// Performance Monitoring
+import { Perf } from 'r3f-perf';
 
 
 export default function Experience() {
@@ -22,76 +29,9 @@ export default function Experience() {
     const stereo = useGLTF('/Models/Stereo.gltf');
     const planet = useGLTF('/Models/PlanetTest.gltf');
 
+    // Hover colour effect hook
+    const { handlePointerOver, handlePointerOut, hoveredObject } = useHover(); 
 
-
-    // Store Obj Colors to Map & Setup Hover Highlight Effects
-    const originalColors = useRef(new Map());
-
-    // On Hover
-    const handlePointerOver = (event, object) => 
-    {
-        event.stopPropagation();
-        if (!hoverRef.current) 
-        {
-            hoverRef.current = true;
-            setHoveredObject(object);
-            object.traverse((child) => {
-                if (child.isMesh && child.material && 'emissive' in child.material) 
-                {
-                    const material = child.material;
-                    if (!originalColors.current.has(child)) 
-                    {
-                        originalColors.current.set(child, 
-                        {
-                            color: material.color.clone(),
-                            emissive: material.emissive.clone(),
-                            emissiveIntensity: material.emissiveIntensity || 1,
-                        });
-                    }
-                    material.emissive.set('rgb(255, 140, 0)');
-                    material.emissiveIntensity = 0.25;
-                }
-                // Change the cursor to pointer
-                document.body.style.cursor = 'pointer';
-            });
-        }
-    };
-
-    // On Hover End
-    const handlePointerOut = (event, object) => 
-    {
-        event.stopPropagation();
-        if (hoverRef.current) 
-        {
-            hoverRef.current = false;
-            setHoveredObject(null);
-            object.traverse((child) => 
-            {
-                if (child.isMesh && child.material && originalColors.current.has(child)) 
-                {
-                    const originalData = originalColors.current.get(child);
-                    if (originalData) 
-                    {
-                        const material = child.material;
-                        material.color.copy(originalData.color);
-                        material.emissive.copy(originalData.emissive);
-                        material.emissiveIntensity = originalData.emissiveIntensity;
-                    }
-                }
-                // Reset the cursor style
-                document.body.style.cursor = 'default';
-            });
-        }
-    };
-
-    // Debouncing - Adds a buffer for rapid hover/unhover events
-    const hoverRef = useRef(false);
-    const [hoveredObject, setHoveredObject] = useState(null);
-    useFrame(() => 
-    {
-        if (!hoverRef.current && hoveredObject) 
-        { handlePointerOut(null, hoveredObject); }
-    });
 
     // State for Project Display
     const [selectedProject, setSelectedProject] = useState(null);
