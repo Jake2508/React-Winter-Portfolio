@@ -1,9 +1,11 @@
-import './style.css';
 import ReactDOM from 'react-dom/client';
-import { Canvas } from '@react-three/fiber';
-import Experience from './Experience.jsx';
 import { Suspense, useEffect, useState } from 'react';
-import Loader from './Loader'; 
+import { Canvas } from '@react-three/fiber';
+
+import './style.css';
+import Experience from './components/Experience.jsx';
+import Loader from './components/Loader.jsx'; 
+
 
 const root = ReactDOM.createRoot(document.querySelector('#root'));
 

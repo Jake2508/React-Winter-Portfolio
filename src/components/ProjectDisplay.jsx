@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { projectData } from './ProjectData';
-import { workData } from './workData';
+import { projectData } from '../data/projectData';
+import { workData } from '../data/workData';
 
 
 // Main ProjectDisplay Component

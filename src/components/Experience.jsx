@@ -7,14 +7,14 @@ import { ToneMapping, EffectComposer, DepthOfField, Bloom, Vignette } from '@rea
 import { ToneMappingMode, BlendFunction } from 'postprocessing';
 
 // Custom Hooks & Components
-import { useHover } from './hooks/useHover.js'; 
-import ProjectDisplay from './ProjectDisplay';
+import { useHover } from '../hooks/useHover.js'; 
+import ProjectDisplay from './ProjectDisplay.jsx';
 
-// Model Components
-import Rings from './Rings.js';
-import Floor from './Floor.js';
-import Trees from './Trees.js';
-import Rocks from './Rocks.js';
+// Entities
+import Rings from '../entities/Rings.js';
+import Floor from '../entities/Floor.js';
+import Trees from '../entities/Trees.js';
+import Rocks from '../entities/Rocks.js';
 
 // Performance Monitoring
 import { Perf } from 'r3f-perf';
