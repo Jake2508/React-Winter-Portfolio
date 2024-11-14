@@ -11,7 +11,6 @@ import { useHover } from '../hooks/useHover.js';
 import ProjectDisplay from './ProjectDisplay.jsx';
 
 // Entities
-import Rings from '../entities/Rings.js';
 import Floor from '../entities/Floor.js';
 import Trees from '../entities/Trees.js';
 import Rocks from '../entities/Rocks.js';
@@ -108,10 +107,10 @@ export default function Experience() {
 
             <OrbitControls makeDefault enableDamping={true} dampingFactor={0.05} enablePan={false} minPolarAngle={Math.PI / 4.5} maxPolarAngle={Math.PI / 2.2}
                 minDistance={7.0} maxDistance={25} enabled={!isVisible}  
-                // autoRotate={true} autoRotateSpeed={0.35} - TO ENABLE LATER
+                autoRotate={true} autoRotateSpeed={0.35}
             />
 
-            {/* Scene Objects */}
+            {/* Static Scene Objects */}
             <Floor />
             <Trees />
             <Rocks />
@@ -144,11 +143,8 @@ export default function Experience() {
     );
 }
 
-
+            // Keep these for now -> May be good in future
             
-            {/* Rings Animation - Adding to Scene */}
-            {/* <Rings /> */}
-
             {/* Stereo + Floating Effect */}
             {/* <Float speed={3} rotationIntensity={0.1} floatingAmplitude={0.05} floatingRange={[0.2, 0.3]} >
                 <primitive object={stereo.scene} scale={0.4} position-y={-1.4} 
@@ -166,6 +162,4 @@ export default function Experience() {
                 onClick={handleBoxClick} 
                 />
             </PivotControls> */}
-
-            {/* <Sparkles count={500} speed={1} opacity={0.5} color={'green'} size={5} scale={-2} noise={5} /> */}
             
