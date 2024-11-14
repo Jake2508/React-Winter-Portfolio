@@ -2,8 +2,8 @@ import { useGLTF, useAnimations, MeshTransmissionMaterial } from "@react-three/d
 import { useEffect } from "react";
 
 export default function Rings() {
-    const rings = useGLTF('/animation.gltf');
-    const animations = useAnimations(rings.animations, rings.scene);
+    const arcadeMachine = useGLTF('/Models/ArcadeMachine-v4.gltf');
+    const animations = useAnimations(arcadeMachine.animations, arcadeMachine.scene);
     console.log(animations);
 
     
@@ -22,7 +22,7 @@ export default function Rings() {
     return (
         <primitive 
 
-            object={rings.scene} 
+            object={arcadeMachine.scene} 
             scale={0.5}
             position={[0, -3.4, 0]}
         />

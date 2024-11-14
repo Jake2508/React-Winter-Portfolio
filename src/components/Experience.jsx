@@ -1,5 +1,5 @@
 // Core Extensions
-import { useAnimations, PivotControls, Stars, GradientTexture, Environment, useGLTF, OrbitControls, Float, Html, Sparkles} from '@react-three/drei';
+import { PivotControls, Stars, GradientTexture, Environment, useGLTF, OrbitControls, Float, Html, Sparkles, ContactShadows} from '@react-three/drei';
 import { useRef, useState } from 'react';
 
 // Post Processing Effects
@@ -30,7 +30,7 @@ export default function Experience() {
     const stereo = useGLTF('/Models/Stereo.gltf');
     const planet = useGLTF('/Models/PlanetTest.gltf');
 
-    // Hover colour effect hook
+    // Hover Effect Hook
     const { handlePointerOver, handlePointerOut, hoveredObject } = useHover(); 
 
 
@@ -40,7 +40,7 @@ export default function Experience() {
     const [shouldRenderVisible, setShouldRenderVisible] = useState(false);
     
     // Define empty obj for click events 
-    const projects = {
+    const projects = { 
         arcadeMachine: {},
         box: {}
     };
@@ -80,9 +80,7 @@ export default function Experience() {
 
     const handleMusicClick = (event) =>
     {
-        // Play a music note animation 
-
-        // Maybe add actual music later
+        // Play a music note animation or music
     };
 
 
@@ -119,10 +117,7 @@ export default function Experience() {
             <Rocks />
             <Tools />
 
-            {/* Rings Animation - Adding to Scene */}
-            {/* <Rings /> */}
             
-
             {/* Arcade Machine */}
             <primitive object={arcadeMachine.scene} scale={0.4} position-y={-1.4} castShadow receiveShadow
                 onPointerOver={(event) => handlePointerOver(event, arcadeMachine.scene)} 
@@ -133,6 +128,26 @@ export default function Experience() {
             {/* Switch and Cable */}
             <primitive object={machineSwitch.scene} scale={0.4} position-y={-1.4} />
             <primitive object={cable.scene} scale={0.4} position-y={-1.4} />
+
+            
+            {/* Display UI Sections from Arcade Machine selection */}
+            {selectedProject && (<Html className={`fade-container ${shouldRenderVisible ? 'visible' : ''}`}>
+                <ProjectDisplay project={selectedProject} 
+                onClose={() => { 
+                setIsVisible(false);
+                setShouldRenderVisible(false);
+                setTimeout(() => setSelectedProject(null), 750); 
+                }}
+                />
+            </Html>)}
+        </>
+    );
+}
+
+
+            
+            {/* Rings Animation - Adding to Scene */}
+            {/* <Rings /> */}
 
             {/* Stereo + Floating Effect */}
             {/* <Float speed={3} rotationIntensity={0.1} floatingAmplitude={0.05} floatingRange={[0.2, 0.3]} >
@@ -154,17 +169,3 @@ export default function Experience() {
 
             {/* <Sparkles count={500} speed={1} opacity={0.5} color={'green'} size={5} scale={-2} noise={5} /> */}
             
-            
-            {/* Display UI Sections from Arcade Machine selection */}
-            {selectedProject && (<Html className={`fade-container ${shouldRenderVisible ? 'visible' : ''}`}>
-                <ProjectDisplay project={selectedProject} 
-                onClose={() => { 
-                setIsVisible(false);
-                setShouldRenderVisible(false);
-                setTimeout(() => setSelectedProject(null), 750); 
-                }}
-                />
-            </Html>)}
-        </>
-    );
-}
