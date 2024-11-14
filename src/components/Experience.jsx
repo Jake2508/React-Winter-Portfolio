@@ -15,6 +15,7 @@ import Rings from '../entities/Rings.js';
 import Floor from '../entities/Floor.js';
 import Trees from '../entities/Trees.js';
 import Rocks from '../entities/Rocks.js';
+import Tools from '../entities/Tools.js';
 
 // Performance Monitoring
 import { Perf } from 'r3f-perf';
@@ -116,6 +117,7 @@ export default function Experience() {
             <Floor />
             <Trees />
             <Rocks />
+            <Tools />
 
             {/* Rings Animation - Adding to Scene */}
             {/* <Rings /> */}
