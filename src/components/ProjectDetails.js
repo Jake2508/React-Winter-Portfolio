@@ -1,11 +1,13 @@
 import React from 'react';
-import Carousel from '../components/Carousel'; // Ensure the path is correct
+import Carousel from '../components/Carousel'; 
+
 
 const ProjectDetails = ({ project }) => {
-    if (!project) return null; // Avoid rendering anything if no project is passed
+    if (!project) return null; // Avoid rendering if invalid project is passed
 
     return (
         <div>
+            {/* Project Title */}
             <h2>{project.title}</h2>
 
             {/* Carousel */}

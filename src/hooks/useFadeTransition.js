@@ -8,7 +8,7 @@ const useFadeTransition = (initialState = true, transitionDuration = 300) => {
         setTimeout(() => {
             callback(); // Perform the action
             setFade(true); // Trigger fade-in
-        }, transitionDuration); // Match the CSS transition duration
+        }, transitionDuration); 
     };
 
     return { fade, applyTransition };

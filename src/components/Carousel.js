@@ -12,12 +12,15 @@ const Carousel = ({ media }) => {
             return (prevIndex + direction + totalMedia) % totalMedia; // Loop index
         });
     };
-
+    
 
     return (
         <>
+            {/* Container */}
             <div className="carouselContainer">
+                {/* Left Button */}
                 <button onClick={() => changeImage(-1)} className="carouselButton">◀</button>
+                {/* Media Item Swaps based on img or embed */}
                 <div className="carouselMedia">
                     {media[currentIndex].type === 'image' ? (
                         <img
@@ -36,9 +39,11 @@ const Carousel = ({ media }) => {
                         />
                     )}
                 </div>
+                {/* Right Button */}
                 <button onClick={() => changeImage(1)} className="carouselButton">▶</button>
             </div>
-
+            
+            {/* Thumbnail icon media buttons */}
             <div className="mediaButtons">
                 {media.map((item, index) => (
                     <button
@@ -54,6 +59,7 @@ const Carousel = ({ media }) => {
                             />
                         ) : (
                             <div className="videoThumbnail">
+                                {/* Embedded YouTube Thumbnail Setup */}
                                 <img
                                     src={`https://img.youtube.com/vi/${item.url
                                         .split('/')
@@ -62,6 +68,7 @@ const Carousel = ({ media }) => {
                                     alt={`Video Thumbnail ${index}`}
                                     className="mediaIcon"
                                 />
+                                {/* Video Play Overlay Icon */}
                                 <span className="playButton">▶️</span>
                             </div>
                         )}
