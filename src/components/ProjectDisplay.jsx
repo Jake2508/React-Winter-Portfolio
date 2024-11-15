@@ -1,6 +1,10 @@
+// Core Extensions
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { projectData } from '../data/projectData';
-import { workData } from '../data/workData';
+
+// Custom Hooks & Components
+import { projectData } from '../data/projectData.js';
+import { workData } from '../data/workData.js';
+import Carousel from '../components/Carousel.js';
 
 
 // Main ProjectDisplay Component
@@ -18,69 +22,22 @@ const ProjectDisplay = ({ onClose }) => {
     const projectContent = (project) => (
         <div>
             <h2>{project.title}</h2>
-    
-    {/* Carousel Component */}
-    {project.media && project.media.length > 0 && (
-        <div className='carouselContainer'>
-            <button onClick={() => changeImage(-1)} className='carouselButton'>◀</button>
-
-            {/* Render media depending on whether it's an image or an embedded video */}
-            <div className='carouselMedia'>
-                {project.media[currentImageIndex].type === 'image' ? 
-                (
-                <img className='carouselImage'
-                    src={project.media[currentImageIndex].url}
-                    alt={project.title} />
-                ) : (
-                <iframe
-                    className='carouselEmbed'
-                    src={project.media[currentImageIndex].url}
-                    title="Embedded video"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                />
-                )}
-            </div>
-            <button onClick={() => changeImage(1)} className='carouselButton'>▶</button>
-        </div>
-    )}
-
-    {/* Button Icons Below Carousel */}
-    <div className="mediaButtons">
-        {project.media.map((mediaItem, index) => (
-            <button 
-                key={index}
-                onClick={() => setCurrentImageIndex(index)}
-                className={`mediaButton ${currentImageIndex === index ? 'active' : ''}`}
-            >
-            {mediaItem.type === 'image' ? (
-                <img src={mediaItem.url} alt={`Thumbnail ${index}`} className="mediaIcon" />
-            ) : (
-                <div className="videoThumbnail">
-                    {/* Generate YouTube thumbnail by extracting video ID from the URL */}
-                    <img
-                        src={`https://img.youtube.com/vi/${mediaItem.url.split('/').pop().split('?')[0]}/hqdefault.jpg`}
-                        alt={`Video Thumbnail ${index}`}
-                        className="mediaIcon"
-                    />
-                    <span className="playButton">▶️</span>
-                </div>
+            
+            {/* Use the Carousel Component */}
+            {project.media && project.media.length > 0 && (
+                <Carousel media={project.media} />
             )}
-            </button>
-        ))}
-    </div>
     
             {/* Technologies Used */}
             {project.technologies && project.technologies.length > 0 && (
                 <div>
                     <h2>Technologies Used</h2>
-                    <p className='tagList'> 
+                    <p className='tagList'>
                         {project.technologies.map((tech, index) => (
-                        <span key={index}>
-                        {tech}
-                        {index < project.technologies.length - 1 && '  '} {/* Add space between technologies */}
-                        </span>
+                            <span key={index}>
+                                {tech}
+                                {index < project.technologies.length - 1 && ' '}
+                            </span>
                         ))}
                     </p>
                 </div>
@@ -88,33 +45,32 @@ const ProjectDisplay = ({ onClose }) => {
     
             {/* Description */}
             {project.description && (
-            <div>
-                <h2>Description</h2>
-                {project.description.map((paragraph, index) => (
-                <p style={{ textAlign: 'left'}}key={index}>{paragraph}</p>
-                ))}
-            </div>
+                <div>
+                    <h2>Description</h2>
+                    {project.description.map((paragraph, index) => (
+                        <p style={{ textAlign: 'left' }} key={index}>{paragraph}</p>
+                    ))}
+                </div>
             )}
     
             {/* Links */}
             {project.links && project.links.length > 0 && (
-            <div>
-            <h2>Links</h2>
-                <ul className='tagList'>
-                {project.links.map((link, index) => (
-                    <span key={index}>
-                        <a href={link.url} target="_blank" rel="noopener noreferrer">
-                        {link.label}
-                        </a>
-                    </span>
-                ))}
-                </ul>
-            </div>
+                <div>
+                    <h2>Links</h2>
+                    <ul className='tagList'>
+                        {project.links.map((link, index) => (
+                            <span key={index}>
+                                <a href={link.url} target="_blank" rel="noopener noreferrer">
+                                    {link.label}
+                                </a>
+                            </span>
+                        ))}
+                    </ul>
+                </div>
             )}
         </div>
     );
     
-
     // Handle project selection : useCallback functions to avoid creating new functions  on every render
     const handleProjectSelect = useCallback((project) => {
         setFade(false); // Fade-out effect
