@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 // Custom Hooks & Components
 import { projectData } from '../data/projectData.js';
 import { workData } from '../data/workData.js';
+import ProjectDetails from '../components/ProjectDetails.js';
 import Carousel from '../components/Carousel.js';
 import useFadeTransition from '../hooks/useFadeTransition';
 
@@ -78,59 +79,6 @@ const ProjectDisplay = ({ onClose }) => {
         });
     };
 
-    // Define project content display function
-    const projectContent = (project) => (
-        <div>
-            <h2>{project.title}</h2>
-            
-            {/* Use the Carousel Component */}
-            {project.media && project.media.length > 0 && (
-                <Carousel media={project.media} />
-            )}
-    
-            {/* Technologies Used */}
-            {project.technologies && project.technologies.length > 0 && (
-                <div>
-                    <h2>Technologies Used</h2>
-                    <p className='tagList'>
-                        {project.technologies.map((tech, index) => (
-                            <span key={index}>
-                                {tech}
-                                {index < project.technologies.length - 1 && ' '}
-                            </span>
-                        ))}
-                    </p>
-                </div>
-            )}
-    
-            {/* Description */}
-            {project.description && (
-                <div>
-                    <h2>Description</h2>
-                    {project.description.map((paragraph, index) => (
-                        <p style={{ textAlign: 'left' }} key={index}>{paragraph}</p>
-                    ))}
-                </div>
-            )}
-    
-            {/* Links */}
-            {project.links && project.links.length > 0 && (
-                <div>
-                    <h2>Links</h2>
-                    <ul className='tagList'>
-                        {project.links.map((link, index) => (
-                            <span key={index}>
-                                <a href={link.url} target="_blank" rel="noopener noreferrer">
-                                    {link.label}
-                                </a>
-                            </span>
-                        ))}
-                    </ul>
-                </div>
-            )}
-        </div>
-    );    
-
     // Tab Main Sections
     const content = {
         about: (
@@ -185,7 +133,6 @@ const ProjectDisplay = ({ onClose }) => {
                             data={projectData}
                             onSelect={handleProjectSelect}
                             selectedProject={selectedProject}
-                            projectContent={projectContent}
                             onBack={handleProjectBack}
                         />
                         <h2>Bonus Projects</h2>
@@ -202,7 +149,6 @@ const ProjectDisplay = ({ onClose }) => {
                         data={projectData}
                         onSelect={handleProjectSelect}
                         selectedProject={selectedProject}
-                        projectContent={projectContent}
                         onBack={handleProjectBack}
                     />
                 )}
@@ -228,7 +174,6 @@ const ProjectDisplay = ({ onClose }) => {
                                     data={companyWorkItems}  // Display work items per company
                                     onSelect={handleProjectSelect}
                                     selectedProject={selectedProject}
-                                    projectContent={projectContent}
                                     onBack={handleProjectBack}
                                 />
                             </div>
@@ -240,7 +185,6 @@ const ProjectDisplay = ({ onClose }) => {
                         data={workData}  // Passing entire work data when a project is selected
                         onSelect={handleProjectSelect}
                         selectedProject={selectedProject}
-                        projectContent={projectContent}
                         onBack={handleProjectBack}
                     />
                 )}
@@ -292,12 +236,12 @@ const ProjectDisplay = ({ onClose }) => {
 }
     
 // Reusable ProjectGrid Component : React memo -> lets you skip re-rendering a component when its props are unchanged
-const ProjectGrid = React.memo(({ data, onSelect, selectedProject, projectContent, onBack }) => {
+const ProjectGrid = React.memo(({ data, onSelect, selectedProject, onBack }) => {
     return (
         <div className='projectGrid'>
             {selectedProject ? (
                 <div style={{ textAlign: 'center' }}>
-                    {projectContent(selectedProject)}
+                    <ProjectDetails project={selectedProject} />
                     <button className='backButton' style={{ marginTop: '18px'}} onClick={onBack}>
                         Back
                     </button>
