@@ -17,18 +17,17 @@ const ProjectDisplay = ({ onClose }) => {
     // Fade transition hook
     const { fade, applyTransition } = useFadeTransition();
     const [scale, setScale] = useState(1);
-    const [scrollPosition, setScrollPosition] = useState(0); // State to save scroll position
-    const [currentImageIndex, setCurrentImageIndex] = useState(0); // State for carousel index
+    const [scrollPosition, setScrollPosition] = useState(0); 
+    const [currentImageIndex, setCurrentImageIndex] = useState(0); 
     const containerRef = useRef(null);
     
-    
-    // -- Page Transition Setup -- //
+    // -- Page Transition Setup -- // 
     // useCallback functions avoid creating new functions on every render
     const handleTabChange = useCallback((tab) => {
         if (tab !== activeTab) {  
             applyTransition(() => {
                 setActiveTab(tab);
-                setSelectedProject(null);  // Reset project selection on tab change
+                setSelectedProject(null);  // Reset project selection
             });
         }
     }, [activeTab, applyTransition]);
@@ -40,7 +39,8 @@ const ProjectDisplay = ({ onClose }) => {
             setCurrentImageIndex(0);  // Reset to the first image
             if (containerRef.current) 
             {
-                containerRef.current.scrollTop = 0; // Scroll to top when selecting a new project
+                // Scroll to top when selecting a new project
+                containerRef.current.scrollTop = 0; 
             }
         }); 
     }, [applyTransition]);
@@ -50,13 +50,14 @@ const ProjectDisplay = ({ onClose }) => {
             setSelectedProject(null); // Go back to grid view
             if (containerRef.current) 
             {
-                containerRef.current.scrollTop = scrollPosition; // Restore the scroll position
+                // Restore the scroll position
+                containerRef.current.scrollTop = scrollPosition; 
             } 
         }, 300);
     }, [applyTransition, scrollPosition]);
 
     
-    // Effect to handle click outside : useCallback functions to avoid creating new functions  on every render
+    // Close UI Panel 
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (containerRef.current && !containerRef.current.contains(event.target)) {
