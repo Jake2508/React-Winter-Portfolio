@@ -25,13 +25,9 @@ export default function Experience() {
     const arcadeMachine = useGLTF('/Models/ArcadeMachine-v4.gltf');
     const machineSwitch = useGLTF('/Models/switch.gltf');
     const cable = useGLTF('/Models/cable.gltf');
-    const box = useGLTF('/Models/Box.gltf');
-    const stereo = useGLTF('/Models/Stereo.gltf');
-    const planet = useGLTF('/Models/PlanetTest.gltf');
 
     // Hover Effect Hook
     const { handlePointerOver, handlePointerOut, hoveredObject } = useHover(); 
-
 
     // State for Project Display
     const [selectedProject, setSelectedProject] = useState(null);
@@ -63,23 +59,6 @@ export default function Experience() {
                 setShouldRenderVisible(true);
             }, 20); // Tiny delay to allow initial render
         }
-    };
-
-    // State to control PivotControls visibility
-    const [attach, setAttach] = useState(false); 
-    const boxRef = useRef();
-
-    // Toggle visibility function for PivotControls
-    const handleBoxClick = (event) => 
-    {
-        event.stopPropagation();
-        setAttach(prev => !prev); // Toggle attach state
-        console.log("Box clicked, toggling PivotControls. Current state:", !attach);
-    };
-
-    const handleMusicClick = (event) =>
-    {
-        // Play a music note animation or music
     };
 
 
@@ -142,24 +121,3 @@ export default function Experience() {
         </>
     );
 }
-
-            // Keep these for now -> May be good in future
-            
-            {/* Stereo + Floating Effect */}
-            {/* <Float speed={3} rotationIntensity={0.1} floatingAmplitude={0.05} floatingRange={[0.2, 0.3]} >
-                <primitive object={stereo.scene} scale={0.4} position-y={-1.4} 
-                    onPointerOver={(event) => handlePointerOver(event, stereo.scene)} 
-                    onPointerOut={(event) => handlePointerOut(event, stereo.scene)}
-                    onClick={() => { }} 
-                />
-            </Float> */}
-
-            {/* Box with Pivot Controls */}
-            {/* <PivotControls object={boxRef.current} visible={attach} rotation={[0, -Math.PI / -0.5, 0]} depthTest={true} lineWidth={4.5} anchor={[-0.5, 1.5, -0.5]} disableScaling={true}>
-                <primitive object={box.scene} ref={boxRef} scale={0.4} position-y={-1.4} position-z={-0.2}
-                onPointerOver={(event) => handlePointerOver(event, box.scene)} 
-                onPointerOut={(event) => handlePointerOut(event, box.scene)}
-                onClick={handleBoxClick} 
-                />
-            </PivotControls> */}
-            

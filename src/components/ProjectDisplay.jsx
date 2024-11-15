@@ -1,9 +1,13 @@
 // Core Extensions
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
-// Custom Hooks & Components
+// Page Tab Data 
+import { AboutData } from '../data/aboutData.js';
 import { projectData } from '../data/projectData.js';
 import { workData } from '../data/workData.js';
+import { ContactData } from '../data/contactData.js';
+
+// Custom Hooks & Components
 import ProjectDetails from '../components/ProjectDetails.js';
 import Carousel from '../components/Carousel.js';
 import useFadeTransition from '../hooks/useFadeTransition';
@@ -82,49 +86,7 @@ const ProjectDisplay = ({ onClose }) => {
 
     // Tab Main Sections
     const content = {
-        about: (
-            <div>
-                <p>
-                    Welcome! I'm Jake, an aspiring games developer currently working as a QA Tester at West Pier Studio. <br /><br />
-                    For me, development is an iterative process that thrives on building, refining, and confidently sharing ideas.
-                    I'm enthusiastic about my work always aiming to innovate. <br /><br />
-                    I enjoy writing clean code, designing feature mechanics and supporting others to achieve the same.
-                    Learning from new insights and techniques continues to shape and enhance my approaches. <br /><br />
-                    This portfolio reflects my passion for game development, showcasing skills in coding, design, and
-                    3D modeling. My primary interests lie in procedural generation, roguelikes, and arcade-style games.
-                </p>
-
-                <h2>Education</h2>
-                <div className='educationContainer'>
-                    <div>
-                        <h4>BSc Computer Games Design and Programming</h4>
-                        <p><a href="https://www.staffs.ac.uk/course/computer-games-design-programming-bsc" target='_blank'>Staffordshire University</a></p>
-                        <p className='subInformation'>Graduation Grade: 82</p>
-                    </div>
-                    <a href="https://www.staffs.ac.uk/" target='_blank' rel='noopener noreferrer'>
-                        <img src="/Images/staffs-logo.jpg" alt="Staffordshire University" className='educationImage' /> 
-                    </a>
-                </div>
-
-                <h2>Experience</h2>
-                <h4>C#</h4>
-                <p>Studied 3+ years at University. Professional industry experience at my current role creating Unit & Automation tests and making changes when relevant.</p>
-                <h4>Javascript / HTML / CSS</h4>
-                <p>Experience from setting up my portfolio which utilises the Three JS & React libraries. Custom HTML and CSS code was added to create the UI elements.</p>
-                <h4>C++</h4>
-                <p>Surface level knowledge gained at university.</p>
-
-                <h2>Bonuses</h2>
-                <ul className='bonusList'>
-                    <li>Version Control</li>
-                    <li>Agile Background</li>
-                    <li>Pull Requests</li>
-                    <li>Postman API Testing</li>
-                    <li>NUnit</li>
-                    <li>Selenium Web Driver</li>
-                </ul>
-            </div>
-        ),
+        about: <AboutData />,
         projects: (
             <div>
                 {!selectedProject && (
@@ -191,25 +153,8 @@ const ProjectDisplay = ({ onClose }) => {
                 )}
             </div>
         ),        
-        
-        contact: (
-            <div>
-                <p>Hope you're having fun playing around with my website and its interactive features! <br />
-                    If you'd like to reach out, please feel free to contact me on any of the below methods: <br />
-                </p>
-                <p>Email me at <a href="mailto:rosejake400@gmail.com">rosejake400@gmail.com</a></p>
-                <p>Message me on <a href="#" onClick={(e) => { e.preventDefault(); copyToClipboard('07561042931') }}>07561 042931</a></p>
-                <p>Contact me on <a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">LinkedIn</a></p>
-                <p>View my code on <a href="https://github.com/Jake2508?tab=repositories" target="_blank">GitHub</a></p>
 
-                <h2>Resume</h2>
-                <div className='centerElements'>
-                    <p><a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">View Online</a></p>
-                    <img src="/Images/pdf-icon2.jpg" alt="PDF Icon" className='educationImage' />
-                    <p><a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">Download</a></p>
-                </div>
-            </div>
-        ),
+        contact: <ContactData />,
     };
 
 
