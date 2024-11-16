@@ -54,7 +54,7 @@ export const AboutData = () => (
         <ul className='bonusList'>
             <li>Version Control</li>
             <li>Agile Background</li>
-            <li>Pull Requests</li>
+            <li>Unity Debugging</li>
             <li>Postman API Testing</li>
             <li>NUnit</li>
             <li>Selenium Web Driver</li>

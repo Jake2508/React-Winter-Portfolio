@@ -102,7 +102,7 @@ const ProjectDisplay = ({ onClose }) => {
                         <p className='centerElements'>
                         Explore side projects & prototypes on my &nbsp;   
                             <a href="https://jake12341234.itch.io/" target="_blank" rel="noopener noreferrer">
-                            itch.io Page
+                            itch.io page
                             </a>
                         </p>
                     </>
