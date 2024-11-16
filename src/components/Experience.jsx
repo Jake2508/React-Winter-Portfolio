@@ -1,5 +1,5 @@
 // Core Extensions
-import { Stars, GradientTexture, Environment, useGLTF, OrbitControls, Float, Html, Sparkles } from '@react-three/drei';
+import { Stars, GradientTexture, Environment, useGLTF, OrbitControls, Html } from '@react-three/drei';
 import { useRef, useState } from 'react';
 
 // Post Processing Effects
@@ -74,12 +74,13 @@ export default function Experience() {
 
             {/* Lighting */}
             <directionalLight position={[2, 3, 10]} intensity={0.65} color={"#f0e68c"} />
+            <ambientLight intensity={0.3} color={'#ffffff'} /> 
 
             {/* Post Processing */}
             <EffectComposer>
                 <ToneMapping mode={ToneMappingMode.ACES_FILMIC} /> 
                 <Vignette offset={0.3} darkness={0.85} blendFunction={BlendFunction.COLOR_DODGE} />
-                <Bloom mipmapBlur intensity={0.1} luminanceThreshold={0.8} />
+                {/* <Bloom mipmapBlur intensity={0.1} luminanceThreshold={0.8} /> TEMP */}
                 <DepthOfField focusDistance={0.015} focalLength={0.025} bokehScale={0.5} />
             </EffectComposer>
 
@@ -106,15 +107,9 @@ export default function Experience() {
             <primitive object={machineSwitch.scene} scale={0.4} position-y={-1.4} />
             <primitive object={cable.scene} scale={0.4} position-y={-1.4} />
 
-
-            <Html
-                transform
-                wrapperClass='ui-container'
-            >
-                {/* Title UI Display */}
-
-
-                {/* Main UI Display */}
+            
+            {/* Display UI Sections from Arcade Machine selection */}
+            {selectedProject && (<Html className={`fade-container ${shouldRenderVisible ? 'visible' : ''}`}>
                 <ProjectDisplay project={selectedProject} 
                 onClose={() => { 
                 setIsVisible(false);
@@ -122,7 +117,21 @@ export default function Experience() {
                 setTimeout(() => setSelectedProject(null), 750); 
                 }}
                 />
-            </Html>
+            </Html>)}
+
+            {/* <Html
+                transform
+                wrapperClass='ui-container'
+            >
+
+                <ProjectDisplay project={selectedProject} 
+                onClose={() => { 
+                setIsVisible(false);
+                setShouldRenderVisible(false);
+                setTimeout(() => setSelectedProject(null), 750); 
+                }}
+                />
+            </Html> */}
         </>
     );
 }
