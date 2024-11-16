@@ -1,4 +1,4 @@
-// Data for About tab (A lot of this will remain static)
+// Data for About tab
 
 export const AboutData = () => (
     <div>

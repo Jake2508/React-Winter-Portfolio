@@ -7,27 +7,25 @@
 }
 
 /* Site Defaults */
-html, body, #root {
-    position: relative; top: 0; left: 0; width: 100vw; height: 100vh;
-    font-family: Arial, Helvetica, sans-serif; font-weight: 400; color: white; font-size: 18px; line-height: 1.5;
-    background: linear-gradient(180deg, #0a0e27, black); margin: 0; padding: 0; overflow-clip-margin: content-box; overflow: clip;  }
-
-    /* For tablets or larger screens */
-@media (min-width: 768px) {
-    canvas {
-        aspect-ratio: 16 / 9;  /* Change to a 16:9 aspect ratio for larger devices */
-    }
+html, 
+body, 
+#root {
+    position: relative; 
+    top: 0; 
+    left: 0; 
+    width: 100vw; 
+    height: 100vh;
+    font-family: Arial, Helvetica, sans-serif; 
+    font-weight: 400; 
+    color: white; 
+    font-size: 18px; 
+    line-height: 1.5;
+    background: linear-gradient(180deg, #0a0e27, black); 
+    margin: 0; 
+    padding: 0; 
+    overflow-clip-margin: content-box; 
+    overflow: clip; 
 }
-
-/* For desktops */
-@media (min-width: 1024px) {
-    canvas {
-        aspect-ratio: 4 / 3;  /* Adjust aspect ratio for desktop screens */
-    }
-}
-
-/* Custom Fonts */
-@font-face { font-family: 'Bangers'; src: url('/Fonts/bangers-v20-latin-regular.woff') format('woff'); }
 
 /* Font Family for Heading */
 h1, h2, h3, h4, h5, h6 { font-family: inherit; margin-bottom: 24px; font-weight: 600; }

@@ -1,14 +1,15 @@
+// Core Extensions
+import './style.css';
 import ReactDOM from 'react-dom/client';
 import { Suspense, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 
-import './style.css';
+// Custom Hooks & Components
 import Experience from './components/Experience.jsx';
 import Loader from './components/Loader.jsx'; 
 
 
 const root = ReactDOM.createRoot(document.querySelector('#root'));
-
 
 const App = () => {
     const [loading, setLoading] = useState(true);

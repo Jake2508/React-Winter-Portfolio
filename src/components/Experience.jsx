@@ -1,5 +1,5 @@
 // Core Extensions
-import { PivotControls, Stars, GradientTexture, Environment, useGLTF, OrbitControls, Float, Html, Sparkles, ContactShadows} from '@react-three/drei';
+import { Stars, GradientTexture, Environment, useGLTF, OrbitControls, Float, Html, Sparkles } from '@react-three/drei';
 import { useRef, useState } from 'react';
 
 // Post Processing Effects
@@ -73,8 +73,7 @@ export default function Experience() {
             <Stars radius={40} depth={50} count={5000} factor={4} saturation={0} fade speed={0.75} />
 
             {/* Lighting */}
-            <directionalLight position={[2, 3, 10]} intensity={0.65} color={"#f0e68c"} castShadow shadow-mapSize={[2048, 2048]} shadow-bias={-0.002} />
-            <ambientLight intensity={0.3} color={'#ffffff'} /> 
+            <directionalLight position={[2, 3, 10]} intensity={0.65} color={"#f0e68c"} />
 
             {/* Post Processing */}
             <EffectComposer>
@@ -107,9 +106,15 @@ export default function Experience() {
             <primitive object={machineSwitch.scene} scale={0.4} position-y={-1.4} />
             <primitive object={cable.scene} scale={0.4} position-y={-1.4} />
 
-            
-            {/* Display UI Sections from Arcade Machine selection */}
-            {selectedProject && (<Html className={`fade-container ${shouldRenderVisible ? 'visible' : ''}`}>
+
+            <Html
+                transform
+                wrapperClass='ui-container'
+            >
+                {/* Title UI Display */}
+
+
+                {/* Main UI Display */}
                 <ProjectDisplay project={selectedProject} 
                 onClose={() => { 
                 setIsVisible(false);
@@ -117,7 +122,7 @@ export default function Experience() {
                 setTimeout(() => setSelectedProject(null), 750); 
                 }}
                 />
-            </Html>)}
+            </Html>
         </>
     );
 }
