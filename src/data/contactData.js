@@ -16,10 +16,10 @@ export const ContactData = () => (
         {/* CV */}
         <h2>Resume</h2>
         <div className='centerElements'>
-            {/* Link & Download Options */}
-            <p><a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">View Online</a></p>
-            <img src="/Images/pdf-icon2.jpg" alt="PDF Icon" className='educationImage' />
-            <p><a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">Download</a></p>
+            {/* Link & Download Options */} 
+            <p> <a href="/Images/General/cv.pdf" target="_blank">View Online</a> </p>
+            <img src="/Images/General/pdf-icon2.jpg" alt="PDF Icon" className='educationImage' />
+            <p> <a href="/Images/General/cv.pdf" download={"Jake_Rose_CV.pdf"}>Download</a> </p>
         </div>
     </div>
 );

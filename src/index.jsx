@@ -9,6 +9,7 @@ import Loader from './components/Loader.jsx';
 
 const root = ReactDOM.createRoot(document.querySelector('#root'));
 
+
 const App = () => {
     const [loading, setLoading] = useState(true);
     const [progress, setProgress] = useState(0);
@@ -51,7 +52,7 @@ const App = () => {
             {!loading && 
             (
                 <div className="ui-overlay">
-                    <img src="/Images/title.png" alt="Jake Rose" className="overlay-image" />
+                    <img src="/Images/General/title.png" alt="Jake Rose" className="overlay-image" />
                 </div>
             )}
 

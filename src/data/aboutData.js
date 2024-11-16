@@ -32,7 +32,7 @@ export const AboutData = () => (
             </div>
             {/* Uni Logo Image Link */}
             <a href="https://www.staffs.ac.uk/" target='_blank' rel='noopener noreferrer'>
-                <img src="/Images/staffs-logo.jpg" alt="Staffordshire University" className='educationImage' /> 
+                <img src="/Images/General/staffs-logo.jpg" alt="Staffordshire University" className='educationImage' /> 
             </a>
         </div>
 

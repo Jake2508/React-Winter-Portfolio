@@ -11,7 +11,7 @@ const Loader = ({ progress }) => {
                 LOADING
                 <br/>
                 {/* Loading Icon */}
-                <img src="/Images/icons8-arcade-machine.png" alt="Loading Arcade Icon" className="arcade-icon" />
+                <img src="/Images/General/icons8-arcade-machine.png" alt="Loading Arcade Icon" className="arcade-icon" />
 
                 <br />
                 {/* Loading Percentage */}
@@ -28,4 +28,3 @@ const Loader = ({ progress }) => {
 
 
 export default Loader;
- 

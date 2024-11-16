@@ -8,9 +8,9 @@ export const projectData = [
                 title: 'Portfolio',
                 miniTitle: '2024',
                 subtitle: 'React Three Fiber Application',
-                previewImage: '/Images/portfolio-v2.jpg',
+                previewImage: '/Images/WebApplications/portfolio-v2.jpg',
                 media: [
-                    { type: 'image', url: '/Images/portfolio-v2.jpg' },    
+                    { type: 'image', url: '/Images/WebApplications/portfolio-v2.jpg' },    
                 ],
                 technologies: ['React', 'ThreeJs', 'JavaScript', 'HTML', 'CSS', 'Blender'],
                 description: ['This portfolio was created using React Three Fiber to showcase my game development skills through a unique and interactive design. It features ' +
