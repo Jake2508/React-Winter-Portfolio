@@ -129,7 +129,7 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
     transform: translateX(-50%); 
     width: 100vw;      
     height: 100vh;      /* Full height of the viewport */
-    border: 2px solid red;   
+    /* border: 2px solid red;    */
     z-index: 10;
     
     display: flex;            /* Flexbox to center contents */
