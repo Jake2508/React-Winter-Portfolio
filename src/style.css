@@ -163,10 +163,10 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
     background-color: rgba(0, 31, 63, 0.85); 
     width: 100%;    
     max-width: 850px;         
-    height: calc(100vh - 100px);  /* Subtract space for top and bottom bars on mobile */       
-    max-height: 1200px;    
+    height: calc(100vh - 150px);  /* Subtract space for top and bottom bars on mobile */       
+    max-height: 1050px;    
     overflow-y: auto;      
-    margin-top: 2.5vh;  
+    margin-top: 1.5vh;  
     margin-bottom: 2.5vh;      
     padding: 1%; 
     opacity: 0;
