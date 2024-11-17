@@ -4,27 +4,35 @@
     padding: 0;
     border: 0;
     font-size: 100%;
+    box-sizing: border-box;
 }
 
 /* Site Defaults */
 html, 
 body, 
 #root {
-    position: relative; 
-    top: 0; 
-    left: 0; 
-    width: 100vw; 
-    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     font-family: Arial, Helvetica, sans-serif; 
-    font-weight: 400; 
     color: white; 
     font-size: 18px; 
     line-height: 1.5;
     background: linear-gradient(180deg, #0a0e27, black); 
-    margin: 0; 
-    padding: 0; 
-    overflow-clip-margin: content-box; 
-    overflow: clip; 
+}
+
+canvas, .r3f
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: none; /* Optional: ensure no borders are added to the canvas */
 }
 
 /* Font Family for Heading */
@@ -113,23 +121,60 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
     .carouselContainer { gap: 3px;}
 }
 
+/* Basic styling for the .ui-container */
+.ui-container {
+    position: absolute; 
+    top: 0;               
+    left: 50%;          
+    transform: translateX(-50%); 
+    width: 100vw;      
+    height: 100vh;      /* Full height of the viewport */
+    border: 2px solid red;   
+    z-index: 10;
+    
+    display: flex;            /* Flexbox to center contents */
+    flex-direction: column;   /* Stack children vertically */
+    justify-content: flex-start; /* Align content at the top */
+    align-items: center;      /* Center content horizontally */
+    overflow: hidden;   
+    padding: 20px;            /* Adds some spacing around the content */
+    pointer-events: none
+}
 
 /* Title Image (Logo) */
-.ui-overlay { position: absolute; top: 4vh; left: 50%; transform: translateX(-50%); text-align: center;
-    z-index: 10; pointer-events: none; user-select: none; max-width: 90vw; padding: 0 1rem; }
+.title-image { 
+    width: clamp(150px, 60vw, 500px); 
+    height: auto; 
+    opacity: 0; /* Initially hidden */
+    pointer-events: none; 
+    user-select: none; 
+    transition: opacity 1s ease-in-out; /* Smooth fade-in */
+}
 
-.overlay-image { width: clamp(150px, 60vw, 500px); height: auto; opacity: 0; animation: fadeInImage 0.75s ease forwards; animation-delay: 0.0s;
-    transition: opacity 0.5s ease; will-change: transform, opacity; display: block; margin: 0 auto; pointer-events: none; }
-
-/* Title Fade-In animation */
-@keyframes fadeInImage { 0% { opacity: 0; transform: scale(0.75); } 70% { transform: scale(1.02); } 100% { opacity: 1; transform: scale(1); } }
+/* This class will be added once loading is complete */
+.title-image.visible {
+    opacity: 1; /* Fade in */
+}
 
 
 /* Main UI Container  */
-/* Likely to change transform back to -50 once we have the title & container in a wrapper together */
-.container { position: relative; background-color: rgba(0, 31, 63, 0.85); margin-top: 0.1vh; transform: translate(-50%, -40%); 
-    width: 90vw; max-width: 850px; height: 75vh; max-height: 850px; padding: 2%; border-radius: 12px; 
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); overflow-y: auto; backdrop-filter: blur(10px); transition: all 0.3s ease-out; }
+.container { 
+    position: relative; 
+    background-color: rgba(0, 31, 63, 0.85); 
+    width: 100%;    
+    max-width: 850px;     
+    height: 100vh;          
+    max-height: 1200px;    
+    overflow-y: auto;      
+    margin-top: 0.5vh;        
+    padding: 1%; 
+    opacity: 0;
+    border-radius: 12px;  
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(10px); 
+    transition: all 0.3s ease-out; 
+}
+
 
 .fade-container { opacity: 0; pointer-events: none; /* Prevent interaction when hidden */ transition: opacity 0.75s ease-out; }
 .fade-container.visible { opacity: 1; pointer-events: auto; /* Enable interaction when visible */ }
@@ -202,7 +247,7 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
 
 /* Carousel Images */
 img.carouselImage { flex: 1; width: 100%; max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin: 0 auto; display: block; object-fit: contain; border-radius: 8px; }
+    margin: 0 auto; display: block; object-fit: fill; border-radius: 8px; }
 
 /* Media Button Container */
 .mediaButtons { display: flex; justify-content: center; margin-top: 10px; }

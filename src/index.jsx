@@ -7,6 +7,8 @@ import { Canvas } from '@react-three/fiber';
 // Custom Hooks & Components
 import Experience from './components/Experience.jsx';
 import Loader from './components/Loader.jsx'; 
+import TitleDisplay from './components/TitleDisplay.jsx';
+import ProjectDisplay from './components/ProjectDisplay.jsx';
 
 
 const root = ReactDOM.createRoot(document.querySelector('#root'));
@@ -15,6 +17,21 @@ const App = () => {
     const [loading, setLoading] = useState(true);
     const [progress, setProgress] = useState(0);
     const [fadeOut, setFadeOut] = useState(false); 
+
+    const [selectedProject, setSelectedProject] = useState(null);
+    const [isVisible, setIsVisible] = useState(false);
+
+    const toggleVisibility = (project) => {
+        if (project) {
+            // Project Display Show
+            setSelectedProject(project);
+            setIsVisible(true);
+        } else {
+            // Close the project display
+            setIsVisible(false);
+            setTimeout(() => setSelectedProject(null), 500); // Project Display Fade
+        }
+    };
 
     // Create slight load delays to force loading screen (don't want people on-site immediately) -- 20 ORIG
     const randomDelay = () => {
@@ -31,42 +48,44 @@ const App = () => {
 
             // Loading complete, Begin fade out transition 
             setFadeOut(true); 
-            
-            // Hide Loader after fade
             setTimeout(() => {
                 setLoading(false); 
-            }, 1000); // Match this time to the duration of the fade-out
+            }, 1000); // Fade Out
         };
-
         loadAssets();
     }, []);
 
     return (
         <>
+            {/* Loading Screen UI */}
             {loading && (
                 <div className={`loading-screen ${fadeOut ? 'fade-out' : ''}`}>
                     <Loader progress={progress} />
                 </div>
             )}
 
-            {/* Render HTML UI only when loading is complete */}
-            {!loading && 
-            (
-                <div className="ui-overlay">
-                    <img src="/Images/General/title.png" alt="Jake Rose" className="overlay-image" />
-                </div>
-            )}
-
+            {/* Main Canvas */}
             <Canvas 
                 className='r3f'
                 camera={{ fov: 45, near: 0.1, far: 2000, position: [15, 4.5, -7.5], }} 
             >
                 <Suspense fallback={null}>
-                    <Experience loadingComplete={!loading} />
+                    <Experience loadingComplete={!loading} onSelectProject={toggleVisibility} />
                 </Suspense>
             </Canvas>
+
+            {/* UI Overlays */}
+            <div className='ui-container'>
+               {!loading && <TitleDisplay isVisible={!loading} />}
+                <ProjectDisplay
+                    project={selectedProject}
+                    className={`fade-container ${isVisible ? 'visible' : ''}`} // Dynamically toggle visibility
+                    onClose={() => toggleVisibility(null)} // Handle close button            
+                />
+            </div>
         </>
     );
 };
+
 
 root.render(<App />);

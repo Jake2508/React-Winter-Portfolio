@@ -1,6 +1,5 @@
 // Core Extensions
-import { Stars, GradientTexture, Environment, useGLTF, OrbitControls, Html } from '@react-three/drei';
-import { useRef, useState } from 'react';
+import { Stars, GradientTexture, Environment, useGLTF, OrbitControls } from '@react-three/drei';
 
 // Post Processing Effects
 import { ToneMapping, EffectComposer, DepthOfField, Bloom, Vignette } from '@react-three/postprocessing';
@@ -8,7 +7,6 @@ import { ToneMappingMode, BlendFunction } from 'postprocessing';
 
 // Custom Hooks & Components
 import { useHover } from '../hooks/useHover.js'; 
-import ProjectDisplay from './ProjectDisplay.jsx';
 
 // Entities
 import Floor from '../entities/Floor.js';
@@ -20,7 +18,7 @@ import Tools from '../entities/Tools.js';
 import { Perf } from 'r3f-perf';
 
 
-export default function Experience() {
+export default function Experience({ onSelectProject, isVisible }) {
     // Setup Models
     const arcadeMachine = useGLTF('/Models/ArcadeMachine-v4.gltf');
     const machineSwitch = useGLTF('/Models/switch.gltf');
@@ -29,38 +27,12 @@ export default function Experience() {
     // Hover Effect Hook
     const { handlePointerOver, handlePointerOut, hoveredObject } = useHover(); 
 
-    // State for Project Display
-    const [selectedProject, setSelectedProject] = useState(null);
-    const [isVisible, setIsVisible] = useState(false);
-    const [shouldRenderVisible, setShouldRenderVisible] = useState(false);
-    
-    // Define empty obj for click events 
-    const projects = { 
-        arcadeMachine: {},
-        box: {}
+    const handleArcadeClick = () => {
+        onSelectProject({
+            title: 'Arcade Machine',
+            description: 'A retro arcade machine filled with fun!',
+        });
     };
-
-    // Event Handler for clicking the Arcade Machine
-    const eventHandler = (project) => (event) => 
-    {
-        event.stopPropagation();
-        if (isVisible) {
-            // Fade-out logic
-            setIsVisible(false);
-            setTimeout(() => {
-                setSelectedProject(null); // Delay resetting active project until fade-out finishes
-            }, 500); // Transition duration (match css)
-        } else {
-            // Fade-in logic
-            setSelectedProject(project);
-            setIsVisible(true);
-            // Delay applying the `visible` class for smooth fade-in
-            setTimeout(() => {
-                setShouldRenderVisible(true);
-            }, 20); // Tiny delay to allow initial render
-        }
-    };
-
 
     return (
         <>
@@ -85,7 +57,8 @@ export default function Experience() {
             </EffectComposer>
 
             <OrbitControls makeDefault enableDamping={true} dampingFactor={0.05} enablePan={false} minPolarAngle={Math.PI / 4.5} maxPolarAngle={Math.PI / 2.2}
-                minDistance={7.0} maxDistance={25} enabled={!isVisible}  
+                minDistance={7.0} maxDistance={25} 
+                enabled={!isVisible}  
                 autoRotate={true} autoRotateSpeed={0.35}
             />
 
@@ -94,44 +67,17 @@ export default function Experience() {
             <Trees />
             <Rocks />
             <Tools />
-
             
             {/* Arcade Machine */}
             <primitive object={arcadeMachine.scene} scale={0.4} position-y={-1.4} castShadow receiveShadow
                 onPointerOver={(event) => handlePointerOver(event, arcadeMachine.scene)} 
                 onPointerOut={(event) => handlePointerOut(event, arcadeMachine.scene)}
-                onClick={eventHandler(projects.arcadeMachine)} 
+                onClick={handleArcadeClick}
             />
 
             {/* Switch and Cable */}
             <primitive object={machineSwitch.scene} scale={0.4} position-y={-1.4} />
             <primitive object={cable.scene} scale={0.4} position-y={-1.4} />
-
-            
-            {/* Display UI Sections from Arcade Machine selection */}
-            {selectedProject && (<Html className={`fade-container ${shouldRenderVisible ? 'visible' : ''}`}>
-                <ProjectDisplay project={selectedProject} 
-                onClose={() => { 
-                setIsVisible(false);
-                setShouldRenderVisible(false);
-                setTimeout(() => setSelectedProject(null), 750); 
-                }}
-                />
-            </Html>)}
-
-            {/* <Html
-                transform
-                wrapperClass='ui-container'
-            >
-
-                <ProjectDisplay project={selectedProject} 
-                onClose={() => { 
-                setIsVisible(false);
-                setShouldRenderVisible(false);
-                setTimeout(() => setSelectedProject(null), 750); 
-                }}
-                />
-            </Html> */}
         </>
     );
 }

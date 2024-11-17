@@ -14,7 +14,7 @@ import useFadeTransition from '../hooks/useFadeTransition';
 
 
 // Main ProjectDisplay Component
-const ProjectDisplay = ({ onClose }) => {
+const ProjectDisplay = ({ onClose, className }) => {
     const [activeTab, setActiveTab] = useState('about');
     const [selectedProject, setSelectedProject] = useState(null);
     
@@ -159,7 +159,7 @@ const ProjectDisplay = ({ onClose }) => {
 
 
     return (
-        <div ref={containerRef} className="container custom-scrollbar">
+        <div ref={containerRef} className={`container custom-scrollbar ${className || ''}`}>
             <div className="tabs">
                 {['about', 'projects', 'work', 'contact'].map((tab) => (
                     <button
