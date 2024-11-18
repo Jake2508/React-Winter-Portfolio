@@ -68,6 +68,7 @@ const App = () => {
             <Canvas 
                 className='r3f'
                 camera={{ fov: 45, near: 0.1, far: 2000, position: [15, 4.5, -7.5], }} 
+                gl={{antialias: false, powerPreference: 'high-performance'}}
             >
                 <Suspense fallback={null}>
                     <Experience loadingComplete={!loading} onSelectProject={toggleVisibility} />

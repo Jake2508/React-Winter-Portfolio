@@ -20,7 +20,7 @@ import { Perf } from 'r3f-perf';
 
 export default function Experience({ onSelectProject, isVisible }) {
     // Setup Models
-    const arcadeMachine = useGLTF('/Models/ArcadeMachine-v4.gltf');
+    const arcadeMachine = useGLTF('/Models/ArcadeMachine.gltf');
     const machineSwitch = useGLTF('/Models/switch.gltf');
     const cable = useGLTF('/Models/cable.gltf');
 
@@ -30,7 +30,7 @@ export default function Experience({ onSelectProject, isVisible }) {
     const handleArcadeClick = () => {
         onSelectProject({
             title: 'Arcade Machine',
-            description: 'A retro arcade machine filled with fun!',
+            description: 'Shows Project Display UI',
         });
     };
 
@@ -41,18 +41,16 @@ export default function Experience({ onSelectProject, isVisible }) {
 
             {/* Background & Environment */}
             <Environment preset="forest" />
-            <GradientTexture stops={[0, 0.3, 1]} colors={['#001F3F', '#1B4F72', '#85C1E9']} size={1024} attach="background" />
-            <Stars radius={40} depth={50} count={5000} factor={4} saturation={0} fade speed={0.75} />
+            <GradientTexture stops={[0, 0.3, 1]} colors={['#001F3F', '#1B4F72', '#85C1E9']} size={512} attach="background" />
+            <Stars radius={40} depth={50} count={4000} factor={4} saturation={0} fade speed={0.75} />
 
             {/* Lighting */}
-            <directionalLight position={[2, 3, 10]} intensity={0.65} color={"#f0e68c"} />
             <ambientLight intensity={0.3} color={'#ffffff'} /> 
 
             {/* Post Processing */}
             <EffectComposer>
                 <ToneMapping mode={ToneMappingMode.ACES_FILMIC} /> 
                 <Vignette offset={0.3} darkness={0.85} blendFunction={BlendFunction.COLOR_DODGE} />
-                {/* <Bloom mipmapBlur intensity={0.1} luminanceThreshold={0.8} /> TEMP */}
                 <DepthOfField focusDistance={0.015} focalLength={0.025} bokehScale={0.5} />
             </EffectComposer>
 
@@ -69,7 +67,7 @@ export default function Experience({ onSelectProject, isVisible }) {
             <Tools />
             
             {/* Arcade Machine */}
-            <primitive object={arcadeMachine.scene} scale={0.4} position-y={-1.4} castShadow receiveShadow
+            <primitive object={arcadeMachine.scene} scale={0.4} position-y={-1.4} 
                 onPointerOver={(event) => handlePointerOver(event, arcadeMachine.scene)} 
                 onPointerOut={(event) => handlePointerOut(event, arcadeMachine.scene)}
                 onClick={handleArcadeClick}
