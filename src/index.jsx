@@ -1,6 +1,7 @@
 // Core Extensions
 import './style.css';
 import ReactDOM from 'react-dom/client';
+import React, { memo } from 'react';
 import { Suspense, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 
@@ -13,7 +14,7 @@ import ProjectDisplay from './components/ProjectDisplay.jsx';
 
 const root = ReactDOM.createRoot(document.querySelector('#root'));
 
-const App = () => {
+const App = memo(() => {
     const [loading, setLoading] = useState(true);
     const [progress, setProgress] = useState(0);
     const [fadeOut, setFadeOut] = useState(false); 
@@ -34,9 +35,7 @@ const App = () => {
     };
 
     // Create slight load delays to force loading screen (don't want people on-site immediately) -- 20 ORIG
-    const randomDelay = () => {
-        return Math.random() < 0.0 ? Math.floor(Math.random() * 100) + 50 : 20; 
-    };
+    const randomDelay = () => Math.floor(Math.random() * 100) + 20;
 
     useEffect(() => {
         const loadAssets = async () => {
@@ -67,8 +66,9 @@ const App = () => {
             {/* Main Canvas */}
             <Canvas 
                 className='r3f'
-                camera={{ fov: 45, near: 0.1, far: 2000, position: [15, 4.5, -7.5], }} 
-                gl={{antialias: false, powerPreference: 'high-performance'}}
+                camera={{ fov: 45, near: 0.1, far: 150, position: [15, 4.5, -7.5], }} 
+                gl={{ antialias: false, powerPreference: 'high-performance' }}
+                dpr={[1, Math.min(2, window.devicePixelRatio)]} // Cap max DPR to 2
             >
                 <Suspense fallback={null}>
                     <Experience loadingComplete={!loading} onSelectProject={toggleVisibility} />
@@ -86,7 +86,7 @@ const App = () => {
             </div>
         </>
     );
-};
+});
 
 
 root.render(<App />);

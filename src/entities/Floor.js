@@ -17,3 +17,4 @@ export default function Floor() {
 
     return <primitive object={scene} scale={0.4} position={[0, -1.4, 0]} />;
 }
+

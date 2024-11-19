@@ -1,5 +1,5 @@
 // Core Extensions
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React from 'react';
 
 
 // Main ProjectDisplay Component
