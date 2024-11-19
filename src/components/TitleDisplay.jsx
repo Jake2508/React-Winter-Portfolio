@@ -1,15 +1,17 @@
-// Core Extensions
 import React from 'react';
 
 
-// Main ProjectDisplay Component
-const TitleDisplay = ({ isVisible }) => {
+// Main TitleDisplay Component
+const TitleDisplay = ({ fadeIn }) => {
     return(    
         <div>
-            <img src="/Images/General/title.png" alt="Jake Rose" className={`title-image ${isVisible ? 'visible' : ''}`}  />
+            <img 
+                src="/Images/General/title.png" 
+                alt="Jake Rose" 
+                className={`title-image ${fadeIn ? 'fade-in' : ''}`}  // Use 'fade-in' to match the CSS
+            />
         </div>
-    )
+    );
 };
-
 
 export default TitleDisplay;

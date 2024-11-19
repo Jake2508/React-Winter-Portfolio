@@ -3,7 +3,7 @@ import { Stars, GradientTexture, Environment, useGLTF, OrbitControls } from '@re
 import React, { useMemo } from 'react';
 
 // Post Processing Effects
-import { ToneMapping, EffectComposer, DepthOfField, Bloom, Vignette } from '@react-three/postprocessing';
+import { ToneMapping, EffectComposer, DepthOfField, Vignette } from '@react-three/postprocessing';
 import { ToneMappingMode, BlendFunction } from 'postprocessing';
 
 // Custom Hooks & Components

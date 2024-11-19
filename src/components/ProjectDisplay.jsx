@@ -1,5 +1,5 @@
 // Core Extensions
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 
 // Page Tab Data 
 import { AboutData } from '../data/aboutData.js';
@@ -85,78 +85,78 @@ const ProjectDisplay = ({ onClose, className }) => {
     };
 
     // Tab Main Sections
-    const content = {
-        about: <AboutData />,
-        projects: (
-            <div>
-                {!selectedProject && (
-                    <>
-                        <h2>Key Projects</h2>
+    const memoizedContent = useMemo(() => {
+        const content = {
+            about: <AboutData />,
+            projects: (
+                <div>
+                    {!selectedProject && (
+                        <>
+                            <h2>Key Projects</h2>
+                            <ProjectGrid
+                                data={projectData}
+                                onSelect={handleProjectSelect}
+                                selectedProject={selectedProject}
+                                onBack={handleProjectBack}
+                            />
+                            <h2>Bonus Projects</h2>
+                            <p className='centerElements'>
+                                Explore side projects & prototypes on my &nbsp;
+                                <a href="https://jake12341234.itch.io/" target="_blank" rel="noopener noreferrer">
+                                    itch.io page
+                                </a>
+                            </p>
+                        </>
+                    )}
+                    {selectedProject && (
                         <ProjectGrid
                             data={projectData}
                             onSelect={handleProjectSelect}
                             selectedProject={selectedProject}
                             onBack={handleProjectBack}
                         />
-                        <h2>Bonus Projects</h2>
-                        <p className='centerElements'>
-                        Explore side projects & prototypes on my &nbsp;   
-                            <a href="https://jake12341234.itch.io/" target="_blank" rel="noopener noreferrer">
-                            itch.io page
-                            </a>
-                        </p>
-                    </>
-                )}
-                {selectedProject && (
-                    <ProjectGrid
-                        data={projectData}
-                        onSelect={handleProjectSelect}
-                        selectedProject={selectedProject}
-                        onBack={handleProjectBack}
-                    />
-                )}
-            </div>
-        ),
-        
-        work: (
-            <div>
-                {!selectedProject && (
-                    <>
-                        {/* Group work items by company */}
-                        {Array.from(
-                            workData.reduce((group, work) => {
-                                // Group work items by company
-                                if (!group.has(work.company)) group.set(work.company, []);
-                                group.get(work.company).push(work);
-                                return group;
-                            }, new Map())
-                        ).map(([company, companyWorkItems]) => (
-                            <div key={company}>
-                                <h2>{company}</h2>
-                                <ProjectGrid
-                                    data={companyWorkItems}  // Display work items per company
-                                    onSelect={handleProjectSelect}
-                                    selectedProject={selectedProject}
-                                    onBack={handleProjectBack}
-                                />
-                            </div>
-                        ))}
-                    </>
-                )}
-                {selectedProject && (
-                    <ProjectGrid
-                        data={workData}  // Passing entire work data when a project is selected
-                        onSelect={handleProjectSelect}
-                        selectedProject={selectedProject}
-                        onBack={handleProjectBack}
-                    />
-                )}
-            </div>
-        ),        
+                    )}
+                </div>
+            ),
+            work: (
+                <div>
+                    {!selectedProject && (
+                        <>
+                            {/* Group work items by company */}
+                            {Array.from(
+                                workData.reduce((group, work) => {
+                                    if (!group.has(work.company)) group.set(work.company, []);
+                                    group.get(work.company).push(work);
+                                    return group;
+                                }, new Map())
+                            ).map(([company, companyWorkItems]) => (
+                                <div key={company}>
+                                    <h2>{company}</h2>
+                                    <ProjectGrid
+                                        data={companyWorkItems} // Display work items per company
+                                        onSelect={handleProjectSelect}
+                                        selectedProject={selectedProject}
+                                        onBack={handleProjectBack}
+                                    />
+                                </div>
+                            ))}
+                        </>
+                    )}
+                    {selectedProject && (
+                        <ProjectGrid
+                            data={workData} // Passing entire work data when a project is selected
+                            onSelect={handleProjectSelect}
+                            selectedProject={selectedProject}
+                            onBack={handleProjectBack}
+                        />
+                    )}
+                </div>
+            ),
+            contact: <ContactData />,
+        };
 
-        contact: <ContactData />,
-    };
-
+        return content[activeTab];
+    }, [activeTab, selectedProject, projectData, workData]);
 
     return (
         <div ref={containerRef} className={`container custom-scrollbar ${className || ''}`}>
@@ -175,11 +175,12 @@ const ProjectDisplay = ({ onClose, className }) => {
                 className={`content ${fade ? 'fade-in' : 'fade-out'}`} // Dynamically apply fade-in or fade-out class
                 style={{ transform: `scale(${scale})` }} // Use dynamic scaling in style attribute
             >
-                {content[activeTab]}
+                {memoizedContent}
             </div>
         </div>
     );
-}
+};
+
     
 // Reusable ProjectGrid Component : React memo -> lets you skip re-rendering a component when its props are unchanged
 const ProjectGrid = React.memo(({ data, onSelect, selectedProject, onBack }) => {

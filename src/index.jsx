@@ -13,14 +13,16 @@ import ProjectDisplay from './components/ProjectDisplay.jsx';
 
 
 const root = ReactDOM.createRoot(document.querySelector('#root'));
+const MemorisedTitleDisplay = memo(TitleDisplay); 
 
-const App = memo(() => {
+const App = () => {
     const [loading, setLoading] = useState(true);
     const [progress, setProgress] = useState(0);
     const [fadeOut, setFadeOut] = useState(false); 
 
     const [selectedProject, setSelectedProject] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
+    const [fadeInTitle, setFadeInTitle] = useState(false);
 
     const toggleVisibility = (project) => {
         if (project) {
@@ -49,6 +51,7 @@ const App = memo(() => {
             setFadeOut(true); 
             setTimeout(() => {
                 setLoading(false); 
+                setTimeout(() => setFadeInTitle(true), 100);
             }, 1000); // Fade Out
         };
         loadAssets();
@@ -77,7 +80,7 @@ const App = memo(() => {
 
             {/* UI Overlays */}
             <div className='ui-container'>
-               {!loading && <TitleDisplay isVisible={!loading} />}
+               {!loading && <MemorisedTitleDisplay fadeIn={fadeInTitle} />}
                 <ProjectDisplay
                     project={selectedProject}
                     className={`fade-container ${isVisible ? 'visible' : ''}`} // Dynamically toggle visibility
@@ -86,7 +89,7 @@ const App = memo(() => {
             </div>
         </>
     );
-});
+};
 
 
 root.render(<App />);

@@ -145,15 +145,14 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
 .title-image { 
     width: clamp(150px, 60vw, 500px); 
     height: auto; 
-    opacity: 0; /* Initially hidden */
     pointer-events: none; 
     user-select: none; 
-    transition: opacity 1s ease-in-out; /* Smooth fade-in */
+    opacity: 0; 
+    transition: opacity 0.5s ease-in-out; 
 }
 
-/* This class will be added once loading is complete */
-.title-image.visible {
-    opacity: 1; /* Fade in */
+.title-image.fade-in {
+    opacity: 1; 
 }
 
 
