@@ -61,7 +61,7 @@ export default function Experience({ onSelectProject, isVisible }) {
     return (
         <>
             {/* Perf component monitors performance */}
-            <Perf position="top-left" />
+            {/* <Perf position="top-left" /> */}
 
             {/* Environment, Lighting & Background */}
             {environment}
