@@ -1,6 +1,6 @@
 // Core Extensions
 import React from "react";
-import "react-loader-spinner"; 
+import "../styles/Loader.css";
 
 
 const Loader = ({ progress }) => {

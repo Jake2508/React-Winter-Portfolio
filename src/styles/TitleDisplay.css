@@ -1,0 +1,13 @@
+/* Title Image (Logo) */
+.title-image { 
+    width: clamp(150px, 60vw, 500px); 
+    height: auto; 
+    pointer-events: none; 
+    user-select: none; 
+    opacity: 0; 
+    transition: opacity 0.5s ease-in-out; 
+}
+
+.title-image.fade-in {
+    opacity: 1; 
+}

@@ -52,8 +52,8 @@ export default function Experience({ onSelectProject, isVisible }) {
         return (
             <EffectComposer>
                 <ToneMapping mode={ToneMappingMode.ACES_FILMIC} /> 
-                <Vignette offset={0.3} darkness={0.85} blendFunction={BlendFunction.COLOR_DODGE} />
-                <DepthOfField focusDistance={0.015} focalLength={0.025} bokehScale={0.5} />
+                <Vignette offset={0.2} darkness={0.65} blendFunction={BlendFunction.COLOR_DODGE} />
+                <DepthOfField focusDistance={0.01} focalLength={0.02} bokehScale={0.3} />
             </EffectComposer>
             );
         }, []); // Only recalculated once
@@ -67,9 +67,9 @@ export default function Experience({ onSelectProject, isVisible }) {
             {environment}
             <Stars 
                 radius={10}
-                depth={50} 
-                count={2500} 
-                factor={2.6} 
+                depth={40} 
+                count={2250} 
+                factor={2.5} 
                 saturation={0} 
                 fade speed={0.75} 
             />
@@ -82,7 +82,7 @@ export default function Experience({ onSelectProject, isVisible }) {
                 minPolarAngle={Math.PI / 4.5} maxPolarAngle={Math.PI / 2.2}
                 minDistance={7.0} maxDistance={25} 
                 enabled={!isVisible}  
-                autoRotate={true} autoRotateSpeed={0.35}
+                autoRotate={true} autoRotateSpeed={0.2}
             />
 
             {/* Static Scene Objects */}

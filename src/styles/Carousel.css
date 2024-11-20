@@ -1,0 +1,113 @@
+/* Carousel */
+.carouselContainer { 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    gap: 10px; 
+    width: 100%;
+    max-width: 100%; 
+    height: auto; 
+    overflow: hidden; 
+}
+
+/* Arrow Buttons */
+.carouselButton { 
+    font-size: clamp(1.5rem, 3vw, 2.5rem); 
+    background: transparent; 
+    border: none; 
+    padding: 0 5px; 
+}
+
+/* Wrapper for carousel media to enforce 16:9 aspect ratio */
+.carouselMedia { 
+    flex: 1; 
+    width: 60%; 
+    max-width: 60%; 
+    display: flex; 
+    justify-content: center; 
+    position: relative; 
+    aspect-ratio: 16 / 9; 
+    height: 100%; 
+}
+
+/* Set iframe scaling 16:9 aspect wrapper -> Done manual to prevent strange iframe scaling behaviours */
+.carouselEmbed { 
+    width: 100%; 
+    height: 100%; 
+    border: none; 
+    object-fit: fill; 
+    border-radius: 8px; 
+}
+
+/* Carousel Images */
+img.carouselImage { 
+    /* flex: 1;  */
+    width: 100%; 
+    max-width: 100%; 
+    height: auto; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; 
+    display: block; 
+    object-fit: fill; 
+    border-radius: 8px; 
+}
+
+/* Media Button Container */
+.mediaButtons { 
+    display: flex; 
+    justify-content: center; 
+    margin-top: 10px; 
+}
+
+.mediaButton { 
+    background: none; 
+    border: 2px solid transparent; 
+    cursor: pointer; 
+    margin: 0 5px; 
+    padding: 0; 
+    border-radius: 5px; width: clamp(40px, 8vw, 50px); 
+    aspect-ratio: 1 / 1; 
+    overflow: hidden; 
+}
+
+.mediaButton.active { 
+    background-color: #007BFF; 
+    border-color: #FF4500; 
+}
+
+/* Media thumbnail icon */
+.mediaIcon { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    border-radius: 5px; 
+}
+
+/* embed vid thumbnail setup */
+.videoThumbnail { 
+    position: relative; 
+    width: 100%; 
+    height: 100%; 
+    overflow: hidden;
+}
+
+.videoThumbnail img { 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%) scale(1.3);
+    width: auto;
+    height: 120%;
+    object-fit: cover;
+}
+
+/* Vid Play Icon Overlay */
+.playButton { 
+    position: absolute; 
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(18px, 4vw, 22px);
+    border-radius: 50%; 
+    padding: 5px;
+}
