@@ -3,7 +3,7 @@ import Carousel from '../components/Carousel';
 
 
 const ProjectDetails = ({ project }) => {
-    if (!project) return null; // Avoid rendering if invalid project is passed
+    if (!project) return null; // Return if invalid project is passed
 
     return (
         <div>

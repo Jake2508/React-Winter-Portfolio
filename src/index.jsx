@@ -12,7 +12,6 @@ import TitleDisplay from './components/TitleDisplay.jsx';
 import ProjectDisplay from './components/ProjectDisplay.jsx';
 
 
-const root = ReactDOM.createRoot(document.querySelector('#root'));
 const MemorisedTitleDisplay = memo(TitleDisplay); 
 
 const App = () => {
@@ -26,19 +25,19 @@ const App = () => {
 
     const toggleVisibility = (project) => {
         if (project) {
-            // Project Display Show
+            // Show Project Display
             setSelectedProject(project);
             setIsVisible(true);
         } else {
-            // Close the project display
+            // Hide Project Display
             setIsVisible(false);
-            setTimeout(() => setSelectedProject(null), 500); // Project Display Fade
+            setTimeout(() => setSelectedProject(null), 500); 
         }
     };
 
-    // Create slight load delays to force loading screen (don't want people on-site immediately) -- 20 ORIG
+    // Random load delay addition modifier  
     const randomDelay = () => Math.floor(Math.random() * 100) + 20;
-
+    // Loading
     useEffect(() => {
         const loadAssets = async () => {
             for (let i = 0; i <= 100; i++) {
@@ -47,15 +46,16 @@ const App = () => {
                 setProgress(i);
             }
 
-            // Loading complete, Begin fade out transition 
+            // Load Complete - Fade Out
             setFadeOut(true); 
             setTimeout(() => {
                 setLoading(false); 
                 setTimeout(() => setFadeInTitle(true), 100);
-            }, 1000); // Fade Out
+            }, 1000); 
         };
         loadAssets();
     }, []);
+
 
     return (
         <>
@@ -74,22 +74,35 @@ const App = () => {
                 dpr={[1, Math.min(2, window.devicePixelRatio)]} // Cap max DPR to 2
             >
                 <Suspense fallback={null}>
-                    <Experience loadingComplete={!loading} onSelectProject={toggleVisibility} />
+                    <Experience 
+                        loadingComplete={!loading} 
+                        onSelectProject={toggleVisibility} 
+                        isVisible={isVisible} 
+                    />
                 </Suspense>
             </Canvas>
 
-            {/* UI Overlays */}
+            {/* UI Overlay Wrapper */}
             <div className='ui-container'>
                {!loading && <MemorisedTitleDisplay fadeIn={fadeInTitle} />}
                 <ProjectDisplay
                     project={selectedProject}
-                    className={`fade-container ${isVisible ? 'visible' : ''}`} // Dynamically toggle visibility
-                    onClose={() => toggleVisibility(null)} // Handle close button            
+                    className={`fade-container ${isVisible ? 'visible' : ''}`} 
+                    onClose={() => toggleVisibility(null)}             
                 />
             </div>
         </>
     );
 };
 
-
-root.render(<App />);
+// Initialize DOM once
+const container = document.querySelector('#root');
+if (!container._rootInitialized) {
+    const root = ReactDOM.createRoot(container);
+    root.render(
+        <React.StrictMode>
+            <App />
+        </React.StrictMode>
+    );
+    container._rootInitialized = true;
+}

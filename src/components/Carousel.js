@@ -79,4 +79,5 @@ const Carousel = ({ media }) => {
     );
 };
 
+
 export default Carousel;

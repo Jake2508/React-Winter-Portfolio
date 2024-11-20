@@ -10,17 +10,14 @@ import { ToneMappingMode, BlendFunction } from 'postprocessing';
 import { useHover } from '../hooks/useHover.js'; 
 
 // Entities
-import Floor from '../entities/Floor.js';
-import Trees from '../entities/Trees.js';
-import Rocks from '../entities/Rocks.js';
-import Tools from '../entities/Tools.js';
+import WinterEnvironment from '../entities/WinterEnvironment.js';
 
 // Performance Monitoring
 import { Perf } from 'r3f-perf';
 
 
 export default function Experience({ onSelectProject, isVisible }) {
-    // Setup Models
+    // Setup Model
     const arcadeMachine = useMemo(() => useGLTF('/Models/ArcadeMachine.gltf'), []);
 
     // Hover Effect Hook
@@ -33,7 +30,24 @@ export default function Experience({ onSelectProject, isVisible }) {
         });
     };
 
-    // Memoize post-processing effects to ensure they only update once
+    // Memoize Environment, Lighting & Post-Processing effects to render once (Static Scene)
+    const environment = useMemo(() => (
+        <>
+            <Environment preset="forest" />
+            <GradientTexture 
+                stops={[0, 0.3, 1]} 
+                colors={['#001F3F', '#1B4F72', '#85C1E9']} 
+                size={512} 
+                attach="background" 
+            />
+            <ambientLight 
+                intensity={0.3} 
+                color={'#ffffff'} 
+                castShadow={false} 
+            />
+        </>
+    ), []);
+
     const postProcessingEffects = useMemo(() => {
         return (
             <EffectComposer>
@@ -47,39 +61,41 @@ export default function Experience({ onSelectProject, isVisible }) {
     return (
         <>
             {/* Perf component monitors performance */}
-            {/* <Perf position="top-left" /> */}
+            <Perf position="top-left" />
 
-            {/* Background & Environment */}
-            <Environment preset="forest" />
-            <GradientTexture stops={[0, 0.3, 1]} colors={['#001F3F', '#1B4F72', '#85C1E9']} size={512} attach="background" />
-            <Stars radius={10} depth={50} count={2500} factor={2.6} saturation={0} fade speed={0.75} />
-
-            {/* Lighting */}
-            <ambientLight intensity={0.3} color={'#ffffff'} castShadow={false}/> 
+            {/* Environment, Lighting & Background */}
+            {environment}
+            <Stars 
+                radius={10}
+                depth={50} 
+                count={2500} 
+                factor={2.6} 
+                saturation={0} 
+                fade speed={0.75} 
+            />
 
             {/* Post Processing */}
             {postProcessingEffects}
 
-            <OrbitControls makeDefault enableDamping={true} dampingFactor={0.05} enablePan={false} minPolarAngle={Math.PI / 4.5} maxPolarAngle={Math.PI / 2.2}
+            {/* Orbit Controls */}
+            <OrbitControls makeDefault enableDamping={true} dampingFactor={0.05} enablePan={false} 
+                minPolarAngle={Math.PI / 4.5} maxPolarAngle={Math.PI / 2.2}
                 minDistance={7.0} maxDistance={25} 
                 enabled={!isVisible}  
                 autoRotate={true} autoRotateSpeed={0.35}
             />
 
             {/* Static Scene Objects */}
-            <Floor />
-            <Trees />
-            <Rocks />
-            <Tools />
+            <WinterEnvironment />
 
-            
             {/* Arcade Machine */}
-            <primitive object={arcadeMachine.scene} scale={0.4} position-y={-1.4} castShadow={false} receiveShadow={false} 
+            <primitive 
+                object={arcadeMachine.scene} scale={0.4} position-y={-1.4} 
+                castShadow={false} receiveShadow={false} 
                 onPointerOver={(event) => handlePointerOver(event, arcadeMachine.scene)} 
                 onPointerOut={(event) => handlePointerOut(event, arcadeMachine.scene)}
                 onClick={handleArcadeClick}
             />
-
         </>
     );
 }
