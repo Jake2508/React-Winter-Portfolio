@@ -34,13 +34,17 @@ const App = () => {
             }
         };
 
+        // ResizeObserver to monitor screen resize and update canvas size
         const observer = new ResizeObserver(() => {
             updateCanvasSize();
         });
 
         observer.observe(document.body);
 
-        // Cleanup observer
+        // Initial canvas size update
+        updateCanvasSize();
+
+        // Cleanup observer when component is unmounted
         return () => {
             observer.disconnect();
         };
