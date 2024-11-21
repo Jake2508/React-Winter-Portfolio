@@ -53,7 +53,6 @@ export default function Experience({ onSelectProject, isVisible }) {
             <EffectComposer>
                 <ToneMapping mode={ToneMappingMode.ACES_FILMIC} /> 
                 <Vignette offset={0.2} darkness={0.65} blendFunction={BlendFunction.COLOR_DODGE} />
-                <DepthOfField focusDistance={0.01} focalLength={0.02} bokehScale={0.3} />
             </EffectComposer>
             );
         }, []); // Only recalculated once
