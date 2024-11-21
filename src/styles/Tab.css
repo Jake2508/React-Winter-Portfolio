@@ -1,0 +1,52 @@
+
+/* Main Page Tabs & Hover Overrides */
+/* Container for Tabs */
+.tabs {  
+    display: flex; 
+    justify-content: space-around; 
+    margin-bottom: 10px;  
+    gap: 10px; 
+    padding: 5px; 
+    align-items: center;
+}
+
+.tab { 
+    flex: 1 1 auto; 
+    padding: 0.5vw; 
+    max-width: 150px; 
+    font-size: clamp(0.8rem, 1.8vw, 1.0rem); 
+    text-align: center;
+    font-weight: 700; 
+    background-color: rgba(0, 31, 63, 0.7); 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 31, 63, 0.7);
+    transform: scale(1); 
+    transition: transform 0.3s ease, background-color 0.3s ease; 
+}
+
+.tab:hover { 
+    background-color: #6DAEDB; 
+}
+
+.active-tab { 
+    background-color: #85C1E9; 
+}
+
+/* Page Basic Setup */
+.content { 
+    padding: 10px; 
+    background-color: rgba(255, 255, 255, 0.15); 
+    border-radius: 10px; 
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 5px; 
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; 
+}
+
+/* Page Fade Effects */
+.fade-in { 
+    opacity: 1; 
+}
+
+.fade-out { 
+    opacity: 0; 
+}

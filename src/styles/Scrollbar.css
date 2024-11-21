@@ -1,0 +1,17 @@
+/* Scrollbars */
+.custom-scrollbar::-webkit-scrollbar { 
+    width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb { 
+    background-color: #85C1E9; 
+    border-radius: 10px; 
+}
+
+.custom-scrollbar::-webkit-scrollbar-track { 
+    background-color: rgba(0, 31, 63, 0.85); 
+}
+
+.custom-scrollbar::-webkit-scrollbar-button { 
+    display: none; /* Hide the arrows */ 
+} 

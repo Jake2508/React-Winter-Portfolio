@@ -1,0 +1,46 @@
+/* Basic styling for the .ui-container */
+.ui-container {
+    position: absolute; 
+    top: 0;               
+    left: 50%;          
+    transform: translateX(-50%); 
+    width: 100vw;      
+    height: 100vh;  
+    z-index: 8;
+    display: flex;          
+    flex-direction: column; 
+    justify-content: flex-start;
+    align-items: center;    
+    overflow: hidden;   
+    padding: 20px;       
+    pointer-events: none
+}
+
+/* Main UI Container  */
+.container { 
+    position: relative; 
+    background-color: rgba(0, 31, 63, 0.85); 
+    width: 100%;    
+    max-width: 850px;         
+    height: calc(100vh - 100px);  /* Subtract space for top and bottom bars on mobile */       
+    max-height: 1050px;    
+    overflow-y: auto;      
+    margin: 1vh auto 0.5vh;    
+    padding: 1%; 
+    border-radius: 12px;  
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(10px); 
+    opacity: 0;
+    transition: all 0.3s ease-out; 
+}
+
+.fade-container { 
+    opacity: 0; 
+    pointer-events: none; /* Prevent interaction when hidden */ 
+    transition: opacity 0.75s ease-out; 
+}
+
+.fade-container.visible { 
+    opacity: 1; 
+    pointer-events: auto; /* Enable interaction when visible */ 
+}

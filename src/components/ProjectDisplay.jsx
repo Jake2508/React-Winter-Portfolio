@@ -1,5 +1,10 @@
 // Core Extensions
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import "../styles/Project.css";
+import "../styles/List.css";
+import "../styles/Tab.css";
+import "../styles/Scrollbar.css";
+import "../styles/UIContainer.css";
 
 // Page Tab Data 
 import { AboutData } from '../data/aboutData.js';
