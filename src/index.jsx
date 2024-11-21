@@ -2,7 +2,7 @@
 import './style.css';
 import ReactDOM from 'react-dom/client';
 import React, { memo } from 'react';
-import { Suspense, useEffect, useState, useRef } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 
 // Custom Hooks & Components
@@ -22,29 +22,6 @@ const App = () => {
     const [selectedProject, setSelectedProject] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
     const [fadeInTitle, setFadeInTitle] = useState(false);
-
-    const canvasRef = useRef();
-    useEffect(() => {
-        const updateCanvasSize = () => {
-            // Dynamically set the height based on the viewport height (fixes mobile issues)
-            document.body.style.height = `${window.innerHeight}px`;
-
-            if (canvasRef.current) {
-                const { clientWidth, clientHeight } = canvasRef.current.parentElement;
-                canvasRef.current.style.width = `${clientWidth}px`;
-                canvasRef.current.style.height = `${clientHeight}px`;
-            }
-        };
-
-        // Update canvas size initially and on resize
-        updateCanvasSize();
-        window.addEventListener('resize', updateCanvasSize);
-
-        // Cleanup event listener on unmount
-        return () => {
-            window.removeEventListener('resize', updateCanvasSize);
-        };
-    }, []);
 
     const toggleVisibility = (project) => {
         if (project) {
@@ -91,7 +68,6 @@ const App = () => {
 
             {/* Main Canvas */}
             <Canvas
-                ref={canvasRef} 
                 className='r3f'
                 camera={{ fov: 45, near: 0.1, far: 150, position: [15, 4.5, -7.5], }} 
                 gl={{ antialias: false, powerPreference: 'high-performance' }}
