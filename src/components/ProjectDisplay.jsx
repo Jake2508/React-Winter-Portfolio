@@ -25,7 +25,6 @@ const ProjectDisplay = ({ onClose, className }) => {
     
     // Fade transition hook
     const { fade, applyTransition } = useFadeTransition();
-    const [scale, setScale] = useState(1);
     const [scrollPosition, setScrollPosition] = useState(0); 
     const [currentImageIndex, setCurrentImageIndex] = useState(0); 
     const containerRef = useRef(null);
@@ -178,7 +177,6 @@ const ProjectDisplay = ({ onClose, className }) => {
             </div>
             <div
                 className={`content ${fade ? 'fade-in' : 'fade-out'}`} // Dynamically apply fade-in or fade-out class
-                style={{ transform: `scale(${scale})` }} // Use dynamic scaling in style attribute
             >
                 {memoizedContent}
             </div>
