@@ -2,8 +2,9 @@
 import './style.css';
 import ReactDOM from 'react-dom/client';
 import React, { memo } from 'react';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useState, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
+import ResizeObserver from 'resize-observer-polyfill';
 
 // Custom Hooks & Components
 import Experience from './components/Experience.jsx';
@@ -22,6 +23,28 @@ const App = () => {
     const [selectedProject, setSelectedProject] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
     const [fadeInTitle, setFadeInTitle] = useState(false);
+
+    const canvasRef = useRef();
+    useEffect(() => {
+        const updateCanvasSize = () => {
+            if (canvasRef.current) {
+                const { clientWidth, clientHeight } = canvasRef.current.parentElement;
+                canvasRef.current.style.width = `${clientWidth}px`;
+                canvasRef.current.style.height = `${clientHeight}px`;
+            }
+        };
+
+        const observer = new ResizeObserver(() => {
+            updateCanvasSize();
+        });
+
+        observer.observe(document.body);
+
+        // Cleanup observer
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
 
     const toggleVisibility = (project) => {
         if (project) {
@@ -67,7 +90,8 @@ const App = () => {
             )}
 
             {/* Main Canvas */}
-            <Canvas 
+            <Canvas
+                ref={canvasRef} 
                 className='r3f'
                 camera={{ fov: 45, near: 0.1, far: 150, position: [15, 4.5, -7.5], }} 
                 gl={{ antialias: false, powerPreference: 'high-performance' }}
