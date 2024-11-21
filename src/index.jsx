@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom/client';
 import React, { memo } from 'react';
 import { Suspense, useEffect, useState, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
-import ResizeObserver from 'resize-observer-polyfill';
 
 // Custom Hooks & Components
 import Experience from './components/Experience.jsx';
@@ -27,6 +26,9 @@ const App = () => {
     const canvasRef = useRef();
     useEffect(() => {
         const updateCanvasSize = () => {
+            // Dynamically set the height based on the viewport height (fixes mobile issues)
+            document.body.style.height = `${window.innerHeight}px`;
+
             if (canvasRef.current) {
                 const { clientWidth, clientHeight } = canvasRef.current.parentElement;
                 canvasRef.current.style.width = `${clientWidth}px`;
@@ -34,19 +36,13 @@ const App = () => {
             }
         };
 
-        // ResizeObserver to monitor screen resize and update canvas size
-        const observer = new ResizeObserver(() => {
-            updateCanvasSize();
-        });
-
-        observer.observe(document.body);
-
-        // Initial canvas size update
+        // Update canvas size initially and on resize
         updateCanvasSize();
+        window.addEventListener('resize', updateCanvasSize);
 
-        // Cleanup observer when component is unmounted
+        // Cleanup event listener on unmount
         return () => {
-            observer.disconnect();
+            window.removeEventListener('resize', updateCanvasSize);
         };
     }, []);
 
