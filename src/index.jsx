@@ -60,7 +60,23 @@ const App = () => {
         loadAssets();
     }, []);
 
+    useEffect(() => {
+        const updateViewportHeight = () => {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        };
 
+        window.addEventListener('resize', updateViewportHeight);
+        window.addEventListener('orientationchange', updateViewportHeight); // Listen for rotation changes
+        updateViewportHeight(); // Initial call
+
+        return () => {
+            window.removeEventListener('resize', updateViewportHeight);
+            window.removeEventListener('orientationchange', updateViewportHeight);
+        };
+    }, []);
+
+    
     return (
         <>
             {/* Loading Screen UI */}

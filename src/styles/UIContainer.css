@@ -22,7 +22,7 @@
     background-color: rgba(0, 31, 63, 0.85); 
     width: 100%;    
     max-width: 850px;         
-    height: calc(100vh - 100px);  /* Subtract space for top and bottom bars on mobile */       
+    height: calc(100vh - 50px);  /* Subtract space for top and bottom bars on mobile */       
     max-height: 1050px;    
     overflow-y: auto;      
     margin: 1vh auto 0.5vh;    

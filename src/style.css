@@ -166,6 +166,36 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
     }
 }
 
+/* Mobile Viewport Height Fix for 100vh Issues */
+@media screen and (max-width: 768px) {
+    html {
+        height: auto;
+        min-height: 100%;
+        --vh: 1vh;
+    }
+    body {
+        height: calc(var(--vh, 1vh) * 100); 
+        /* Fix the safe area for devices with notches */
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+/* Landscape/Portrait Handling */
+@media screen and (orientation: landscape) {
+    body {
+        padding-left: env(safe-area-inset-left);  /* Safe area for left */
+        padding-right: env(safe-area-inset-right); /* Safe area for right */
+    }
+}
+
+@media screen and (orientation: portrait) {
+    body {
+        padding-left: env(safe-area-inset-left);  /* Safe area for left */
+        padding-right: env(safe-area-inset-right); /* Safe area for right */
+    }
+}
+
 /* Mobile Phones */
 @media screen and (max-width: 768px) , screen and (max-height: 700px) {
 	canvas, .r3f {
@@ -176,4 +206,3 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
         touch-action: none;
 	}
 }
-
