@@ -175,5 +175,7 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
 		width : 100%;
 	    padding-right: 0px;
 	    overflow: auto;
+        touch-action: none;
 	}
 }
+

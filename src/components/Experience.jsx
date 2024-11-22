@@ -82,6 +82,11 @@ export default function Experience({ onSelectProject, isVisible }) {
                 minDistance={7.0} maxDistance={25} 
                 enabled={!isVisible}  
                 autoRotate={true} autoRotateSpeed={0.2}
+                // Mobile Support
+                touches={{ 
+                    ONE: 0, // Single-finger rotate
+                    TWO: 2, // Two-finger zoom
+                  }}
             />
 
             {/* Static Scene Objects */}
