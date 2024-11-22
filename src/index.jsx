@@ -69,7 +69,7 @@ const App = () => {
             {/* Main Canvas */}
             <Canvas
                 className='r3f'
-                camera={{ fov: 45, near: 0.1, far: 150, position: [15, 4.5, -7.5], }} 
+                camera={{ fov: 45, near: 1, far: 120, position: [15, 4.5, -7.5], }} 
                 gl={{ antialias: false, powerPreference: 'high-performance' }}
                 dpr={[1, Math.min(2, window.devicePixelRatio)]} // Cap max DPR to 2
             >

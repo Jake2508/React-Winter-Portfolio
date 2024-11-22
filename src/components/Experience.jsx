@@ -52,7 +52,7 @@ export default function Experience({ onSelectProject, isVisible }) {
         return (
             <EffectComposer>
                 <ToneMapping mode={ToneMappingMode.ACES_FILMIC} /> 
-                <Vignette offset={0.2} darkness={0.65} blendFunction={BlendFunction.COLOR_DODGE} />
+                <Vignette offset={0.2} darkness={0.45} blendFunction={BlendFunction.COLOR_DODGE} />
             </EffectComposer>
             );
         }, []); // Only recalculated once
@@ -65,10 +65,10 @@ export default function Experience({ onSelectProject, isVisible }) {
             {/* Environment, Lighting & Background */}
             {environment}
             <Stars 
-                radius={10}
-                depth={40} 
-                count={2250} 
-                factor={2.5} 
+                radius={5}
+                depth={18} 
+                count={2000} 
+                factor={1.5} 
                 saturation={0} 
                 fade speed={0.75} 
             />
