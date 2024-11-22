@@ -61,24 +61,30 @@ const App = () => {
     }, []);
 
     useEffect(() => {
+        // Function to update the viewport height and handle safe area
         const updateViewportHeight = () => {
-            // Calculate 1% of the viewport width/height
             const vw = window.innerWidth * 0.01;
             const vh = window.innerHeight * 0.01;
-
-            // Update the CSS variable for the viewport
             document.documentElement.style.setProperty('--vw', `${vw}px`);
             document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+            // Update the padding for safe area insets
+            document.body.style.paddingTop = `env(safe-area-inset-top)`;
+            document.body.style.paddingBottom = `env(safe-area-inset-bottom)`;
         };
 
-        // Call function initially to set value
-        updateViewportHeight();
-        
-        // Add Event listeners for resize and orientation
-        window.addEventListener('resize', updateViewportHeight);
-        window.addEventListener('orientationchange', updateViewportHeight); 
+        // Event listener to handle page load and initial viewport update
+        const handleLoadEvent = () => {
+            updateViewportHeight(); // Trigger initial update
+            window.addEventListener('resize', updateViewportHeight); // Update on resize
+            window.addEventListener('orientationchange', updateViewportHeight); // Update on orientation change
+        };
+
+        // Trigger on initial load
+        window.addEventListener('load', handleLoadEvent);
 
         return () => {
+            window.removeEventListener('load', handleLoadEvent);
             window.removeEventListener('resize', updateViewportHeight);
             window.removeEventListener('orientationchange', updateViewportHeight);
         };
