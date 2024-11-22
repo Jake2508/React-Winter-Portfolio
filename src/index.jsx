@@ -62,13 +62,21 @@ const App = () => {
 
     useEffect(() => {
         const updateViewportHeight = () => {
+            // Calculate 1% of the viewport width/height
+            const vw = window.innerWidth * 0.01;
             const vh = window.innerHeight * 0.01;
+
+            // Update the CSS variable for the viewport
+            document.documentElement.style.setProperty('--vw', `${vw}px`);
             document.documentElement.style.setProperty('--vh', `${vh}px`);
         };
 
+        // Call function initially to set value
+        updateViewportHeight();
+        
+        // Add Event listeners for resize and orientation
         window.addEventListener('resize', updateViewportHeight);
-        window.addEventListener('orientationchange', updateViewportHeight); // Listen for rotation changes
-        updateViewportHeight(); // Initial call
+        window.addEventListener('orientationchange', updateViewportHeight); 
 
         return () => {
             window.removeEventListener('resize', updateViewportHeight);

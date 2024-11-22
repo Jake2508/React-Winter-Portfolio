@@ -172,9 +172,11 @@ button:hover, .backButton:hover, .projectCard:hover, .mediaButton:hover {
         height: auto;
         min-height: 100%;
         --vh: 1vh;
+        --vw: 1vw;
     }
     body {
         height: calc(var(--vh, 1vh) * 100); 
+        width: calc(var(--vw, 1vw) * 100); 
         /* Fix the safe area for devices with notches */
         padding-top: env(safe-area-inset-top);
         padding-bottom: env(safe-area-inset-bottom);
