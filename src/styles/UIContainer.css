@@ -13,7 +13,8 @@
     align-items: center;    
     overflow: hidden;   
     padding: 20px;       
-    pointer-events: none
+    pointer-events: none;
+    touch-action: none;
 }
 
 /* Main UI Container  */
@@ -32,6 +33,7 @@
     backdrop-filter: blur(10px); 
     opacity: 0;
     transition: all 0.3s ease-out; 
+    touch-action: auto;
 }
 
 .fade-container { 

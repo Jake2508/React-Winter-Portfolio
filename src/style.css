@@ -98,6 +98,8 @@ button, .backButton {
     font-size: 1rem; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.4s ease; will-change: transform; 
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* Button Hover Defaults */
