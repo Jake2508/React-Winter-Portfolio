@@ -10,6 +10,7 @@ import Experience from './components/Experience.jsx';
 import Loader from './components/Loader.jsx'; 
 import TitleDisplay from './components/TitleDisplay.jsx';
 import ProjectDisplay from './components/ProjectDisplay.jsx';
+import usePreventZoom from './hooks/usePreventZoom.js';  
 
 
 const MemorisedTitleDisplay = memo(TitleDisplay); 
@@ -22,6 +23,9 @@ const App = () => {
     const [selectedProject, setSelectedProject] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
     const [fadeInTitle, setFadeInTitle] = useState(false);
+
+    // Restrict Zoom Controls
+    usePreventZoom();
 
     const toggleVisibility = (project) => {
         if (project) {
