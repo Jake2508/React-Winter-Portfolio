@@ -8,11 +8,12 @@ export const ContactData = () => (
         </p>
 
         {/* Contact Methods */}
-        <p>Email me at <a href="mailto:rosejake400@gmail.com">rosejake400@gmail.com</a></p>
-        <p>Message me on <a href="#" onClick={(e) => { e.preventDefault(); copyToClipboard('07561042931') }}>07561 042931</a></p>
-        <p>Contact me on <a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">LinkedIn</a></p>
-        <p>View my code on <a href="https://github.com/Jake2508?tab=repositories" target="_blank">GitHub</a></p>
-
+        <div>
+            <p>Email me at <a href="mailto:rosejake400@gmail.com">rosejake400@gmail.com</a></p>
+            <p>Message me on <a href="#" onClick={(e) => { e.preventDefault(); copyToClipboard('07561042931') }}>07561 042931</a></p>
+            <p>Contact me on <a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">LinkedIn</a></p>
+            <p>View my code on <a href="https://github.com/Jake2508?tab=repositories" target="_blank">GitHub</a></p>
+        </div>
         {/* CV */}
         <h2>Resume</h2>
         <div className='centerElements'>

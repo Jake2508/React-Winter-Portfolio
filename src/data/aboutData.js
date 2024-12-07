@@ -38,15 +38,15 @@ export const AboutData = () => (
 
         {/* Programming Language Experiences */}
         <h2>Experience</h2>
-        <h4>C#</h4>
+        <h4 className="subInformation">C#</h4>
         <p>
             Studied 3+ years at University. Professional industry experience at my current role creating Unit & Automation tests and making changes when relevant.
         </p>
-        <h4>Javascript / HTML / CSS</h4>
+        <h4 className="subInformation">Javascript / HTML / CSS</h4>
         <p>
             Experience from setting up my portfolio which utilises the Three JS & React libraries. Custom HTML and CSS code was added to create the UI elements.
         </p>
-        <h4>C++</h4>
+        <h4 className="subInformation">C++</h4>
         <p>Surface level knowledge gained at university.</p>
 
         {/* Bonus Information & Skills */}
