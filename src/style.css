@@ -20,8 +20,8 @@ body,
     font-size: 18px; 
     line-height: 1.5;
     background: linear-gradient(180deg, #0a0e27, black); 
-    display: flex;
-    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
 }
 
 canvas, .r3f
