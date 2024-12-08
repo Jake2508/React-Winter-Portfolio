@@ -27,8 +27,8 @@ To get the project up and running on your local machine, follow these steps:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/your-portfolio.git
-   cd your-portfolio
+   git clone https://github.com/Jake2508/React-Winter-Portfolio.git
+   cd React-Winter-Portfolio
 2. **Install dependencies**:
    ```bash
    npm install
@@ -47,6 +47,8 @@ HTML/CSS/JS - Layout and styling.
 
 JSON - Loads dynamic data for projects.
 
+
 ## Author
-Jake Rose
+***Jake Rose***
+
 Website: [https://jake-rose.com/](https://jake-rose.com/)
