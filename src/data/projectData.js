@@ -3,7 +3,6 @@
 
 export const projectData = [
             {
-                // IN PROGRESS --> NEEDS NEW IMAGES ONCE READY
                 id: 1,
                 title: 'Portfolio',
                 miniTitle: '2024',
@@ -23,10 +22,10 @@ export const projectData = [
                 ],
                 links: [
                     { label: 'Code Repo', url: 'https://github.com/Jake2508/React-Winter-Portfolio/tree/main/src' },
+                    { label: 'Design Board', url: 'https://miro.com/app/board/uXjVKECWmgk=/?share_link_id=556901902113' },
                 ],
             },
             {
-                // TODO - UPDATE IMAGES & PROJ SANDBOX
                 id: 2,
                 title: 'Procedural Islands',
                 miniTitle: '2024',
@@ -54,7 +53,6 @@ export const projectData = [
                 ],
             },
             {
-                // COMPLETE
                 id: 3,
                 title: 'Tankeo Drift',
                 miniTitle: '2023-2024',
@@ -80,6 +78,7 @@ export const projectData = [
                 ],
                 links: [
                     { label: 'Code Repo', url: 'https://github.com/Jake2508/Tank/tree/main/Assets/Scripts' },
+                    { label: 'Design Doc', url: '/Images/GDD/GDD-Tankeo-Drift.pdf' },
                     { label: 'Download Game', url: 'https://jake12341234.itch.io/tankeo-drift' },
                 ],
             },
