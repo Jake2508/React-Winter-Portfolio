@@ -14,6 +14,7 @@ export const ContactData = () => (
             <p>Contact me on <a href="https://www.linkedin.com/in/jake-rose123/" target="_blank">LinkedIn</a></p>
             <p>View my code on <a href="https://github.com/Jake2508?tab=repositories" target="_blank">GitHub</a></p>
         </div>
+        
         {/* CV */}
         <h2>Resume</h2>
         <div className='centerElements'>
