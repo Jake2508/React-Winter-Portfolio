@@ -40,23 +40,18 @@ export default function Experience({ onSelectProject, isVisible }) {
                 size={512} 
                 attach="background" 
             />
-            <ambientLight 
-                intensity={0.3} 
-                color={'#ffffff'} 
-                castShadow={false} 
-            />
         </>
     ), []);
 
     const postProcessingEffects = useMemo(() => {
         return (
-            <EffectComposer>
-                <ToneMapping mode={ToneMappingMode.ACES_FILMIC} /> 
+            <EffectComposer multisampling={2} >
+                <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />  
                 <Vignette offset={0.2} darkness={0.45} blendFunction={BlendFunction.COLOR_DODGE} />
             </EffectComposer>
             );
         }, []); // Only recalculated once
-
+        
     return (
         <>
             {/* Perf component monitors performance */}
@@ -77,7 +72,7 @@ export default function Experience({ onSelectProject, isVisible }) {
             {postProcessingEffects}
 
             {/* Orbit Controls */}
-            <OrbitControls makeDefault enableDamping={true} dampingFactor={0.05} enablePan={false} 
+            <OrbitControls makeDefault enableDamping={true} dampingFactor={0.1} enablePan={false} 
                 minPolarAngle={Math.PI / 4.5} maxPolarAngle={Math.PI / 2.2}
                 minDistance={7.0} maxDistance={25} 
                 enabled={!isVisible}  
