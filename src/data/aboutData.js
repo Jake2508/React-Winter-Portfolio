@@ -4,16 +4,16 @@ export const AboutData = () => (
     <div>
         {/* Introduction & About */}
         <p>
-            Welcome! I'm Jake, an aspiring games developer currently working as a QA Tester at West Pier Studio. <br /><br />
+            Welcome! I'm Jake, a software developer with experience in QA, test automation, full-stack development, and programming. <br /><br />
 
-            For me, development is an iterative process that thrives on building, refining, and confidently sharing ideas.
-            I'm enthusiastic about my work always aiming to innovate. <br /><br />
+            While C# is my main focus, I've built skills in various other technologies over the years.
+            In my current QA role, I work with test automation, API, and database testing to streamline workflows and ensure software quality. <br /><br />
 
-            I enjoy writing clean code, designing feature mechanics, and supporting others to achieve the same.
-            Learning from new insights and techniques continues to shape and enhance my approaches. <br /><br />
+            I thrive in Agile environments, collaborating with teams using SCRUM, Jira, and Git to build scalable solutions. 
+            I enjoy problem-solving, optimising processes, and writing clean, maintainable code. <br /><br />
 
-            This portfolio reflects my passion for game development, showcasing skills in coding, design, and
-            3D modeling. My primary interests lie in procedural generation, roguelikes, and arcade-style games.
+            This portfolio highlights my work in software development, web technologies, and independent projects. 
+            I also enjoy designing and developing games, applying my skills in innovative ways.
         </p>
 
         {/* Education Section */}
