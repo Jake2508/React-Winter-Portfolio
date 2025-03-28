@@ -12,6 +12,10 @@ This portfolio features an interactive winter diorama created in Blender, select
 
 ---
 
+![Portfolio Promo](portfolio-promo.jpg)
+
+---
+
 ## Features
 
 - **Interactive Arcade Machine**: Click on the arcade machine to view the projects and portfolio details.
