@@ -1,8 +1,8 @@
 // Core Extensions
 import './style.css';
 import ReactDOM from 'react-dom/client';
-import React, { memo } from 'react';
-import { Suspense, useEffect, useState } from 'react';
+import React, { memo, useRef, useState, useEffect } from 'react';
+import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 
 // Custom Hooks & Components
@@ -12,28 +12,27 @@ import TitleDisplay from './components/TitleDisplay.jsx';
 import ProjectDisplay from './components/ProjectDisplay.jsx';
 import usePreventZoom from './hooks/usePreventZoom.js';  
 
-
 const MemorisedTitleDisplay = memo(TitleDisplay); 
 
 const App = () => {
     const [loading, setLoading] = useState(true);
     const [progress, setProgress] = useState(0);
     const [fadeOut, setFadeOut] = useState(false); 
-
     const [selectedProject, setSelectedProject] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
     const [fadeInTitle, setFadeInTitle] = useState(false);
+
+    // Reference for the Canvas element
+    const canvasRef = useRef(null);
 
     // Restrict Zoom Controls
     usePreventZoom();
 
     const toggleVisibility = (project) => {
         if (project) {
-            // Show Project Display
             setSelectedProject(project);
             setIsVisible(true);
         } else {
-            // Hide Project Display
             setIsVisible(false);
             setTimeout(() => setSelectedProject(null), 500); 
         }
@@ -41,7 +40,8 @@ const App = () => {
 
     // Random load delay addition modifier  
     const randomDelay = () => Math.floor(Math.random() * 100) + 20;
-    // Loading
+
+    // Loading assets
     useEffect(() => {
         const loadAssets = async () => {
             for (let i = 0; i <= 100; i++) {
@@ -59,21 +59,40 @@ const App = () => {
         };
         loadAssets();
     }, []);
-    
-    
+
+    // Resize canvas on window resize
+    useEffect(() => {
+        const resizeCanvas = () => {
+            const canvas = canvasRef.current;
+            if (canvas) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+        };
+
+        // // Initial resize
+        resizeCanvas();
+
+        // // Resize canvas on window resize
+        window.addEventListener('resize', resizeCanvas);
+
+        // // Cleanup listener on component unmount
+        return () => window.removeEventListener('resize', resizeCanvas);
+    }, []);
+
     return (
         <>
-            {/* Loading Screen UI */}
-            {loading && (
+            {/* Loading Screen UI - TEMP HIDDEN */}
+            {/* {loading && (
                 <div className={`loading-screen ${fadeOut ? 'fade-out' : ''}`}>
                     <Loader progress={progress} />
                 </div>
-            )}
+            )} */}
 
             {/* Main Canvas */}
             <Canvas
+                ref={canvasRef}  // Attach the ref to the Canvas element
                 className='r3f'
-                camera={{ fov: 45, near: 1, far: 120, position: [15, 4.5, -7.5], }} 
                 gl={{ antialias: false, powerPreference: 'high-performance' }}
                 dpr={[1, Math.min(2, window.devicePixelRatio)]} // Cap max DPR to 2
             >
@@ -86,9 +105,9 @@ const App = () => {
                 </Suspense>
             </Canvas>
 
-            {/* UI Overlay Wrapper */}
+            {/* UI Overlay Wrapper */} 
             <div className='ui-container'>
-               {!loading && <MemorisedTitleDisplay fadeIn={fadeInTitle} />}
+                {/* {!loading && <MemorisedTitleDisplay fadeIn={fadeInTitle} />} */}
                 <ProjectDisplay
                     project={selectedProject}
                     className={`fade-container ${isVisible ? 'visible' : ''}`} 

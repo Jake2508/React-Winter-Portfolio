@@ -1,5 +1,5 @@
 /* Loading Screen */
-.loading-screen { 
+/* .loading-screen { 
     position: fixed; 
     top: 0; 
     left: 0; 
@@ -19,38 +19,38 @@
 .loading-screen.fade-out { 
     opacity: 0; 
     pointer-events: none; 
-}
+} */
 
 /* Loading Text with Glow Effect */
-.loading-text { 
+/* .loading-text { 
     font-size: 1.75rem; 
     font-family: 'GameFont', sans-serif; 
     letter-spacing: 3px; 
     margin-bottom: 10px; 
     text-shadow: 0 0 5px rgba(0, 188, 212, 0.6); 
-}
+} */
 
 /* Arcade loading icon */
-.arcade-icon { 
+/* .arcade-icon { 
     width: 60px; 
     height: auto; 
     animation: bounce 1.5s infinite ease-in-out, pulse 2s infinite alternate ease-in-out;
     filter: drop-shadow(0 0 8px rgba(0, 188, 212, 0.4)); 
     margin: 25px 0; 
-}
+} */
 
 /* Bounce animation for arcade icon*/
-@keyframes bounce { 
+/* @keyframes bounce { 
     0%, 100% { 
         transform: translateY(0); 
     }
     50% { 
         transform: translateY(-10px); 
     } 
-}
+} */
 
 /* Pulse effect for arcade icon */
-@keyframes pulse {
+/* @keyframes pulse {
     from { 
         filter: drop-shadow(0 0 8px rgba(0, 188, 212, 0.45));  
     }
@@ -74,4 +74,4 @@
     background: linear-gradient(135deg, #00e5ff, #007bb8);
     box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.5); 
     transition: width 0.3s ease; 
-}
+} */
