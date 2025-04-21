@@ -7,19 +7,16 @@ import { Canvas } from '@react-three/fiber';
 
 // Custom Hooks & Components
 import Experience from './components/Experience.jsx';
-import Loader from './components/Loader.jsx'; 
-import TitleDisplay from './components/TitleDisplay.jsx';
 import ProjectDisplay from './components/ProjectDisplay.jsx';
 import usePreventZoom from './hooks/usePreventZoom.js';  
 
-const MemorisedTitleDisplay = memo(TitleDisplay); 
 
 const App = () => {
     const [loading, setLoading] = useState(true);
     const [progress, setProgress] = useState(0);
     const [fadeOut, setFadeOut] = useState(false); 
     const [selectedProject, setSelectedProject] = useState(null);
-    const [isVisible, setIsVisible] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
     const [fadeInTitle, setFadeInTitle] = useState(false);
 
     // Reference for the Canvas element
@@ -31,9 +28,9 @@ const App = () => {
     const toggleVisibility = (project) => {
         if (project) {
             setSelectedProject(project);
-            setIsVisible(true);
+            setIsFocused(true);
         } else {
-            setIsVisible(false);
+            setIsFocused(false);
             setTimeout(() => setSelectedProject(null), 500); 
         }
     };
@@ -82,13 +79,6 @@ const App = () => {
 
     return (
         <>
-            {/* Loading Screen UI - TEMP HIDDEN */}
-            {/* {loading && (
-                <div className={`loading-screen ${fadeOut ? 'fade-out' : ''}`}>
-                    <Loader progress={progress} />
-                </div>
-            )} */}
-
             {/* Main Canvas */}
             <Canvas
                 ref={canvasRef}  // Attach the ref to the Canvas element
@@ -100,17 +90,16 @@ const App = () => {
                     <Experience 
                         loadingComplete={!loading} 
                         onSelectProject={toggleVisibility} 
-                        isVisible={isVisible} 
+                        isVisible={isFocused} 
                     />
                 </Suspense>
             </Canvas>
 
             {/* UI Overlay Wrapper */} 
             <div className='ui-container'>
-                {/* {!loading && <MemorisedTitleDisplay fadeIn={fadeInTitle} />} */}
                 <ProjectDisplay
                     project={selectedProject}
-                    className={`fade-container ${isVisible ? 'visible' : ''}`} 
+                    className={`fade-container ${isFocused ? 'visible' : ''}`} 
                     onClose={() => toggleVisibility(null)}             
                 />
             </div>

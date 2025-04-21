@@ -1,16 +1,18 @@
 // Core Extensions
 import { Stars, GradientTexture, Environment, useGLTF, OrbitControls } from '@react-three/drei';
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 
 // Post Processing Effects
-import { ToneMapping, EffectComposer, DepthOfField, Vignette } from '@react-three/postprocessing';
+import { ToneMapping, EffectComposer, Vignette } from '@react-three/postprocessing';
 import { ToneMappingMode, BlendFunction } from 'postprocessing';
 
 // Custom Hooks & Components
 import { useHover } from '../hooks/useHover.js'; 
-
-// Entities
 import WinterEnvironment from '../entities/WinterEnvironment.js';
+import { useState } from 'react';
+import CameraController from './CameraController';
+import { useCameraLogic } from '../hooks/useCameraLogic';
+
 
 // Performance Monitoring
 import { Perf } from 'r3f-perf';
@@ -20,10 +22,20 @@ export default function Experience({ onSelectProject, isVisible }) {
     // Setup Model
     const arcadeMachine = useMemo(() => useGLTF('/Models/ArcadeMachine.gltf'), []);
 
+    // Setup Camera
+    const [cameraState, setCameraState] = useState('intro');
+    const orbitRef = useRef();
+    useCameraLogic({ cameraState, setCameraState, isVisible });
+
+    
+
+    
+
     // Hover Effect Hook
     const { handlePointerOver, handlePointerOut, hoveredObject } = useHover(); 
 
     const handleArcadeClick = () => {
+        setCameraState('focusArcade');
         onSelectProject({
             title: 'Arcade Machine',
             description: 'Shows Project Display UI',
@@ -62,7 +74,7 @@ export default function Experience({ onSelectProject, isVisible }) {
             <Stars 
                 radius={5}
                 depth={18} 
-                count={2000} 
+                count={1000} 
                 factor={1.5} 
                 saturation={0} 
                 fade speed={0.75} 
@@ -71,12 +83,16 @@ export default function Experience({ onSelectProject, isVisible }) {
             {/* Post Processing */}
             {postProcessingEffects}
 
+            {/* Camera Setup */}
+            <CameraController cameraState={cameraState} setCameraState={setCameraState} orbitRef={orbitRef} />
+
             {/* Orbit Controls */}
-            <OrbitControls makeDefault enableDamping={true} dampingFactor={0.1} enablePan={false} 
+            <OrbitControls ref={orbitRef} 
+                makeDefault enableDamping={true} dampingFactor={0.05} enablePan={false} 
                 minPolarAngle={Math.PI / 4.5} maxPolarAngle={Math.PI / 2.2}
                 minDistance={7.0} maxDistance={25} 
-                enabled={!isVisible}  
-                autoRotate={true} autoRotateSpeed={0.2}
+                enabled={cameraState === 'orbit'} 
+                // autoRotate={true} autoRotateSpeed={0.2} -- TO REMOVE WE WANT IT STATIC
                 // Mobile Support
                 touches={{ 
                     ONE: 0, // Single-finger rotate
