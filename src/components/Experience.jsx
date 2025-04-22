@@ -1,5 +1,5 @@
 // Core Extensions
-import { Stars, GradientTexture, Environment, useGLTF, OrbitControls } from '@react-three/drei';
+import { Text, Stars, GradientTexture, Environment, useGLTF, OrbitControls } from '@react-three/drei';
 import React, { useMemo, useRef } from 'react';
 
 // Post Processing Effects
@@ -12,7 +12,6 @@ import WinterEnvironment from '../entities/WinterEnvironment.js';
 import { useState } from 'react';
 import CameraController from './CameraController';
 import { useCameraLogic } from '../hooks/useCameraLogic';
-
 
 // Performance Monitoring
 import { Perf } from 'r3f-perf';
@@ -27,14 +26,13 @@ export default function Experience({ onSelectProject, isVisible }) {
     const orbitRef = useRef();
     useCameraLogic({ cameraState, setCameraState, isVisible });
 
-    
-
-    
-
     // Hover Effect Hook
     const { handlePointerOver, handlePointerOut, hoveredObject } = useHover(); 
 
     const handleArcadeClick = () => {
+        if (cameraState === 'focusArcade') return;
+        
+        console.log(cameraState);
         setCameraState('focusArcade');
         onSelectProject({
             title: 'Arcade Machine',
@@ -100,6 +98,24 @@ export default function Experience({ onSelectProject, isVisible }) {
                   }}
             />
 
+            {/* World Text */} 
+            {/* Might be an idea to see how float reacts with scene with text */}
+            {/* <Text
+                fontSize={1}
+                
+                position={ [2, 0.75, -2]}
+                rotation-y={ 1.9 }
+                rotation-z={ 1 }
+
+                maxWidth={ 2 }
+                textAlign='center'
+                color={'black'}
+                // children={'JAKE\rROSE'} -- This adds linebreaks
+            >
+                JAKE ROSE
+            </Text> */}
+            
+            
             {/* Static Scene Objects */}
             <WinterEnvironment />
 

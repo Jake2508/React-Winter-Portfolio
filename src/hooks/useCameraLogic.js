@@ -5,7 +5,7 @@ export function useCameraLogic({ cameraState, setCameraState, isVisible }) {
     useEffect(() => {
         // Reset to default
         if (!isVisible && cameraState === 'focusArcade') {
-            setCameraState('intro');
+            setCameraState('cancelFocus');
         }
     }, [isVisible, cameraState]);
 }

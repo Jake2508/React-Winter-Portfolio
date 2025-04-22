@@ -57,31 +57,12 @@ const App = () => {
         loadAssets();
     }, []);
 
-    // Resize canvas on window resize
-    useEffect(() => {
-        const resizeCanvas = () => {
-            const canvas = canvasRef.current;
-            if (canvas) {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-        };
-
-        // // Initial resize
-        resizeCanvas();
-
-        // // Resize canvas on window resize
-        window.addEventListener('resize', resizeCanvas);
-
-        // // Cleanup listener on component unmount
-        return () => window.removeEventListener('resize', resizeCanvas);
-    }, []);
 
     return (
         <>
             {/* Main Canvas */}
             <Canvas
-                ref={canvasRef}  // Attach the ref to the Canvas element
+                ref={canvasRef}  
                 className='r3f'
                 gl={{ antialias: false, powerPreference: 'high-performance' }}
                 dpr={[1, Math.min(2, window.devicePixelRatio)]} // Cap max DPR to 2
@@ -99,7 +80,7 @@ const App = () => {
             <div className='ui-container'>
                 <ProjectDisplay
                     project={selectedProject}
-                    className={`fade-container ${isFocused ? 'visible' : ''}`} 
+                    // className={`fade-container ${isFocused ? 'visible' : ''}`} 
                     onClose={() => toggleVisibility(null)}             
                 />
             </div>

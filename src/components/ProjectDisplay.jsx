@@ -19,7 +19,7 @@ import useFadeTransition from '../hooks/useFadeTransition';
 
 
 // Main ProjectDisplay Component
-const ProjectDisplay = ({ onClose, className }) => {
+const ProjectDisplay = ({ onClose, className, isCameraFocused }) => {
     const [activeTab, setActiveTab] = useState('about');
     const [selectedProject, setSelectedProject] = useState(null);
     
@@ -68,16 +68,20 @@ const ProjectDisplay = ({ onClose, className }) => {
     // Close UI Panel 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (containerRef.current && !containerRef.current.contains(event.target)) {
-                onClose(); // Call onClose if clicked outside
-            }
-        };
+            const clickedOutside = containerRef.current && !containerRef.current.contains(event.target);
+            const shouldClose = clickedOutside && !isCameraFocused;
 
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [onClose]);
+        if (shouldClose) {
+            onClose(); // Call onClose if clicked outside and not focused
+        }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+    };
+}, [onClose, isCameraFocused]);
 
     // Carousel Image Navigation
     const changeImage = (direction) => {
