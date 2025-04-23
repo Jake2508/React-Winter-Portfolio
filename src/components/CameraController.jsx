@@ -10,7 +10,7 @@ export default function CameraController({ cameraState, setCameraState, orbitRef
     const speedRef = useRef(0.04);
 
     // Target Positions
-    const ORBIT_POSITION = new THREE.Vector3(8, 5, -5);
+    const ORBIT_POSITION = new THREE.Vector3(8, 3, -5);
     const ORBIT_LOOK_AT = new THREE.Vector3(0, -1, 0);
 
     // On Initial Render: Set camera position and trigger intro transition

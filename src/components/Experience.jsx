@@ -1,5 +1,5 @@
 // Core Extensions
-import { Text, Stars, GradientTexture, Environment, useGLTF, OrbitControls } from '@react-three/drei';
+import { Text, Float, Stars, GradientTexture, Environment, useGLTF, OrbitControls } from '@react-three/drei';
 import React, { useMemo, useRef } from 'react';
 
 // Post Processing Effects
@@ -15,11 +15,20 @@ import { useCameraLogic } from '../hooks/useCameraLogic';
 
 // Performance Monitoring
 import { Perf } from 'r3f-perf';
+import { useControls } from 'leva';
 
 
 export default function Experience({ onSelectProject, isVisible }) {
     // Setup Model
     const arcadeMachine = useMemo(() => useGLTF('/Models/ArcadeMachine.gltf'), []);
+
+    const { posX, posY, posZ, rotX, rotY, rotZ } = useControls('Text Debug', {
+        posX: { value: 1.7, min: -10, max: 10, step: 0.1 },
+        posZ: { value: -2.25, min: -10, max: 10, step: 0.1 },
+        rotX: { value: -1.6, min: -Math.PI, max: Math.PI, step: 0.01 },
+        rotY: { value: 0, min: -Math.PI, max: Math.PI, step: 0.01 },
+        rotZ: { value: 2.64, min: -Math.PI, max: Math.PI, step: 0.01 },
+    });
 
     // Setup Camera
     const [cameraState, setCameraState] = useState('intro');
@@ -38,6 +47,13 @@ export default function Experience({ onSelectProject, isVisible }) {
             title: 'Arcade Machine',
             description: 'Shows Project Display UI',
         });
+    };
+
+    const isFocused = cameraState === 'focusArcade';
+
+    const floatConfig = {
+        rotationIntensity: isFocused ? 0.05 : 0.2, // subtle when focused
+        floatIntensity: isFocused ? 0.1 : 0.25,     // less bobbing when focused
     };
 
     // Memoize Environment, Lighting & Post-Processing effects to render once (Static Scene)
@@ -89,44 +105,32 @@ export default function Experience({ onSelectProject, isVisible }) {
                 makeDefault enableDamping={true} dampingFactor={0.05} enablePan={false} 
                 minPolarAngle={Math.PI / 4.5} maxPolarAngle={Math.PI / 2.2}
                 minDistance={7.0} maxDistance={25} 
+                autoRotate={true} autoRotateSpeed={0.2} 
                 enabled={cameraState === 'orbit'} 
-                // autoRotate={true} autoRotateSpeed={0.2} -- TO REMOVE WE WANT IT STATIC
                 // Mobile Support
                 touches={{ 
                     ONE: 0, // Single-finger rotate
                     TWO: 2, // Two-finger zoom
                   }}
             />
-
-            {/* World Text */} 
-            {/* Might be an idea to see how float reacts with scene with text */}
-            {/* <Text
-                fontSize={1}
-                
-                position={ [2, 0.75, -2]}
-                rotation-y={ 1.9 }
-                rotation-z={ 1 }
-
-                maxWidth={ 2 }
-                textAlign='center'
-                color={'black'}
-                // children={'JAKE\rROSE'} -- This adds linebreaks
+            
+            <Float 
+                rotationIntensity={floatConfig.rotationIntensity}
+                floatIntensity={floatConfig.floatIntensity}
+                speed={1}
             >
-                JAKE ROSE
-            </Text> */}
-            
-            
-            {/* Static Scene Objects */}
-            <WinterEnvironment />
+                {/* Scene Objects */}
+                <WinterEnvironment />
 
-            {/* Arcade Machine */}
-            <primitive 
-                object={arcadeMachine.scene} scale={0.4} position-y={-1.4} 
-                castShadow={false} receiveShadow={false} 
-                onPointerOver={(event) => handlePointerOver(event, arcadeMachine.scene)} 
-                onPointerOut={(event) => handlePointerOut(event, arcadeMachine.scene)}
-                onClick={handleArcadeClick}
-            />
+                {/* Arcade Machine */}
+                <primitive 
+                    object={arcadeMachine.scene} scale={0.4} position-y={-1.4} 
+                    castShadow={false} receiveShadow={false} 
+                    onPointerOver={(event) => handlePointerOver(event, arcadeMachine.scene)} 
+                    onPointerOut={(event) => handlePointerOut(event, arcadeMachine.scene)}
+                    onClick={handleArcadeClick}
+                />
+            </Float>
         </>
     );
 }
