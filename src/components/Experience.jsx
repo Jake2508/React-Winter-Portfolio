@@ -1,5 +1,5 @@
 // Core Extensions
-import { Text, Float, Stars, GradientTexture, Environment, useGLTF, OrbitControls } from '@react-three/drei';
+import { Float, Stars, GradientTexture, Environment, useGLTF, OrbitControls } from '@react-three/drei';
 import React, { useMemo, useRef } from 'react';
 
 // Post Processing Effects
@@ -15,20 +15,11 @@ import { useCameraLogic } from '../hooks/useCameraLogic';
 
 // Performance Monitoring
 import { Perf } from 'r3f-perf';
-import { useControls } from 'leva';
 
 
 export default function Experience({ onSelectProject, isVisible }) {
     // Setup Model
     const arcadeMachine = useMemo(() => useGLTF('/Models/ArcadeMachine.gltf'), []);
-
-    const { posX, posY, posZ, rotX, rotY, rotZ } = useControls('Text Debug', {
-        posX: { value: 1.7, min: -10, max: 10, step: 0.1 },
-        posZ: { value: -2.25, min: -10, max: 10, step: 0.1 },
-        rotX: { value: -1.6, min: -Math.PI, max: Math.PI, step: 0.01 },
-        rotY: { value: 0, min: -Math.PI, max: Math.PI, step: 0.01 },
-        rotZ: { value: 2.64, min: -Math.PI, max: Math.PI, step: 0.01 },
-    });
 
     // Setup Camera
     const [cameraState, setCameraState] = useState('intro');
@@ -50,7 +41,6 @@ export default function Experience({ onSelectProject, isVisible }) {
     };
 
     const isFocused = cameraState === 'focusArcade';
-
     const floatConfig = {
         rotationIntensity: isFocused ? 0.05 : 0.2, // subtle when focused
         floatIntensity: isFocused ? 0.1 : 0.25,     // less bobbing when focused
@@ -81,7 +71,7 @@ export default function Experience({ onSelectProject, isVisible }) {
     return (
         <>
             {/* Perf component monitors performance */}
-            {/* <Perf position="top-left" /> */}
+            <Perf position="top-left" />
 
             {/* Environment, Lighting & Background */}
             {environment}
@@ -107,6 +97,7 @@ export default function Experience({ onSelectProject, isVisible }) {
                 minDistance={7.0} maxDistance={25} 
                 autoRotate={true} autoRotateSpeed={0.2} 
                 enabled={cameraState === 'orbit'} 
+                
                 // Mobile Support
                 touches={{ 
                     ONE: 0, // Single-finger rotate
@@ -114,15 +105,14 @@ export default function Experience({ onSelectProject, isVisible }) {
                   }}
             />
             
+            {/* Scene Objects */}
             <Float 
                 rotationIntensity={floatConfig.rotationIntensity}
                 floatIntensity={floatConfig.floatIntensity}
                 speed={1}
             >
-                {/* Scene Objects */}
                 <WinterEnvironment />
 
-                {/* Arcade Machine */}
                 <primitive 
                     object={arcadeMachine.scene} scale={0.4} position-y={-1.4} 
                     castShadow={false} receiveShadow={false} 
