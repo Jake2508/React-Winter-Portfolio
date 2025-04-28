@@ -9,6 +9,7 @@ import { ToneMappingMode, BlendFunction } from 'postprocessing';
 // Custom Hooks & Components
 import { useHover } from '../hooks/useHover.js'; 
 import WinterEnvironment from '../entities/WinterEnvironment.js';
+import ArcadeMachine from '../entities/ArcadeMachine.js';
 import { useState } from 'react';
 import CameraController from './CameraController';
 import { useCameraLogic } from '../hooks/useCameraLogic';
@@ -19,7 +20,7 @@ import { Perf } from 'r3f-perf';
 
 export default function Experience({ onSelectProject, isVisible }) {
     // Setup Model
-    const arcadeMachine = useMemo(() => useGLTF('/Models/ArcadeMachine.gltf'), []);
+    // const arcadeMachine = useMemo(() => useGLTF('/Models/ArcadeMachine.gltf'), []);
 
     // Setup Camera
     const [cameraState, setCameraState] = useState('intro');
@@ -113,12 +114,10 @@ export default function Experience({ onSelectProject, isVisible }) {
             >
                 <WinterEnvironment />
 
-                <primitive 
-                    object={arcadeMachine.scene} scale={0.4} position-y={-1.4} 
-                    castShadow={false} receiveShadow={false} 
-                    onPointerOver={(event) => handlePointerOver(event, arcadeMachine.scene)} 
-                    onPointerOut={(event) => handlePointerOut(event, arcadeMachine.scene)}
-                    onClick={handleArcadeClick}
+                <ArcadeMachine 
+                    onPointerOver={(event) => handlePointerOver(event)} 
+                    onPointerOut={(event) => handlePointerOut(event)} 
+                    onClick={handleArcadeClick} 
                 />
             </Float>
         </>

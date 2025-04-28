@@ -4,7 +4,8 @@ import { computeBoundsTree, disposeBoundsTree } from 'three-mesh-bvh';
 
 
 export default function WinterEnvironment() {
-    const { scene } = useGLTF('/Models/WinterEnvironment.gltf');
+    // const { scene } = useGLTF('/Models/WinterEnvironment.gltf');
+    const { scene } = useGLTF('/Models/WinterScene.gltf');
 
     // Optimize environment setup 
     const optimizedScene = useMemo(() => {
