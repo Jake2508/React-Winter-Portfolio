@@ -4,8 +4,14 @@ import { computeBoundsTree, disposeBoundsTree } from 'three-mesh-bvh';
 
 
 export default function WinterEnvironment() {
-    // const { scene } = useGLTF('/Models/WinterEnvironment.gltf');
-    const { scene } = useGLTF('/Models/WinterScene.gltf');
+    const { scene } = useGLTF(
+        "/Models/WinterScene.gltf", 
+        true,
+        (loader) => {
+          loader.setDRACOLoader(new DRACOLoader());
+          loader.setDRACOLoaderPath("/draco/");
+        }
+      );
 
     // Optimize environment setup 
     const optimizedScene = useMemo(() => {
