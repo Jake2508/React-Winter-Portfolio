@@ -1,6 +1,7 @@
 // Core Extensions
-import { Float, Stars, GradientTexture, Environment, useGLTF, OrbitControls } from '@react-three/drei';
+import { Text, Float, Stars, GradientTexture, Environment, useGLTF, OrbitControls } from '@react-three/drei';
 import React, { useMemo, useRef } from 'react';
+
 
 // Post Processing Effects
 import { ToneMapping, EffectComposer, Vignette } from '@react-three/postprocessing';
@@ -8,19 +9,27 @@ import { ToneMappingMode, BlendFunction } from 'postprocessing';
 
 // Custom Hooks & Components
 import { useHover } from '../hooks/useHover.js'; 
-import WinterEnvironment from '../entities/WinterEnvironment.js';
-import ArcadeMachine from '../entities/ArcadeMachine.js';
-import { useState } from 'react';
+import OptimiseModel from '../hooks/useOptimiseModel.js';
+import { useState, useEffect } from 'react';
 import CameraController from './CameraController';
 import { useCameraLogic } from '../hooks/useCameraLogic';
 
 // Performance Monitoring
 import { Perf } from 'r3f-perf';
+import { useControls } from 'leva';
 
 
 export default function Experience({ onSelectProject, isVisible }) {
-    // Setup Model
-    // const arcadeMachine = useMemo(() => useGLTF('/Models/ArcadeMachine.gltf'), []);
+
+    const staticScene = useMemo(() => useGLTF('/Models/WinterScene.gltf'), []);
+    const arcadeMachine = useMemo(() => useGLTF('/Models/ArcadeMachine.gltf'), []);
+    const signPost = useMemo(() => useGLTF('/Models/SignPost.gltf'), []);
+    
+        posZ: { value: 2.4, min: -10, max: 10, step: 0.1 },
+        rotX: { value: 0, min: -Math.PI, max: Math.PI, step: 0.01 },
+        rotY: { value: 2.28, min: -Math.PI, max: Math.PI, step: 0.01 },
+        rotZ: { value: 0, min: -Math.PI, max: Math.PI, step: 0.01 },
+    });
 
     // Setup Camera
     const [cameraState, setCameraState] = useState('intro');
@@ -47,7 +56,7 @@ export default function Experience({ onSelectProject, isVisible }) {
         floatIntensity: isFocused ? 0.1 : 0.25,     // less bobbing when focused
     };
 
-    // Memoize Environment, Lighting & Post-Processing effects to render once (Static Scene)
+    // Memoize Environment
     const environment = useMemo(() => (
         <>
             <Environment preset="forest" />
@@ -105,20 +114,49 @@ export default function Experience({ onSelectProject, isVisible }) {
                     TWO: 2, // Two-finger zoom
                   }}
             />
-            
+
+
             {/* Scene Objects */}
             <Float 
                 rotationIntensity={floatConfig.rotationIntensity}
                 floatIntensity={floatConfig.floatIntensity}
                 speed={1}
             >
-                <WinterEnvironment />
-
-                <ArcadeMachine 
-                    onPointerOver={(event) => handlePointerOver(event)} 
-                    onPointerOut={(event) => handlePointerOut(event)} 
-                    onClick={handleArcadeClick} 
+                {/* Model Shit */}
+                            {/* Static Scene Objects */}
+            
+                {/* <WinterEnvironment /> */}
+                <primitive 
+                    object={staticScene.scene} scale={0.4} position-y={-1.4} castShadow={false} receiveShadow={false} 
                 />
+                {/* Arcade Machine */}
+                <primitive 
+                    object={arcadeMachine.scene} scale={0.4} position-y={-1.4} castShadow={false} receiveShadow={false} 
+                    onPointerOver={(event) => handlePointerOver(event, arcadeMachine.scene)} 
+                    onPointerOut={(event) => handlePointerOut(event, arcadeMachine.scene)}
+                    onClick={handleArcadeClick}
+                />
+                {/* Sign Post */}
+                <primitive 
+                    object={signPost.scene} scale={0.4} position-y={-1.4} castShadow={false} receiveShadow={false} 
+                    onPointerOver={(event) => handlePointerOver(event, signPost.scene)} 
+                    onPointerOut={(event) => handlePointerOut(event, signPost.scene)}
+                    onClick={handleArcadeClick}
+                />
+                <Text
+                    fontSize={0.2}
+                    
+                    position={ [posX, posY, posZ]}
+                    rotation={ [rotX, rotY, rotZ]}
+                    // rotation-y={ 0 }
+                    // rotation-z={ 2.64 }
+
+                    maxWidth={ 2 }
+                    textAlign='center'
+                    color={'black'}
+                >
+                    JAKE ROSE
+                </Text>
             </Float>
         </>
     );

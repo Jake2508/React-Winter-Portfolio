@@ -141,7 +141,7 @@
 	],
 	"meshes":[
 		{
-			"name":"Cube.010",
+			"name":"arcade_machine_obj",
 			"primitives":[
 				{
 					"attributes":{
