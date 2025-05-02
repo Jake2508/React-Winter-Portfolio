@@ -11,57 +11,33 @@ import { ToneMappingMode, BlendFunction } from 'postprocessing';
 import OptimiseModel from '../hooks/useOptimiseModel.js';
 import CameraController from './CameraController';
 import { useCameraLogic } from '../hooks/useCameraLogic';
+import Interactable from './Interactable.js';
+
 
 // Performance Monitoring
 import { Perf } from 'r3f-perf';
 import { useControls } from 'leva';
 
-function Interactable({ modelName, ...props }) {
-    const ref = useRef();
-    const [hovered, hover] = useState(null);
-  
-    // Dynamically load the model based on the modelName prop
-    const model = useMemo(() => useGLTF(`/Models/${modelName}.gltf`), []);
-
-    //  We'll then want to optimise once loaded
-    
-    // This may be good to refactor later
-    // useFrame((state) => { 
-    //     const time = state.clock.getElapsedTime();
-    //     ref.current.position.x = Math.sin(time * 2) * 0.2; // Shuffle side-to-side
-    //   });
-  
-    return (
-      <Select enabled={hovered}>
-        <mesh ref={ref} {...props} onPointerOver={() => hover(true)} onPointerOut={() => hover(false)}>
-          {/* Render the dynamically loaded model */}
-          <primitive object={model.scene} />
-        </mesh>
-      </Select>
-    );
-  }
 
 export default function Experience({ onSelectProject, isVisible }) {
     
     // Setup Camera
     const [cameraState, setCameraState] = useState('intro');
+    const [hovered, setHovered] = useState(false); 
     const orbitRef = useRef();
     useCameraLogic({ cameraState, setCameraState, isVisible });
 
     // Static Scene
     const staticScene = useMemo(() => useGLTF('/Models/WinterScene.gltf'), []);
     
-    // Hover Vars
-    const ref = useRef()
-    const [hovered, hover] = useState(null)
 
     // Debug
     const { posX, posY, posZ, rotX, rotY, rotZ } = useControls('Text Debug', {
-        posX: { value: -1.2, min: -10, max: 10, step: 0.1 },
-        posY: { value: 0.2, min: -10, max: 10, step: 0.1 },
-        posZ: { value: 2.4, min: -10, max: 10, step: 0.1 },
+        posX: { value: -1.4, min: -10, max: 10, step: 0.1 },
+        posY: { value: -0.2, min: -10, max: 10, step: 0.1 },
+        posZ: { value: 2.2, min: -10, max: 10, step: 0.1 },
         rotX: { value: 0, min: -Math.PI, max: Math.PI, step: 0.01 },
-        rotY: { value: 2.28, min: -Math.PI, max: Math.PI, step: 0.01 },
+        rotY: { value: 2.3, min: -Math.PI, max: Math.PI, step: 0.01 },
         rotZ: { value: 0, min: -Math.PI, max: Math.PI, step: 0.01 },
     });
 
@@ -77,7 +53,32 @@ export default function Experience({ onSelectProject, isVisible }) {
         });
     };
 
-    const isFocused = cameraState === 'focusArcade';
+    const handleSignClick = () => {
+        if (cameraState === 'focusSign') return;
+        
+        console.log(cameraState);
+        setCameraState('focusSign');
+        onSelectProject({
+            title: 'Sign Post',
+            description: 'Shows About Section',
+        });
+    };
+
+    const handlePointerDown = (e) => {
+        // If user clicked *outside* of interactables, reset focus
+        const clickedObj = e.intersections?.[0]?.object;
+      
+        if (
+          cameraState.includes('focus') &&
+          clickedObj?.userData?.type !== 'interactable'
+        ) {
+          setCameraState('intro');
+          onSelectProject(null); // Clear any project UI
+        }
+      };
+      
+
+    const isFocused = cameraState.includes('focus');
     const floatConfig = {
         rotationIntensity: isFocused ? 0.05 : 0.2, // subtle when focused
         floatIntensity: isFocused ? 0.1 : 0.25,     // less bobbing when focused
@@ -110,7 +111,7 @@ export default function Experience({ onSelectProject, isVisible }) {
             <Stars radius={5} depth={18} count={1000} factor={1.5} saturation={0} fade speed={0.75} />
 
             {/* Orbit Controls */}
-            <OrbitControls enabled={hovered || cameraState === 'orbit'} ref={orbitRef} 
+            <OrbitControls enabled={cameraState === 'orbit'} ref={orbitRef} 
                 makeDefault enableDamping={true} dampingFactor={0.05} enablePan={false} 
                 minPolarAngle={Math.PI / 4.5} maxPolarAngle={Math.PI / 2.2}
                 minDistance={7.0} maxDistance={25} 
@@ -125,33 +126,35 @@ export default function Experience({ onSelectProject, isVisible }) {
                 <EffectComposer multisampling={8} autoClear={false}>
                     <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />  
                     <Vignette offset={0.2} darkness={0.45} blendFunction={BlendFunction.COLOR_DODGE} />
-                    <Outline visibleEdgeColor="white" edgeStrength={10} width={1000} />
+                    <Outline visibleEdgeColor="white" edgeStrength={40} width={1000} />
                 </EffectComposer>
 
                 {/* Scene Objects */}
-                <Float 
+                {/* <Float 
                     rotationIntensity={floatConfig.rotationIntensity}
                     floatIntensity={floatConfig.floatIntensity}
                     speed={1}
-                >
+                > */}
 
                 {/* Static Scene */}
                 <primitive object={staticScene.scene} scale={0.4} position-y={-1.4} castShadow={false} receiveShadow={false} />
-
+                
+                {/* Interactables */}
                 <Select enabled={hovered}>
                     
                     {/* Arcade Machine */}
-                    <Interactable modelName="ArcadeMachine" scale={0.4} position-y={-1.4} castShadow={false} receiveShadow={false}
+                    <Interactable modelName="ArcadeMachine" position-y={-1.4} castShadow={false} receiveShadow={false}
                     onClick={handleArcadeClick}
                     />
 
                     {/* Sign Post */}
-                    <Interactable modelName="SignPost" scale={0.4} position-y={-1.4} castShadow={false} receiveShadow={false}
-                    // onClick={handleArcadeClick}
+                    <Interactable modelName="SignPost" position-y={-1.4} castShadow={false} receiveShadow={false}
+                    onClick={handleSignClick}
                     />
                     
                 </Select>
                     <Text
+                        // font="/Fonts/Patrick Hand_Regular.json"
                         fontSize={0.2}
                         position={ [posX, posY, posZ]}
                         rotation={ [rotX, rotY, rotZ]}
@@ -161,10 +164,8 @@ export default function Experience({ onSelectProject, isVisible }) {
                     >
                         JAKE ROSE
                     </Text>
-                </Float>
-            </Selection>
-
-            
+                {/* </Float> */}
+            </Selection>            
         </>
     );
 }

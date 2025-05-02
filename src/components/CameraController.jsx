@@ -40,6 +40,11 @@ export default function CameraController({ cameraState, setCameraState, orbitRef
                 targetPosition.current.set(1.5, 0.4, 0);
                 targetLookAt.current.set(0, 0.2, 0);
                 break;
+                case 'focusSign':
+                    speedRef.current = 0.04; 
+                    targetPosition.current.set(1.5, 0.4, 0);
+                    targetLookAt.current.set(0, 0.2, 0);
+                    break;
             case 'cancelFocus':
                 speedRef.current = 0.025; 
                 targetPosition.current.copy(ORBIT_POSITION);
