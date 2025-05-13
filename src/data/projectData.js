@@ -33,7 +33,6 @@ export const projectData = [
                 previewImage: '/Images/WebApplications/procedural-promo1.jpg',
                 media: [
                     { type: 'image', url: '/Images/WebApplications/procedural-promo1.jpg' },
-                    // Add a few more variation images once sandbox is setup
                 ],
                 technologies: ['Three.js', 'Three bvh', 'GLSL Shaders'],
                 description: ['This procedural terrain shader, created with Three.js, generates a realistic, customisable landscapes. ' +
@@ -49,7 +48,7 @@ export const projectData = [
                 ],
                 links: [
                     { label: 'Code Repo', url: 'https://github.com/Jake2508/procedural-terrain-shader/tree/main' },
-                    { label: 'Demo', url: 'https://codesandbox.io/p/devbox/github/Jake2508/procedural-terrain-shader' },
+                    { label: 'Live Link', url: 'https://proceduralterrainshader.netlify.app/' },
                 ],
             },
             {
