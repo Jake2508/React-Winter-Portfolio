@@ -19,9 +19,9 @@ export const ContactData = () => (
         <h2>Resume</h2>
         <div className='centerElements'>
             {/* Link & Download Options */} 
-            <p> <a href="/Images/General/cv.pdf" target="_blank">View Online</a> </p>
+            <p> <a href="/Images/General/Jake-Rose-CV.pdf" target="_blank">View Online</a> </p>
             <img src="/Images/General/pdf-icon2.png" alt="PDF Icon" className='educationImage' />
-            <p> <a href="/Images/General/cv.pdf" download={"Jake_Rose_CV.pdf"}>Download</a> </p>
+            <p> <a href="/Images/General/Jake-Rose-CV.pdf" download={"Jake_Rose_CV.pdf"}>Download</a> </p>
         </div>
     </div>
 );
