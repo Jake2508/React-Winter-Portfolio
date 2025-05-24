@@ -15,9 +15,6 @@ import { Perf } from 'r3f-perf';
 
 
 export default function Experience({ onSelectProject, isVisible }) {
-    
-    // Static Scene
-    const staticScene = useMemo(() => useGLTF('/Models/WinterScene.gltf'), []);
 
     // Effects, Hooks & Refs
     const [hovered, setHovered] = useState(false); 

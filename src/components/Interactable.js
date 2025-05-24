@@ -22,7 +22,6 @@ function Interactable({ modelName, onClick, ...props }) {
         onPointerOver={handlePointerOver}
         onPointerOut={handlePointerOut}
       >
-        {/* Optimise Model? */}
 
 
         {/* Render the dynamically loaded model */}
