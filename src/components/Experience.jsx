@@ -7,11 +7,8 @@ import { Selection, Select, Outline, ToneMapping, EffectComposer, Vignette } fro
 import { ToneMappingMode, BlendFunction } from 'postprocessing';
 
 // Custom Hooks & Components
-import { useHover } from '../hooks/useHover.js'; 
 import Interactable from './Interactable.js';
-
-// Entities
-import WinterEnvironment from '../entities/WinterEnvironment.js';
+import OptimiseModel from './OptimiseModel.jsx';
 
 // Performance Monitoring
 import { Perf } from 'r3f-perf';
@@ -24,7 +21,6 @@ export default function Experience({ onSelectProject, isVisible }) {
 
     // Effects, Hooks & Refs
     const [hovered, setHovered] = useState(false); 
-    const orbitRef = useRef();
 
 
     const handleArcadeClick = () => {
@@ -86,15 +82,15 @@ export default function Experience({ onSelectProject, isVisible }) {
                 />
 
                 {/* Static Scene Objects */}
-                <primitive object={staticScene.scene} scale={0.4} position-y={-1.4} castShadow={false} receiveShadow={false} />
+                <OptimiseModel modelPath="/Models/WinterScene.gltf" scale={0.4} position={[0, -1.4, 0]} enableBVH={false} />
 
                 {/* Interactables */}
                 <Select enabled={hovered}>
                     
-                {/* Arcade Machine */}
-                <Interactable modelName="ArcadeMachine" position-y={-1.4} castShadow={false} receiveShadow={false}
-                onClick={handleArcadeClick}
-                />
+                    {/* Arcade Machine */}
+                    <Interactable modelName="ArcadeMachine" position-y={-1.4} castShadow={false} receiveShadow={false}
+                    onClick={handleArcadeClick}
+                    />
 
                 </Select>
             </Selection>
