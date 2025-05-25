@@ -1,27 +1,24 @@
 // Core Extensions
 import { Stars, GradientTexture, Environment, useGLTF, OrbitControls } from '@react-three/drei';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useRef } from 'react';
 
 // Post Processing Effects
-import { ToneMapping, EffectComposer, DepthOfField, Vignette } from '@react-three/postprocessing';
+import { Selection, Select, Outline, ToneMapping, EffectComposer, Vignette } from '@react-three/postprocessing';
 import { ToneMappingMode, BlendFunction } from 'postprocessing';
 
 // Custom Hooks & Components
-import { useHover } from '../hooks/useHover.js'; 
-
-// Entities
-import WinterEnvironment from '../entities/WinterEnvironment.js';
+import Interactable from './Interactable.js';
+import OptimiseModel from './OptimiseModel.jsx';
 
 // Performance Monitoring
 import { Perf } from 'r3f-perf';
 
 
 export default function Experience({ onSelectProject, isVisible }) {
-    // Setup Model
-    const arcadeMachine = useMemo(() => useGLTF('/Models/ArcadeMachine.gltf'), []);
 
-    // Hover Effect Hook
-    const { handlePointerOver, handlePointerOut, hoveredObject } = useHover(); 
+    // Effects, Hooks & Refs
+    const [hovered, setHovered] = useState(false); 
+
 
     const handleArcadeClick = () => {
         onSelectProject({
@@ -30,7 +27,7 @@ export default function Experience({ onSelectProject, isVisible }) {
         });
     };
 
-    // Memoize Environment, Lighting & Post-Processing effects to render once (Static Scene)
+    // Memoize Environment
     const environment = useMemo(() => (
         <>
             <Environment preset="forest" />
@@ -43,14 +40,6 @@ export default function Experience({ onSelectProject, isVisible }) {
         </>
     ), []);
 
-    const postProcessingEffects = useMemo(() => {
-        return (
-            <EffectComposer multisampling={2} >
-                <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />  
-                <Vignette offset={0.2} darkness={0.45} blendFunction={BlendFunction.COLOR_DODGE} />
-            </EffectComposer>
-            );
-        }, []); // Only recalculated once
         
     return (
         <>
@@ -68,33 +57,40 @@ export default function Experience({ onSelectProject, isVisible }) {
                 fade speed={0.75} 
             />
 
-            {/* Post Processing */}
-            {postProcessingEffects}
+            <Selection>
+                {/* Post Processing */}
+                <EffectComposer multisampling={8} autoClear={false}>
+                    <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />  
+                    <Vignette offset={0.2} darkness={0.45} blendFunction={BlendFunction.COLOR_DODGE} />
+                    <Outline visibleEdgeColor="white" edgeStrength={40} width={1000} />
+                </EffectComposer>
 
-            {/* Orbit Controls */}
-            <OrbitControls makeDefault enableDamping={true} dampingFactor={0.1} enablePan={false} 
-                minPolarAngle={Math.PI / 4.5} maxPolarAngle={Math.PI / 2.2}
-                minDistance={7.0} maxDistance={25} 
-                enabled={!isVisible}  
-                autoRotate={true} autoRotateSpeed={0.2}
-                // Mobile Support
-                touches={{ 
-                    ONE: 0, // Single-finger rotate
-                    TWO: 2, // Two-finger zoom
-                  }}
-            />
+                {/* Orbit Controls */}
+                <OrbitControls makeDefault enableDamping={true} dampingFactor={0.1} enablePan={false} 
+                    minPolarAngle={Math.PI / 4.5} maxPolarAngle={Math.PI / 2.2}
+                    minDistance={7.0} maxDistance={25} 
+                    enabled={!isVisible}  
+                    autoRotate={true} autoRotateSpeed={0.2}
+                    // Mobile Support
+                    touches={{ 
+                        ONE: 0, // Single-finger rotate
+                        TWO: 2, // Two-finger zoom
+                    }}
+                />
 
-            {/* Static Scene Objects */}
-            <WinterEnvironment />
+                {/* Static Scene Objects */}
+                <OptimiseModel modelPath="/Models/WinterScene.gltf" scale={0.4} position={[0, -1.4, 0]} enableBVH={false} />
 
-            {/* Arcade Machine */}
-            <primitive 
-                object={arcadeMachine.scene} scale={0.4} position-y={-1.4} 
-                castShadow={false} receiveShadow={false} 
-                onPointerOver={(event) => handlePointerOver(event, arcadeMachine.scene)} 
-                onPointerOut={(event) => handlePointerOut(event, arcadeMachine.scene)}
-                onClick={handleArcadeClick}
-            />
+                {/* Interactables */}
+                <Select enabled={hovered}>
+                    
+                    {/* Arcade Machine */}
+                    <Interactable modelName="ArcadeMachine" position-y={-1.4} castShadow={false} receiveShadow={false}
+                    onClick={handleArcadeClick}
+                    />
+
+                </Select>
+            </Selection>
         </>
     );
 }
