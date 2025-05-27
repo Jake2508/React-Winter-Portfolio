@@ -3,8 +3,8 @@ import { useInteractable } from '../hooks/useInteractable';
 import { a, useSpring } from '@react-spring/three';
 
 
-function Interactable({ modelName, onClick, ...props }) {
-  const { ref, model, hovered, handlePointerOver, handlePointerOut } = useInteractable(modelName);
+function Interactable({ modelName, onClick, setHovered, ...props }) {
+  const { ref, model, hovered, handlePointerOver, handlePointerOut } = useInteractable(modelName, setHovered);
 
   const { scale } = useSpring({
     scale: hovered ? 0.5 : 0.4,
@@ -22,7 +22,6 @@ function Interactable({ modelName, onClick, ...props }) {
         onPointerOver={handlePointerOver}
         onPointerOut={handlePointerOut}
       >
-
 
         {/* Render the dynamically loaded model */}
         <primitive object={model.scene} />

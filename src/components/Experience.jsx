@@ -16,9 +16,7 @@ import { Perf } from 'r3f-perf';
 
 export default function Experience({ onSelectProject, isVisible }) {
 
-    // Effects, Hooks & Refs
-    const [hovered, setHovered] = useState(false); 
-
+    const [hovered, setHovered] = useState(false);
 
     const handleArcadeClick = () => {
         onSelectProject({
@@ -27,7 +25,7 @@ export default function Experience({ onSelectProject, isVisible }) {
         });
     };
 
-    // Memoize Environment
+    // Memorise Environment
     const environment = useMemo(() => (
         <>
             <Environment preset="forest" />
@@ -51,18 +49,19 @@ export default function Experience({ onSelectProject, isVisible }) {
             <Stars 
                 radius={5}
                 depth={18} 
-                count={2000} 
-                factor={1.5} 
+                count={1200} 
+                factor={1.4} 
                 saturation={0} 
                 fade speed={0.75} 
             />
 
             <Selection>
                 {/* Post Processing */}
-                <EffectComposer multisampling={8} autoClear={false}>
-                    <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />  
+                <EffectComposer multisampling={0} autoClear={false}>
+                    <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
                     <Vignette offset={0.2} darkness={0.45} blendFunction={BlendFunction.COLOR_DODGE} />
-                    <Outline visibleEdgeColor="white" edgeStrength={40} width={1000} />
+                    <Outline visibleEdgeColor="white" edgeStrength={5} width={800} 
+                        selection={hovered ? undefined : []} />
                 </EffectComposer>
 
                 {/* Orbit Controls */}
@@ -79,17 +78,14 @@ export default function Experience({ onSelectProject, isVisible }) {
                 />
 
                 {/* Static Scene Objects */}
-                <OptimiseModel modelPath="/Models/WinterScene.gltf" scale={0.4} position={[0, -1.4, 0]} enableBVH={false} />
+                <OptimiseModel modelPath="/Models/WinterScene.gltf" scale={0.4} position={[0, -1.4, 0]} enableBVH={true} />
 
                 {/* Interactables */}
-                <Select enabled={hovered}>
-                    
-                    {/* Arcade Machine */}
-                    <Interactable modelName="ArcadeMachine" position-y={-1.4} castShadow={false} receiveShadow={false}
+                
+                {/* Arcade Machine */}
+                <Interactable modelName="ArcadeMachine" position-y={-1.4} castShadow={false} receiveShadow={false}
                     onClick={handleArcadeClick}
-                    />
-
-                </Select>
+                />
             </Selection>
         </>
     );
