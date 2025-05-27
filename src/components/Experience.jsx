@@ -57,7 +57,7 @@ export default function Experience({ onSelectProject, isVisible }) {
 
             <Selection>
                 {/* Post Processing */}
-                <EffectComposer multisampling={0} autoClear={false}>
+                <EffectComposer multisampling={2} autoClear={false}>
                     <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
                     <Vignette offset={0.2} darkness={0.45} blendFunction={BlendFunction.COLOR_DODGE} />
                     <Outline visibleEdgeColor="white" edgeStrength={5} width={800} 
