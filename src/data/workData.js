@@ -4,9 +4,33 @@
 export const workData = [
         {
             id: 1,
+            title: 'Software Engineer in Test',
+            company: 'Smartodds Limited',
+            miniTitle: '2025-Present',
+            subtitle: 'Internal Tools & Monitoring across Distributed Systems',
+            previewImage: '/Images/Work/smartodds-banner.png', 
+            media: [
+                { type: 'image', url: '/Images/Work/smartodds-promo-1.jpg' },
+            ],
+            technologies: ['C#', '.NET', 'REST API', 'Automation', 'Monitoring', 'Grafana', 'Kibana'],
+            description: ['As a Software Engineer in Test at Smartodds Limited, I work across a range of microservices, developing internal tools and monitoring services that ' +
+                'support developers, QA, and support teams. I’m part of a two-person SDET team, and we aim to proactively enhance workflows for the wider team.',
+
+                'The role requires initiative, primarily identifying areas to refine or automate. I typically assess opportunities, determine their value, and lead them through ' +
+                'implementation. Additionally, I monitor ongoing development projects to identify tools that can assist testers.',
+    
+                'It’s a data-heavy business with fairly complex, distributed systems, which means there’s always something new to pick up, whether that’s around data, tooling, or services.'
+                ],
+            links: [
+                { label: 'Website', url: 'https://www.smartodds.co.uk/' },
+                { label: 'Blog', url: 'https://www.smartodds.co.uk/blog/'},
+            ],
+        },
+        {
+            id: 2,
             title: 'QA Tester',
             company: 'West Pier Studio',
-            miniTitle: '2024-Present',
+            miniTitle: '2024-2025',
             subtitle: 'Deck, Pergola & Fence Planner',
             previewImage: '/Images/Work/wps-promo-1.jpg', 
             media: [
@@ -44,7 +68,7 @@ export const workData = [
             ],
         },
         {
-            id: 2,
+            id: 3,
             title: 'QA Technician',
             company: 'Codemasters',
             miniTitle: '2019-2020',

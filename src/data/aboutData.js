@@ -4,12 +4,12 @@ export const AboutData = () => (
     <div>
         {/* Introduction & About */}
         <p>
-            Welcome! I'm Jake, a software developer with experience in QA, test automation, full-stack development, and programming. <br /><br />
+            Welcome! I'm Jake, a software developer who enjoys building tools, automation, and scalable systems, with experience in full-stack development. <br /><br />
 
-            While C# is my main focus, I've built skills in various other technologies over the years.
-            In my current QA role, I work with test automation, API, and database testing to streamline workflows and ensure software quality. <br /><br />
+            While C# and .NET are my main focus, I've built skills in various other technologies over the years.
+            In my current Software Engineer in Test role, I build internal tooling, monitoring services, and automated pipelines to streamline workflows and improve software quality. <br /><br />
 
-            I thrive in Agile environments, collaborating with teams using SCRUM, Jira, and Git to build scalable solutions. 
+            I thrive in Agile environments, contributing to code reviews, technical design discussions, and debugging alongside developers to build scalable solutions.
             I enjoy problem-solving, optimising processes, and writing clean, maintainable code. <br /><br />
 
             This portfolio highlights my work in software development, web technologies, and independent projects. 
@@ -40,24 +40,26 @@ export const AboutData = () => (
         <h2>Experience</h2>
         <h4 className="subInformation">C#</h4>
         <p>
-            Studied 3+ years at University. Professional industry experience at my current role creating Unit & Automation tests and making changes when relevant.
+            Studied 3+ years at University. Professional experience building internal tools, background services, and automated pipelines in my current Software Engineer in Test role.
         </p>
         <h4 className="subInformation">Javascript / HTML / CSS</h4>
         <p>
             Experience from setting up my portfolio which utilises the Three JS & React libraries. Custom HTML and CSS code was added to create the UI elements.
         </p>
-        <h4 className="subInformation">C++</h4>
-        <p>Surface level knowledge gained at university.</p>
+        <h4 className="subInformation">SQL</h4>
+        <p> 
+            Professional experience with PostgreSQL and MySQL, writing queries for data analysis and validation across multiple environments.
+        </p>
 
         {/* Bonus Information & Skills */}
         <h2>Bonuses</h2>
         <ul className='bonusList'>
+            <li>Azure DevOps</li>
+            <li>Kubernetes & Docker</li>
+            <li>Grafana & Kibana</li>
+            <li>REST APIs</li>
+            <li>Selenium</li>
             <li>Version Control</li>
-            <li>Agile Background</li>
-            <li>Unity Debugging</li>
-            <li>Postman API Testing</li>
-            <li>NUnit</li>
-            <li>Selenium Web Driver</li>
         </ul>
     </div>
 );
