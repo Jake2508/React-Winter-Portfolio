@@ -4,7 +4,7 @@ export const AboutData = () => (
     <div>
         {/* Introduction & About */}
         <p>
-            Welcome! I'm Jake, a software developer with experience in QA, test automation, full-stack development, and programming. <br /><br />
+            Welcome! I'm Jake, a software developer who enjoys building tools, automation, and scalable systems, with experience in full-stack development. <br /><br />
 
             While C# and .NET are my main focus, I've built skills in various other technologies over the years.
             In my current Software Engineer in Test role, I build internal tooling, monitoring services, and automated pipelines to streamline workflows and improve software quality. <br /><br />
