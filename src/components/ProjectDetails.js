@@ -1,55 +1,62 @@
 import React from 'react';
-import Carousel from '../components/Carousel'; 
+import Carousel from '../components/Carousel';
 
 
 const ProjectDetails = ({ project }) => {
-    if (!project) return null; // Return if invalid project is passed
+    if (!project) return null;
 
     return (
-        <div>
-            {/* Project Title */}
-            <h2>{project.title}</h2>
+        <div className="detailsContainer">
 
-            {/* Carousel */}
-            {project.media?.length > 0 && <Carousel media={project.media} />}
+            {/* Info card — full width */}
+            <div className="bentoCard detailsInfoPanel">
 
-            {/* Technologies */}
-            {project.technologies?.length > 0 && (
-                <div>
-                    <h2>Technologies Used</h2>
-                    <p className="tagList">
-                        {project.technologies.map((tech, index) => (
-                            <span key={index}>
-                                {tech}{index < project.technologies.length - 1 && ' '}
-                            </span>
+                <div className="detailsHeader">
+                    <div>
+                        <h3 className="detailsTitle">{project.title}</h3>
+                        {project.subtitle && (
+                            <p className="subInformation detailsMeta">
+                                {project.miniTitle} · {project.subtitle}
+                            </p>
+                        )}
+                    </div>
+
+                    {project.technologies?.length > 0 && (
+                        <div className="detailsTags">
+                            {project.technologies.map((tech, index) => (
+                                <span key={index} className="detailsTag">{tech}</span>
+                            ))}
+                        </div>
+                    )}
+                </div>
+
+                {project.description?.length > 0 && (
+                    <div className="detailsDescription custom-scrollbar">
+                        {project.description.map((paragraph, index) => (
+                            <p key={index}>{paragraph}</p>
                         ))}
-                    </p>
-                </div>
-            )}
+                    </div>
+                )}
 
-            {/* Description */}
-            {project.description?.length > 0 && (
-                <div>
-                    <h2>Description</h2>
-                    {project.description.map((paragraph, index) => (
-                        <p style={{ textAlign: 'left' }} key={index}>{paragraph}</p>
-                    ))}
-                </div>
-            )}
-
-            {/* Links */}
-            {project.links?.length > 0 && (
-                <div>
-                    <h2>Links</h2>
-                    <ul className="tagList">
+                {project.links?.length > 0 && (
+                    <div className="detailsLinks">
                         {project.links.map((link, index) => (
-                            <span key={index}>
-                                <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a>
-                            </span>
+                            <a key={index} href={link.url} target="_blank" rel="noopener noreferrer" className="detailsLinkBtn">
+                                {link.label}
+                            </a>
                         ))}
-                    </ul>
+                    </div>
+                )}
+
+            </div>
+
+            {/* Carousel — full width below */}
+            {project.media?.length > 0 && (
+                <div className="bentoCard detailsCarouselPanel">
+                    <Carousel media={project.media} />
                 </div>
             )}
+
         </div>
     );
 };

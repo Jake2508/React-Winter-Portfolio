@@ -14,7 +14,6 @@ import { ContactData } from '../data/contactData.js';
 
 // Custom Hooks & Components
 import ProjectDetails from '../components/ProjectDetails.js';
-import Carousel from '../components/Carousel.js';
 import useFadeTransition from '../hooks/useFadeTransition';
 
 
@@ -25,8 +24,7 @@ const ProjectDisplay = ({ onClose, className }) => {
     
     // Fade transition hook
     const { fade, applyTransition } = useFadeTransition();
-    const [scrollPosition, setScrollPosition] = useState(0); 
-    const [currentImageIndex, setCurrentImageIndex] = useState(0); 
+    const [scrollPosition, setScrollPosition] = useState(0);
     const containerRef = useRef(null);
     
     // -- Page Transition Setup -- // 
@@ -43,8 +41,7 @@ const ProjectDisplay = ({ onClose, className }) => {
     const handleProjectSelect = useCallback((project) => {
         setScrollPosition(containerRef.current.scrollTop);
         applyTransition(() => {
-            setSelectedProject(project); 
-            setCurrentImageIndex(0);  // Reset to the first image
+            setSelectedProject(project);
             if (containerRef.current) 
             {
                 // Scroll to top when selecting a new project
@@ -79,15 +76,6 @@ const ProjectDisplay = ({ onClose, className }) => {
         };
     }, [onClose]);
 
-    // Carousel Image Navigation
-    const changeImage = (direction) => {
-        setCurrentImageIndex((prevIndex) => {
-            const totalMedia = selectedProject.media.length;
-            const newIndex = (prevIndex + direction + totalMedia) % totalMedia; // Loop the index
-            return newIndex;
-        });
-    };
-
     // Tab Main Sections
     const memoizedContent = useMemo(() => {
         const content = {
@@ -96,19 +84,16 @@ const ProjectDisplay = ({ onClose, className }) => {
                 <div>
                     {!selectedProject && (
                         <>
-                            <h2>Key Projects</h2>
+                            <h2 className='sectionHeading'>Key Projects</h2>
                             <ProjectGrid
                                 data={projectData}
                                 onSelect={handleProjectSelect}
                                 selectedProject={selectedProject}
                                 onBack={handleProjectBack}
                             />
-                            <h2>Bonus Projects</h2>
-                            <p className='centerElements'>
-                                Explore side projects & prototypes on my &nbsp;
-                                <a href="https://jake12341234.itch.io/" target="_blank" rel="noopener noreferrer">
-                                    itch.io page
-                                </a>
+                            <h2 className='sectionHeading'>Bonus Projects</h2>
+                            <p>
+                                Explore side projects &amp; prototypes on my <a href="https://jake12341234.itch.io/" target="_blank" rel="noopener noreferrer">itch.io page</a>.
                             </p>
                         </>
                     )}
@@ -135,7 +120,7 @@ const ProjectDisplay = ({ onClose, className }) => {
                                 }, new Map())
                             ).map(([company, companyWorkItems]) => (
                                 <div key={company}>
-                                    <h2>{company}</h2>
+                                    <h2 className='sectionHeading'>{company}</h2>
                                     <ProjectGrid
                                         data={companyWorkItems} // Display work items per company
                                         onSelect={handleProjectSelect}
@@ -160,16 +145,23 @@ const ProjectDisplay = ({ onClose, className }) => {
         };
 
         return content[activeTab];
-    }, [activeTab, selectedProject, projectData, workData]);
+    }, [activeTab, selectedProject, handleProjectSelect, handleProjectBack]);
+
+    const tabs = ['about', 'projects', 'work', 'contact'];
+    const activeIndex = tabs.indexOf(activeTab);
 
     return (
         <div ref={containerRef} className={`container custom-scrollbar ${className || ''}`}>
             <div className="tabs">
-                {['about', 'projects', 'work', 'contact'].map((tab) => (
+                <div
+                    className="tabIndicator"
+                    style={{ transform: `translateX(calc(${activeIndex} * (100% + 4px)))` }}
+                />
+                {tabs.map((tab) => (
                     <button
                         key={tab}
                         onClick={() => handleTabChange(tab)}
-                        className={`tab ${activeTab === tab ? 'active-tab' : ''}`} // Use dynamic class for active tab
+                        className={`tab ${activeTab === tab ? 'active-tab' : ''}`}
                     >
                         {tab.charAt(0).toUpperCase() + tab.slice(1)}
                     </button>
@@ -190,11 +182,9 @@ const ProjectGrid = React.memo(({ data, onSelect, selectedProject, onBack }) => 
     return (
         <div className='projectGrid'>
             {selectedProject ? (
-                <div style={{ textAlign: 'center' }}>
+                <div>
+                    <button className='backNav' onClick={onBack}>← Back</button>
                     <ProjectDetails project={selectedProject} />
-                    <button className='backButton' style={{ marginTop: '18px'}} onClick={onBack}>
-                        Back
-                    </button>
                 </div>
             ) : (
                 data.map((project) => (
@@ -209,13 +199,11 @@ const ProjectGrid = React.memo(({ data, onSelect, selectedProject, onBack }) => 
 const ProjectCard = React.memo(({ project, onSelect }) => {
     return (
         <div className='projectCard' onClick={onSelect}>
-            <div className='projectImage' 
-                style={{ backgroundImage: `url(${project.previewImage})` }}> {/* Display previewImage */}
-            </div>
-            <div className='projectCardTextContainer'>
-                <h3>{project.title}</h3>
-                <p className='subInformation' style={{ margin: '0' }}>{project.miniTitle}</p>
-                <p style={{ margin: '0', fontSize: '16px' }}>{project.subtitle}</p>
+            <div className='projectImage' style={{ backgroundImage: `url(${project.previewImage})` }} />
+            <div className='projectCardOverlay'>
+                <p className='projectMiniTitle subInformation'>{project.miniTitle}</p>
+                <h3 className='projectCardTitle'>{project.title}</h3>
+                <p className='projectCardSubtitle'>{project.subtitle}</p>
             </div>
         </div>
     );

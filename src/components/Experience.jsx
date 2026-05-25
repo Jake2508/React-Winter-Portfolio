@@ -1,5 +1,5 @@
 // Core Extensions
-import { Stars, GradientTexture, Environment, useGLTF, OrbitControls } from '@react-three/drei';
+import { Html, Stars, GradientTexture, Environment, OrbitControls } from '@react-three/drei';
 import React, { useMemo, useState, useRef } from 'react';
 
 // Post Processing Effects
@@ -7,11 +7,8 @@ import { Selection, Select, Outline, ToneMapping, EffectComposer, Vignette } fro
 import { ToneMappingMode, BlendFunction } from 'postprocessing';
 
 // Custom Hooks & Components
-import Interactable from './Interactable.js';
+import ArcadeMachine from './ArcadeMachine.jsx';
 import OptimiseModel from './OptimiseModel.jsx';
-
-// Performance Monitoring
-import { Perf } from 'r3f-perf';
 
 
 export default function Experience({ onSelectProject, isVisible }) {
@@ -81,11 +78,21 @@ export default function Experience({ onSelectProject, isVisible }) {
                 <OptimiseModel modelPath="/Models/WinterScene.gltf" scale={0.4} position={[0, -1.4, 0]} enableBVH={true} />
 
                 {/* Interactables */}
-                
+
                 {/* Arcade Machine */}
-                <Interactable modelName="ArcadeMachine" position-y={-1.4} castShadow={false} receiveShadow={false}
-                    onClick={handleArcadeClick}
+                <ArcadeMachine position-y={-1.4} castShadow={false} receiveShadow={false}
+                    onClick={handleArcadeClick} setHovered={setHovered}
                 />
+
+                {/* World-space tooltip — hidden once the panel is open */}
+                {/* {!isVisible && (
+                    <Html position={[0, 1.4, 0]} center distanceFactor={10} zIndexRange={[1, 0]} style={{ pointerEvents: 'none' }}>
+                        <div className={`arcadeTooltip${hovered ? ' arcadeTooltipHovered' : ''}`}>
+                            <span className="arcadeTooltipLabel">Click to open</span>
+                            <span className="arcadeTooltipArrow">↓</span>
+                        </div>
+                    </Html>
+                )} */}
             </Selection>
         </>
     );

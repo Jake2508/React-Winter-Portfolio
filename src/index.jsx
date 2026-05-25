@@ -78,10 +78,9 @@ const App = () => {
                 dpr={[1, Math.min(2, window.devicePixelRatio)]} // Cap max DPR to 2
             >
                 <Suspense fallback={null}>
-                    <Experience 
-                        loadingComplete={!loading} 
-                        onSelectProject={toggleVisibility} 
-                        isVisible={isVisible} 
+                    <Experience
+                        onSelectProject={toggleVisibility}
+                        isVisible={isVisible}
                     />
                 </Suspense>
             </Canvas>
@@ -91,10 +90,28 @@ const App = () => {
                {!loading && <MemorisedTitleDisplay fadeIn={fadeInTitle} />}
                 <ProjectDisplay
                     project={selectedProject}
-                    className={`fade-container ${isVisible ? 'visible' : ''}`} 
-                    onClose={() => toggleVisibility(null)}             
+                    className={`fade-container ${isVisible ? 'visible' : ''}`}
+                    onClose={() => toggleVisibility(null)}
                 />
             </div>
+
+            {/* Bottom-left portfolio label */}
+            {!loading && (
+                <div className={`screenLabel ${fadeInTitle && !isVisible ? 'screenHintsVisible' : ''}`}>
+                    <span>Winter</span>
+                    <span className="screenHintsDot">·</span>
+                    <span>Portfolio '26</span>
+                </div>
+            )}
+
+            {/* Bottom-right control hints */}
+            {!loading && (
+                <div className={`screenHints ${fadeInTitle && !isVisible ? 'screenHintsVisible' : ''}`}>
+                    <span>drag</span>
+                    <span className="screenHintsDot">·</span>
+                    <span>scroll</span>
+                </div>
+            )}
         </>
     );
 };
