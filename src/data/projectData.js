@@ -5,7 +5,7 @@ export const projectData = [
             {
                 id: 1,
                 title: 'Portfolio',
-                miniTitle: '2024',
+                miniTitle: '2024-Present',
                 subtitle: 'React Three Fiber Application',
                 previewImage: '/Images/WebApplications/portfolio-v2.jpg',
                 media: [

@@ -7,9 +7,9 @@ export const AboutData = () => (
         <div className="bentoCard bentoFull">
             <h2>About</h2>
             <p>
-                I'm Jake, a Software Engineer in Test building internal tooling, monitoring services, and
-                automated pipelines with C# and .NET. I work in Agile teams on code reviews, technical design,
-                and scalable system development — focused on clean, maintainable code.
+                I'm Jake, a Software Developer with a focus on C# and .NET. 
+                My day-to-day spans internal tooling, monitoring services, and automated pipelines, 
+                working across technical design, code reviews, and systems built to scale.
             </p>
             <p>
                 Outside work I enjoy web and game development.

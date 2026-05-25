@@ -10,8 +10,8 @@ export const ContactData = () => (
             <h2>Let's Chat</h2>
             <p>
                 Thanks for taking the time to look through my portfolio! Whether you have a question,
-                an opportunity, or just want to say hello — feel free to reach out through any of the
-                methods below. I'm always happy to hear from you.
+                an opportunity, or just want to say hello. Feel free to reach out through any of the
+                methods below. I'm always happy to chat!
             </p>
         </div>
 
