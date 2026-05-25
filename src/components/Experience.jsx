@@ -1,5 +1,5 @@
 // Core Extensions
-import { Html, Stars, GradientTexture, Environment, useGLTF, OrbitControls } from '@react-three/drei';
+import { Html, Stars, GradientTexture, Environment, OrbitControls } from '@react-three/drei';
 import React, { useMemo, useState, useRef } from 'react';
 
 // Post Processing Effects
@@ -7,7 +7,7 @@ import { Selection, Select, Outline, ToneMapping, EffectComposer, Vignette } fro
 import { ToneMappingMode, BlendFunction } from 'postprocessing';
 
 // Custom Hooks & Components
-import Interactable from './Interactable.js';
+import ArcadeMachine from './ArcadeMachine.jsx';
 import OptimiseModel from './OptimiseModel.jsx';
 
 
@@ -80,7 +80,7 @@ export default function Experience({ onSelectProject, isVisible }) {
                 {/* Interactables */}
 
                 {/* Arcade Machine */}
-                <Interactable modelName="ArcadeMachine" position-y={-1.4} castShadow={false} receiveShadow={false}
+                <ArcadeMachine position-y={-1.4} castShadow={false} receiveShadow={false}
                     onClick={handleArcadeClick} setHovered={setHovered}
                 />
 
