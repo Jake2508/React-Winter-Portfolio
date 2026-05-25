@@ -1,113 +1,132 @@
-/* Carousel */
-.carouselContainer { 
-    display: flex;
-    align-items: center; 
-    justify-content: center; 
-    gap: 10px; 
+/* Carousel wrapper — constrained width, centred */
+.carouselContainer {
     width: 100%;
-    max-width: 100%; 
-    height: auto; 
-    overflow: hidden; 
+    max-width: 580px;
+    margin: 0 auto;
 }
 
-/* Arrow Buttons */
-.carouselButton { 
-    font-size: clamp(1.5rem, 3vw, 2.5rem); 
-    background: transparent; 
-    border: none; 
-    padding: 0 5px; 
+/* 16:9 media frame with relative positioning for arrow overlays */
+.carouselMedia {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* Wrapper for carousel media to enforce 16:9 aspect ratio */
-.carouselMedia { 
-    flex: 1; 
-    width: 60%; 
-    max-width: 60%; 
-    display: flex; 
-    justify-content: center; 
-    position: relative; 
-    aspect-ratio: 16 / 9; 
-    height: 100%; 
+/* Images */
+img.carouselImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
 }
 
-/* Set iframe scaling 16:9 aspect wrapper -> Done manual to prevent strange iframe scaling behaviours */
-.carouselEmbed { 
-    width: 100%; 
-    height: 100%; 
-    border: none; 
-    object-fit: fill; 
-    border-radius: 8px; 
+/* Embedded video */
+.carouselEmbed {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
 }
 
-/* Carousel Images */
-img.carouselImage { 
-    /* flex: 1;  */
-    width: 100%; 
-    max-width: 100%; 
-    height: auto; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin: 0 auto; 
-    display: block; 
-    object-fit: fill; 
-    border-radius: 8px; 
+/* Overlaid nav arrows */
+.carouselBtn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 10, 30, 0.55);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    line-height: 1;
+    z-index: 2;
+    transition: background 0.2s ease;
 }
 
-/* Media Button Container */
-.mediaButtons { 
-    display: flex; 
-    justify-content: center; 
-    margin-top: 10px; 
+.carouselBtnLeft  { left: 8px; }
+.carouselBtnRight { right: 8px; }
+
+.carouselBtn:hover {
+    background: rgba(0, 10, 30, 0.82);
+    transform: translateY(-50%) scale(1.05);
 }
 
-.mediaButton { 
-    background: none; 
-    border: 2px solid transparent; 
-    cursor: pointer; 
-    margin: 0 5px; 
-    padding: 0; 
-    border-radius: 5px; width: clamp(40px, 8vw, 50px); 
-    aspect-ratio: 1 / 1; 
-    overflow: hidden; 
+/* Thumbnail strip */
+.mediaButtons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 8px;
 }
 
-.mediaButton.active { 
-    background-color: #007BFF; 
-    border-color: #FF4500; 
+.mediaButton {
+    background: none;
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 0;
+    border-radius: 5px;
+    width: clamp(36px, 7vw, 46px);
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
-/* Media thumbnail icon */
-.mediaIcon { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-    border-radius: 5px; 
+.mediaButton:hover {
+    transform: scale(1.08);
+    border-color: rgba(255, 215, 0, 0.5);
 }
 
-/* embed vid thumbnail setup */
-.videoThumbnail { 
-    position: relative; 
-    width: 100%; 
-    height: 100%; 
+.mediaButton.active {
+    border-color: #FFD700;
+}
+
+/* Thumbnail image */
+.mediaIcon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+/* YouTube thumbnail framing */
+.videoThumbnail {
+    position: relative;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
 }
 
-.videoThumbnail img { 
-    position: absolute; 
-    top: 50%; 
-    left: 50%; 
+.videoThumbnail img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%) scale(1.3);
     width: auto;
     height: 120%;
     object-fit: cover;
 }
 
-/* Vid Play Icon Overlay */
-.playButton { 
-    position: absolute; 
-    top: 50%; 
+.playButton {
+    position: absolute;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: clamp(18px, 4vw, 22px);
-    border-radius: 50%; 
-    padding: 5px;
+    font-size: clamp(14px, 3vw, 18px);
+    color: white;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+    pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .carouselContainer {
+        max-width: 100%;
+    }
 }

@@ -1,5 +1,5 @@
 // Core Extensions
-import { Stars, GradientTexture, Environment, useGLTF, OrbitControls } from '@react-three/drei';
+import { Html, Stars, GradientTexture, Environment, useGLTF, OrbitControls } from '@react-three/drei';
 import React, { useMemo, useState, useRef } from 'react';
 
 // Post Processing Effects
@@ -81,11 +81,21 @@ export default function Experience({ onSelectProject, isVisible }) {
                 <OptimiseModel modelPath="/Models/WinterScene.gltf" scale={0.4} position={[0, -1.4, 0]} enableBVH={true} />
 
                 {/* Interactables */}
-                
+
                 {/* Arcade Machine */}
                 <Interactable modelName="ArcadeMachine" position-y={-1.4} castShadow={false} receiveShadow={false}
-                    onClick={handleArcadeClick}
+                    onClick={handleArcadeClick} setHovered={setHovered}
                 />
+
+                {/* World-space tooltip — hidden once the panel is open */}
+                {/* {!isVisible && (
+                    <Html position={[0, 1.4, 0]} center distanceFactor={10} zIndexRange={[1, 0]} style={{ pointerEvents: 'none' }}>
+                        <div className={`arcadeTooltip${hovered ? ' arcadeTooltipHovered' : ''}`}>
+                            <span className="arcadeTooltipLabel">Click to open</span>
+                            <span className="arcadeTooltipArrow">↓</span>
+                        </div>
+                    </Html>
+                )} */}
             </Selection>
         </>
     );

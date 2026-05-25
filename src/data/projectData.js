@@ -11,7 +11,7 @@ export const projectData = [
                 media: [
                     { type: 'image', url: '/Images/WebApplications/portfolio-v2.jpg' },    
                 ],
-                technologies: ['React', 'ThreeJs', 'JavaScript', 'HTML', 'CSS', 'Blender'],
+                technologies: ['React', 'ThreeJs', 'JavaScript', 'Blender'],
                 description: ['This portfolio was created using React Three Fiber to showcase my game development skills through a unique and interactive design. It features ' +
                     'custom 3D models that represent my work and personal interests in a stylized manner.',
     

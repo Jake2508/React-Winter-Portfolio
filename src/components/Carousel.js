@@ -4,29 +4,26 @@ import "../styles/Carousel.css";
 const Carousel = ({ media }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const changeImage = (direction) => 
+    const changeImage = (direction) =>
     {
-        setCurrentIndex((prevIndex) => 
+        setCurrentIndex((prevIndex) =>
         {
             const totalMedia = media.length;
-            return (prevIndex + direction + totalMedia) % totalMedia; // Loop index
+            return (prevIndex + direction + totalMedia) % totalMedia;
         });
     };
-    
+
 
     return (
         <>
-            {/* Container */}
+            {/* Main media with overlaid nav arrows */}
             <div className="carouselContainer">
-                {/* Left Button */}
-                <button onClick={() => changeImage(-1)} className="carouselButton">◀</button>
-                {/* Media Item Swaps based on img or embed */}
                 <div className="carouselMedia">
                     {media[currentIndex].type === 'image' ? (
                         <img
                             className="carouselImage"
                             src={media[currentIndex].url}
-                            alt={`Carousel Media ${currentIndex}`}
+                            alt={`Media ${currentIndex}`}
                         />
                     ) : (
                         <iframe
@@ -38,43 +35,44 @@ const Carousel = ({ media }) => {
                             allowFullScreen
                         />
                     )}
+                    {media.length > 1 && (
+                        <>
+                            <button className="carouselBtn carouselBtnLeft" onClick={() => changeImage(-1)}>❮</button>
+                            <button className="carouselBtn carouselBtnRight" onClick={() => changeImage(1)}>❯</button>
+                        </>
+                    )}
                 </div>
-                {/* Right Button */}
-                <button onClick={() => changeImage(1)} className="carouselButton">▶</button>
             </div>
-            
-            {/* Thumbnail icon media buttons */}
-            <div className="mediaButtons">
-                {media.map((item, index) => (
-                    <button
-                        key={index}
-                        onClick={() => setCurrentIndex(index)}
-                        className={`mediaButton ${currentIndex === index ? 'active' : ''}`}
-                    >
-                        {item.type === 'image' ? (
-                            <img
-                                src={item.url}
-                                alt={`Thumbnail ${index}`}
-                                className="mediaIcon"
-                            />
-                        ) : (
-                            <div className="videoThumbnail">
-                                {/* Embedded YouTube Thumbnail Setup */}
+
+            {/* Thumbnail strip */}
+            {media.length > 1 && (
+                <div className="mediaButtons">
+                    {media.map((item, index) => (
+                        <button
+                            key={index}
+                            onClick={() => setCurrentIndex(index)}
+                            className={`mediaButton ${currentIndex === index ? 'active' : ''}`}
+                        >
+                            {item.type === 'image' ? (
                                 <img
-                                    src={`https://img.youtube.com/vi/${item.url
-                                        .split('/')
-                                        .pop()
-                                        .split('?')[0]}/hqdefault.jpg`}
-                                    alt={`Video Thumbnail ${index}`}
+                                    src={item.url}
+                                    alt={`Thumbnail ${index}`}
                                     className="mediaIcon"
                                 />
-                                {/* Video Play Overlay Icon */}
-                                <span className="playButton">▶️</span>
-                            </div>
-                        )}
-                    </button>
-                ))}
-            </div>
+                            ) : (
+                                <div className="videoThumbnail">
+                                    <img
+                                        src={`https://img.youtube.com/vi/${item.url.split('/').pop().split('?')[0]}/hqdefault.jpg`}
+                                        alt={`Video Thumbnail ${index}`}
+                                        className="mediaIcon"
+                                    />
+                                    <span className="playButton">▶</span>
+                                </div>
+                            )}
+                        </button>
+                    ))}
+                </div>
+            )}
         </>
     );
 };
