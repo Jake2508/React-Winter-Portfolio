@@ -78,10 +78,9 @@ const App = () => {
                 dpr={[1, Math.min(2, window.devicePixelRatio)]} // Cap max DPR to 2
             >
                 <Suspense fallback={null}>
-                    <Experience 
-                        loadingComplete={!loading} 
-                        onSelectProject={toggleVisibility} 
-                        isVisible={isVisible} 
+                    <Experience
+                        onSelectProject={toggleVisibility}
+                        isVisible={isVisible}
                     />
                 </Suspense>
             </Canvas>

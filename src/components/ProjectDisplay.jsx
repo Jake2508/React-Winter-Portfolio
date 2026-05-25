@@ -14,7 +14,6 @@ import { ContactData } from '../data/contactData.js';
 
 // Custom Hooks & Components
 import ProjectDetails from '../components/ProjectDetails.js';
-import Carousel from '../components/Carousel.js';
 import useFadeTransition from '../hooks/useFadeTransition';
 
 
@@ -25,8 +24,7 @@ const ProjectDisplay = ({ onClose, className }) => {
     
     // Fade transition hook
     const { fade, applyTransition } = useFadeTransition();
-    const [scrollPosition, setScrollPosition] = useState(0); 
-    const [currentImageIndex, setCurrentImageIndex] = useState(0); 
+    const [scrollPosition, setScrollPosition] = useState(0);
     const containerRef = useRef(null);
     
     // -- Page Transition Setup -- // 
@@ -43,8 +41,7 @@ const ProjectDisplay = ({ onClose, className }) => {
     const handleProjectSelect = useCallback((project) => {
         setScrollPosition(containerRef.current.scrollTop);
         applyTransition(() => {
-            setSelectedProject(project); 
-            setCurrentImageIndex(0);  // Reset to the first image
+            setSelectedProject(project);
             if (containerRef.current) 
             {
                 // Scroll to top when selecting a new project
@@ -78,15 +75,6 @@ const ProjectDisplay = ({ onClose, className }) => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [onClose]);
-
-    // Carousel Image Navigation
-    const changeImage = (direction) => {
-        setCurrentImageIndex((prevIndex) => {
-            const totalMedia = selectedProject.media.length;
-            const newIndex = (prevIndex + direction + totalMedia) % totalMedia; // Loop the index
-            return newIndex;
-        });
-    };
 
     // Tab Main Sections
     const memoizedContent = useMemo(() => {
@@ -157,7 +145,7 @@ const ProjectDisplay = ({ onClose, className }) => {
         };
 
         return content[activeTab];
-    }, [activeTab, selectedProject, projectData, workData]);
+    }, [activeTab, selectedProject, handleProjectSelect, handleProjectBack]);
 
     const tabs = ['about', 'projects', 'work', 'contact'];
     const activeIndex = tabs.indexOf(activeTab);

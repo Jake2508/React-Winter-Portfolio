@@ -10,9 +10,6 @@ import { ToneMappingMode, BlendFunction } from 'postprocessing';
 import Interactable from './Interactable.js';
 import OptimiseModel from './OptimiseModel.jsx';
 
-// Performance Monitoring
-import { Perf } from 'r3f-perf';
-
 
 export default function Experience({ onSelectProject, isVisible }) {
 

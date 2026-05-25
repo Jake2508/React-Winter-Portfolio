@@ -1,5 +1,7 @@
 // Data for contact
 
+const copyToClipboard = (text) => navigator.clipboard.writeText(text);
+
 export const ContactData = () => (
     <div className="aboutBento">
 
@@ -29,7 +31,7 @@ export const ContactData = () => (
                     <span className="contactLabel">LinkedIn</span>
                     <span className="contactValue">jake-rose123</span>
                 </a>
-                <a href="https://github.com/Jake2508?tab=repositories" target="_blank" rel="noopener noreferrer" className="contactRow">
+                <a href="https://github.com/Jake2508" target="_blank" rel="noopener noreferrer" className="contactRow">
                     <span className="contactLabel">GitHub</span>
                     <span className="contactValue">Jake2508</span>
                 </a>
