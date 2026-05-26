@@ -1,77 +1,168 @@
-/* Loading Screen */
-.loading-screen { 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%;
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center; 
+/* === Loading Screen === */
+
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    text-align: center;
-    background: linear-gradient(135deg, #0a1631, #1b4e80); 
-    z-index: 10; 
-    opacity: 1; 
-    transition: opacity 1s ease-in-out; 
+    background: linear-gradient(
+        180deg,
+        #070d1e 0%,
+        #0e1e40 20%,
+        #163568 45%,
+        #2462a0 65%,
+        #3d88c2 82%,
+        #56a8d8 100%
+    );
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
 }
 
-.loading-screen.fade-out { 
-    opacity: 0; 
-    pointer-events: none; 
+.loading-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
 }
 
-/* Loading Text with Glow Effect */
-.loading-text { 
-    font-size: 1.75rem; 
-    font-family: 'GameFont', sans-serif; 
-    letter-spacing: 3px; 
-    margin-bottom: 10px; 
-    text-shadow: 0 0 5px rgba(0, 188, 212, 0.6); 
+/* === Hexagon container === */
+
+.loader-wrap {
+    position: relative;
+    width: 310px;
+    height: 310px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: loaderEnter 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+    will-change: opacity, transform;
 }
 
-/* Arcade loading icon */
-.arcade-icon { 
-    width: 60px; 
-    height: auto; 
-    animation: bounce 1.5s infinite ease-in-out, pulse 2s infinite alternate ease-in-out;
-    filter: drop-shadow(0 0 8px rgba(0, 188, 212, 0.4)); 
-    margin: 25px 0; 
+@keyframes loaderEnter {
+    from { opacity: 0; transform: scale(0.88) translateY(14px); }
+    to   { opacity: 1; transform: scale(1)    translateY(0); }
 }
 
-/* Bounce animation for arcade icon*/
-@keyframes bounce { 
-    0%, 100% { 
-        transform: translateY(0); 
-    }
-    50% { 
-        transform: translateY(-10px); 
-    } 
+.loader-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
 }
 
-/* Pulse effect for arcade icon */
-@keyframes pulse {
-    from { 
-        filter: drop-shadow(0 0 8px rgba(0, 188, 212, 0.45));  
-    }
-    to { 
-        filter: drop-shadow(0 0 18px rgba(0, 188, 212, 0.65)); 
-    }
+/* === Completion glow burst === */
+
+.loader-svg.complete {
+    animation: hexComplete 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
 }
 
-.progress-bar { 
-    width: 25%; 
-    height: 20px; 
-    background: #1b4e80; 
-    border: 2px solid #0a1631;
-    border-radius: 5px; 
-    overflow: hidden; 
-    margin-top: 20px; 
-    box-shadow: 0 0 5px rgba(0, 188, 212, 0.6); }
+@keyframes hexComplete {
+    0%   { filter: none; }
+    40%  { filter: drop-shadow(0 0 22px rgba(120, 230, 255, 0.9))
+                   drop-shadow(0 0 8px rgba(180, 245, 255, 0.6)); }
+    100% { filter: drop-shadow(0 0 8px rgba(76, 201, 240, 0.45)); }
+}
 
-.progress-fill { 
-    height: 100%; 
-    background: linear-gradient(135deg, #00e5ff, #007bb8);
-    box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.5); 
-    transition: width 0.3s ease; 
+/* === Hexagon edges === */
+
+.hex-line {
+    stroke: #4cc9f0;
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 5px rgba(76, 201, 240, 0.6));
+}
+
+/* === Spark at drawing tip === */
+
+.hex-spark {
+    fill: #c8efff;
+    filter: drop-shadow(0 0 10px rgba(200, 239, 255, 1));
+    animation: sparkPulse 0.45s ease-in-out infinite alternate;
+    transform-box: fill-box;
+    transform-origin: center;
+    will-change: transform, opacity;
+}
+
+@keyframes sparkPulse {
+    from { opacity: 0.6; transform: scale(0.65); }
+    to   { opacity: 1;   transform: scale(1.35); }
+}
+
+/* === Vertices === */
+
+.hex-dot.active {
+    fill: #e4f4ff;
+    filter: drop-shadow(0 0 8px rgba(210, 240, 255, 0.85));
+}
+
+.hex-dot.pending {
+    fill: none;
+    stroke: rgba(180, 220, 250, 0.3);
+    stroke-width: 1.2;
+    filter: none;
+}
+
+/* Burst pop when a vertex first activates */
+.hex-dot.pop {
+    animation: vertexPop 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    transform-box: fill-box;
+    transform-origin: center;
+    will-change: transform, filter;
+}
+
+@keyframes vertexPop {
+    0%   { transform: scale(1);    filter: drop-shadow(0 0 8px rgba(210, 240, 255, 0.85)); }
+    28%  { transform: scale(2.4);  filter: drop-shadow(0 0 18px rgba(210, 240, 255, 1)); }
+    60%  { transform: scale(0.8);  filter: drop-shadow(0 0 8px rgba(210, 240, 255, 0.85)); }
+    100% { transform: scale(1);    filter: drop-shadow(0 0 8px rgba(210, 240, 255, 0.85)); }
+}
+
+/* === Progress number — superscript % keeps visual center on the digits === */
+
+.loader-num {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-start;
+    color: #ffffff;
+    font-family: system-ui, -apple-system, Arial, sans-serif;
+    font-weight: 800;
+    user-select: none;
+    pointer-events: none;
+    line-height: 1;
+}
+
+.loader-digits {
+    font-size: 4.5rem;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.loader-pct {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-top: 0.45rem;
+    margin-left: 4px;
+    line-height: 1;
+    opacity: 0.85;
+}
+
+/* === Status text === */
+
+.loader-status {
+    margin-top: 2.5rem;
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-family: system-ui, -apple-system, Arial, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    animation: statusEnter 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+}
+
+@keyframes statusEnter {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
