@@ -7,9 +7,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background:
-        radial-gradient(ellipse 80% 55% at 50% 100%, #1b3d78 0%, transparent 55%),
-        linear-gradient(180deg, #040b1a 0%, #071020 100%);
+    background: linear-gradient(
+        180deg,
+        #070d1e 0%,
+        #0e1e40 20%,
+        #163568 45%,
+        #2462a0 65%,
+        #3d88c2 82%,
+        #56a8d8 100%
+    );
     z-index: 10;
     opacity: 1;
     transition: opacity 1s ease-in-out;
@@ -93,7 +99,9 @@
 }
 
 .hex-dot.pending {
-    fill: #1c3252;
+    fill: none;
+    stroke: rgba(180, 220, 250, 0.3);
+    stroke-width: 1.2;
     filter: none;
 }
 
