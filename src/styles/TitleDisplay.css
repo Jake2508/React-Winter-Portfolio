@@ -1,8 +1,9 @@
 /* Title Image (Logo) */
 .title-image { 
-    width: clamp(150px, 60vw, 500px); 
-    height: auto; 
-    pointer-events: none; 
+    width: clamp(220px, 110vw, 850px);
+    height: auto;
+    margin-top: -10px;
+    pointer-events: none;
     user-select: none; 
     opacity: 0; 
     transition: opacity 0.5s ease-in-out; 
