@@ -90,7 +90,7 @@ const App = () => {
                {!loading && <MemorisedTitleDisplay fadeIn={fadeInTitle} />}
                 <ProjectDisplay
                     project={selectedProject}
-                    className={`fade-container ${isVisible ? 'visible' : ''}`}
+                    isVisible={isVisible}
                     onClose={() => toggleVisibility(null)}
                 />
             </div>

@@ -1,5 +1,6 @@
 // Core Extensions
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import gsap from 'gsap';
 import "../styles/Project.css";
 import "../styles/List.css";
 import "../styles/Tab.css";
@@ -18,14 +19,38 @@ import useFadeTransition from '../hooks/useFadeTransition';
 
 
 // Main ProjectDisplay Component
-const ProjectDisplay = ({ onClose, className }) => {
+const ProjectDisplay = ({ onClose, isVisible }) => {
     const [activeTab, setActiveTab] = useState('about');
     const [selectedProject, setSelectedProject] = useState(null);
-    
+
     // Fade transition hook
     const { fade, applyTransition } = useFadeTransition();
     const [scrollPosition, setScrollPosition] = useState(0);
     const containerRef = useRef(null);
+
+    // Set initial collapsed state on mount
+    useEffect(() => {
+        if (containerRef.current) {
+            gsap.set(containerRef.current, { scaleY: 0.015, opacity: 0, pointerEvents: 'none' });
+        }
+    }, []);
+
+    // CRT expand/collapse animation
+    useEffect(() => {
+        if (!containerRef.current) return;
+        gsap.killTweensOf(containerRef.current);
+        if (isVisible) {
+            gsap.to(containerRef.current, {
+                scaleY: 1, opacity: 1, pointerEvents: 'auto',
+                duration: 0.45, ease: 'back.out(1.2)',
+            });
+        } else {
+            gsap.to(containerRef.current, {
+                scaleY: 0.015, opacity: 0, pointerEvents: 'none',
+                duration: 0.45, ease: 'power2.out',
+            });
+        }
+    }, [isVisible]);
     
     // -- Page Transition Setup -- // 
     // useCallback functions avoid creating new functions on every render
@@ -151,7 +176,7 @@ const ProjectDisplay = ({ onClose, className }) => {
     const activeIndex = tabs.indexOf(activeTab);
 
     return (
-        <div ref={containerRef} className={`container custom-scrollbar ${className || ''}`}>
+        <div ref={containerRef} className="container custom-scrollbar">
             <div className="tabs">
                 <div
                     className="tabIndicator"
