@@ -11,7 +11,7 @@ export const ContactData = () => (
             <p>
                 Thanks for taking the time to look through my portfolio! Whether you have a question,
                 an opportunity, or just want to say hello. Feel free to reach out through any of the
-                methods below. I'm always happy to chat!
+                methods below.
             </p>
         </div>
 

@@ -188,14 +188,6 @@ button:hover, .projectCard:hover, .mediaButton:hover {
     font-size: clamp(0.65rem, 1.2vw, 0.78rem);
 }
 
-/* Contact Intro */
-.contactIntro p {
-    font-size: clamp(0.78rem, 1.6vw, 0.95rem);
-    color: #ddd;
-    line-height: 1.6;
-    margin: 0;
-}
-
 /* Contact List */
 .contactList {
     display: flex;
