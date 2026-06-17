@@ -19,32 +19,20 @@
 }
 
 /* Main UI Container  */
-.container { 
-    position: relative; 
-    background-color: rgba(0, 31, 63, 0.85); 
-    width: 100%;    
-    max-width: 850px;         
-    height: calc(100vh - 50px);  /* Subtract space for top and bottom bars on mobile */       
-    max-height: 1050px;    
-    overflow-y: auto;      
-    margin: 1vh auto 0.5vh;    
-    padding: 1%; 
-    border-radius: 12px;  
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); 
-    backdrop-filter: blur(10px); 
-    opacity: 0;
-    transition: all 0.3s ease-out; 
+.container {
+    position: relative;
+    background-color: rgba(0, 31, 63, 0.85);
+    width: 100%;
+    max-width: 850px;
+    height: calc(100vh - 50px);  /* Subtract space for top and bottom bars on mobile */
+    max-height: 1050px;
+    overflow-y: auto;
+    margin: 1vh auto 0.5vh;
+    padding: 1%;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    transform-origin: center center;
     touch-action: auto;
     overflow-x: hidden;
-}
-
-.fade-container { 
-    opacity: 0; 
-    pointer-events: none; /* Prevent interaction when hidden */ 
-    transition: opacity 0.75s ease-out; 
-}
-
-.fade-container.visible { 
-    opacity: 1; 
-    pointer-events: auto; /* Enable interaction when visible */ 
 }

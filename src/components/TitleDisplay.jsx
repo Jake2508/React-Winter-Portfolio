@@ -6,7 +6,7 @@ import "../styles/TitleDisplay.css";
 const TitleDisplay = ({ fadeIn }) => {
     return(    
             <img 
-                src="/Images/General/title.png" 
+                src="/Images/Logo/site-title-logo.png" 
                 alt="Jake Rose" 
                 className={`title-image ${fadeIn ? 'fade-in' : ''}`} 
                 tabIndex="-1"

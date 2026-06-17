@@ -1,13 +1,18 @@
+@keyframes fadeScale {
+    0%   { opacity: 0; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
 /* Title Image (Logo) */
-.title-image { 
-    width: clamp(150px, 60vw, 500px); 
-    height: auto; 
-    pointer-events: none; 
-    user-select: none; 
-    opacity: 0; 
-    transition: opacity 0.5s ease-in-out; 
+.title-image {
+    width: clamp(220px, 110vw, 850px);
+    height: auto;
+    margin-top: -10px;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0;
 }
 
 .title-image.fade-in {
-    opacity: 1; 
+    animation: fadeScale 0.7s ease-out forwards;
 }
