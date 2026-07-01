@@ -30,9 +30,9 @@ export const projectData = [
                 title: 'Procedural Islands',
                 miniTitle: '2024',
                 subtitle: 'Three.js Shader',
-                previewImage: '/Images/WebApplications/procedural-promo1.jpg',
+                previewImage: '/Images/WebApplications/procedural-promo.jpg',
                 media: [
-                    { type: 'image', url: '/Images/WebApplications/procedural-promo1.jpg' },
+                    { type: 'image', url: '/Images/WebApplications/procedural-promo.jpg' },
                 ],
                 technologies: ['Three.js', 'Three bvh', 'GLSL Shaders'],
                 description: ['This procedural terrain shader, created with Three.js, generates a realistic, customisable landscapes. ' +
