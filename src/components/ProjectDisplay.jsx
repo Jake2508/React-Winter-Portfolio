@@ -7,7 +7,7 @@ import "../styles/Tab.css";
 import "../styles/Scrollbar.css";
 import "../styles/UIContainer.css";
 
-// Page Tab Data 
+// Page Tab Data
 import { AboutData } from '../data/aboutData.js';
 import { projectData } from '../data/projectData.js';
 import { workData } from '../data/workData.js';
@@ -51,43 +51,43 @@ const ProjectDisplay = ({ onClose, isVisible }) => {
             });
         }
     }, [isVisible]);
-    
-    // -- Page Transition Setup -- // 
+
+    // -- Page Transition Setup -- //
     // useCallback functions avoid creating new functions on every render
     const handleTabChange = useCallback((tab) => {
-        if (tab !== activeTab) {  
+        if (tab !== activeTab) {
             applyTransition(() => {
                 setActiveTab(tab);
                 setSelectedProject(null);  // Reset project selection
             });
         }
     }, [activeTab, applyTransition]);
-    
+
     const handleProjectSelect = useCallback((project) => {
         setScrollPosition(containerRef.current.scrollTop);
         applyTransition(() => {
             setSelectedProject(project);
-            if (containerRef.current) 
+            if (containerRef.current)
             {
                 // Scroll to top when selecting a new project
-                containerRef.current.scrollTop = 0; 
+                containerRef.current.scrollTop = 0;
             }
-        }); 
+        });
     }, [applyTransition]);
 
     const handleProjectBack = useCallback(() => {
         applyTransition(() => {
             setSelectedProject(null); // Go back to grid view
-            if (containerRef.current) 
+            if (containerRef.current)
             {
                 // Restore the scroll position
-                containerRef.current.scrollTop = scrollPosition; 
-            } 
+                containerRef.current.scrollTop = scrollPosition;
+            }
         }, 300);
     }, [applyTransition, scrollPosition]);
 
-    
-    // Close UI Panel 
+
+    // Close UI Panel
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (containerRef.current && !containerRef.current.contains(event.target)) {
@@ -201,7 +201,7 @@ const ProjectDisplay = ({ onClose, isVisible }) => {
     );
 };
 
-    
+
 // Reusable ProjectGrid Component : React memo -> lets you skip re-rendering a component when its props are unchanged
 const ProjectGrid = React.memo(({ data, onSelect, selectedProject, onBack }) => {
     return (
