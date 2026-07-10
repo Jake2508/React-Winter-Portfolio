@@ -1,17 +1,39 @@
 /* Scrollbars */
-.custom-scrollbar::-webkit-scrollbar { 
-    width: 8px;
+
+/* Chromium / Safari: full control via legacy pseudo-elements, arrows fully hidden. */
+@supports selector(::-webkit-scrollbar) {
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: rgba(133, 193, 233, 0.45);
+        border-radius: 4px;
+        transition: background-color 0.2s ease;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(133, 193, 233, 0.8);
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-button {
+        display: none; /* Hide the arrows */
+        width: 0;
+        height: 0;
+    }
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb { 
-    background-color: #85C1E9; 
-    border-radius: 10px; 
+/* Firefox (and any engine without ::-webkit-scrollbar support): standard properties.
+   Declaring these alongside the webkit rules above makes Chromium switch to its own
+   themed-thin-scrollbar renderer, which draws non-removable arrow caps — so this is
+   gated to engines that actually need it. */
+@supports not selector(::-webkit-scrollbar) {
+    .custom-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(133, 193, 233, 0.45) transparent;
+    }
 }
-
-.custom-scrollbar::-webkit-scrollbar-track { 
-    background-color: rgba(0, 31, 63, 0.85); 
-}
-
-.custom-scrollbar::-webkit-scrollbar-button { 
-    display: none; /* Hide the arrows */ 
-} 

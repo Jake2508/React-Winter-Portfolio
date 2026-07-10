@@ -31,7 +31,7 @@ const ProjectDetails = ({ project }) => {
                 </div>
 
                 {project.description?.length > 0 && (
-                    <div className="detailsDescription custom-scrollbar">
+                    <div className="detailsDescription">
                         {project.description.map((paragraph, index) => (
                             <p key={index}>{paragraph}</p>
                         ))}

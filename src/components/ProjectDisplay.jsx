@@ -27,6 +27,7 @@ const ProjectDisplay = ({ onClose, isVisible }) => {
     const { fade, applyTransition } = useFadeTransition();
     const [scrollPosition, setScrollPosition] = useState(0);
     const containerRef = useRef(null);
+    const contentRef = useRef(null);
 
     // Set initial collapsed state on mount
     useEffect(() => {
@@ -64,13 +65,13 @@ const ProjectDisplay = ({ onClose, isVisible }) => {
     }, [activeTab, applyTransition]);
 
     const handleProjectSelect = useCallback((project) => {
-        setScrollPosition(containerRef.current.scrollTop);
+        setScrollPosition(contentRef.current.scrollTop);
         applyTransition(() => {
             setSelectedProject(project);
-            if (containerRef.current)
+            if (contentRef.current)
             {
                 // Scroll to top when selecting a new project
-                containerRef.current.scrollTop = 0;
+                contentRef.current.scrollTop = 0;
             }
         });
     }, [applyTransition]);
@@ -78,10 +79,10 @@ const ProjectDisplay = ({ onClose, isVisible }) => {
     const handleProjectBack = useCallback(() => {
         applyTransition(() => {
             setSelectedProject(null); // Go back to grid view
-            if (containerRef.current)
+            if (contentRef.current)
             {
                 // Restore the scroll position
-                containerRef.current.scrollTop = scrollPosition;
+                contentRef.current.scrollTop = scrollPosition;
             }
         }, 300);
     }, [applyTransition, scrollPosition]);
@@ -176,7 +177,7 @@ const ProjectDisplay = ({ onClose, isVisible }) => {
     const activeIndex = tabs.indexOf(activeTab);
 
     return (
-        <div ref={containerRef} className="container custom-scrollbar">
+        <div ref={containerRef} className="container">
             <div className="tabs">
                 <div
                     className="tabIndicator"
@@ -193,7 +194,8 @@ const ProjectDisplay = ({ onClose, isVisible }) => {
                 ))}
             </div>
             <div
-                className={`content ${fade ? 'fade-in' : 'fade-out'}`} // Dynamically apply fade-in or fade-out class
+                ref={contentRef}
+                className={`content custom-scrollbar ${fade ? 'fade-in' : 'fade-out'}`} // Dynamically apply fade-in or fade-out class
             >
                 {memoizedContent}
             </div>
