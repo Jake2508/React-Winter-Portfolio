@@ -24,7 +24,7 @@ const SCREEN_ROT = [0, Math.PI / 2, 0];  // face +X toward camera
 const STARS = [[12,8],[45,14],[78,5],[110,21],[23,41],[95,37],[62,18],[30,55],[100,50]];
 
 
-function ArcadeMachine({ onClick, setHovered, ...props }) {
+function ArcadeMachine({ onClick, setHovered, isVisible, ...props }) {
 
     const gltf  = useGLTF('/Models/ArcadeMachine.gltf');
     const scene = useMemo(() => gltf.scene.clone(true), [gltf]);
@@ -57,6 +57,7 @@ function ArcadeMachine({ onClick, setHovered, ...props }) {
     // ── Retro arcade attract-mode renderer ───────────────────────────────────
     useFrame(({ clock }) => {
         if (DEBUG) return;
+        if (isVisible) return; // Panel covers the screen — skip the redraw + texture upload
 
         const t  = clock.getElapsedTime();
         const px = pixCanvas.getContext('2d');

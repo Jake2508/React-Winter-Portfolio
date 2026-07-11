@@ -2,6 +2,7 @@
 .tabs {
     position: relative;
     display: flex;
+    flex-shrink: 0;
     gap: 4px;
     padding: 4px;
     margin-bottom: 10px;
@@ -58,8 +59,14 @@
     background: transparent;
 }
 
-/* Page content area */
+/* Page content area — the only scrollable region in the panel */
 .content {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    touch-action: auto;
+    scrollbar-gutter: stable;
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);

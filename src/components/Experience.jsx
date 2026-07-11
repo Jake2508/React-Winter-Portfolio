@@ -62,11 +62,11 @@ export default function Experience({ onSelectProject, isVisible }) {
                 </EffectComposer>
 
                 {/* Orbit Controls */}
-                <OrbitControls makeDefault enableDamping={true} dampingFactor={0.1} enablePan={false} 
+                <OrbitControls makeDefault enableDamping={true} dampingFactor={0.1} enablePan={false}
                     minPolarAngle={Math.PI / 4.5} maxPolarAngle={Math.PI / 2.2}
-                    minDistance={7.0} maxDistance={25} 
-                    enabled={!isVisible}  
-                    autoRotate={true} autoRotateSpeed={0.2}
+                    minDistance={7.0} maxDistance={25}
+                    enabled={!isVisible}
+                    autoRotate={!isVisible} autoRotateSpeed={0.2}
                     // Mobile Support
                     touches={{ 
                         ONE: 0, // Single-finger rotate
@@ -81,7 +81,7 @@ export default function Experience({ onSelectProject, isVisible }) {
 
                 {/* Arcade Machine */}
                 <ArcadeMachine position-y={-1.4} castShadow={false} receiveShadow={false}
-                    onClick={handleArcadeClick} setHovered={setHovered}
+                    onClick={handleArcadeClick} setHovered={setHovered} isVisible={isVisible}
                 />
 
                 {/* World-space tooltip — hidden once the panel is open */}

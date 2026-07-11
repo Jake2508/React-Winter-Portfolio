@@ -4,11 +4,11 @@ const useFadeTransition = (initialState = true, transitionDuration = 300) => {
     const [fade, setFade] = useState(initialState);
 
     const applyTransition = (callback) => {
-        setFade(false); 
+        setFade(false);
         setTimeout(() => {
             callback(); // Perform the action
             setFade(true); // Trigger fade-in
-        }, transitionDuration); 
+        }, transitionDuration);
     };
 
     return { fade, applyTransition };

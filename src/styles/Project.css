@@ -58,11 +58,8 @@
 }
 
 .detailsDescription {
-    flex: 1;
-    overflow-y: auto;
     font-size: clamp(0.65rem, 1.25vw, 0.78rem);
     line-height: 1.55;
-    min-height: 0;
 }
 
 .detailsDescription p {
@@ -79,7 +76,6 @@
     gap: 6px;
     padding-top: 6px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: auto;
 }
 
 .detailsLinkBtn {
