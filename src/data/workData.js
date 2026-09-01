@@ -6,7 +6,7 @@ export const workData = [
             id: 1,
             title: 'Software Engineer in Test',
             company: 'Smartodds Limited',
-            miniTitle: '2025-Present',
+            miniTitle: '2025-2026',
             subtitle: 'Internal Tools & Monitoring across Distributed Systems',
             previewImage: '/Images/Work/smartodds-banner.png', 
             media: [
