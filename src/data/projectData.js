@@ -1,9 +1,18 @@
-// Data for Projects Sections! 
-// Add a new ID for new projects & Style in CSS
+// Data for Projects Sections!
+// Add a new ID for new projects & Style in CSS.
+//
+// `group`   places the project in one of the carousels below — must match a
+//           projectGroups entry or the project will not be rendered.
+// `primary` is the single gold call-to-action pinned to the detail title row.
+//           Omit it when a project has nothing to play, download or visit.
+// Remaining `links` render as secondary buttons under the description.
+
+export const projectGroups = ['Games', 'React Three.js'];
 
 export const projectData = [
             {
                 id: 1,
+                group: 'React Three.js',
                 title: 'Portfolio',
                 miniTitle: '2024-Present',
                 subtitle: 'React Three Fiber Application',
@@ -20,6 +29,7 @@ export const projectData = [
         
                     'I also prioritized a dynamic user experience, combining interactive 3D elements with intuitive functionality to create an engaging and personalized website.'
                 ],
+                primary: { label: 'Visit Site', url: 'https://jake-rose.com' },
                 links: [
                     { label: 'Code Repo', url: 'https://github.com/Jake2508/React-Winter-Portfolio/tree/main/src' },
                     { label: 'Design Board', url: 'https://miro.com/app/board/uXjVKECWmgk=/?share_link_id=556901902113' },
@@ -27,6 +37,7 @@ export const projectData = [
             },
             {
                 id: 2,
+                group: 'React Three.js',
                 title: 'Procedural Islands',
                 miniTitle: '2024',
                 subtitle: 'Three.js Shader',
@@ -46,19 +57,19 @@ export const projectData = [
                     'Key technical elements include high-resolution meshes, shadow-casting lights, and detailed materials for water and wood, creating ' +
                     'a visually immersive landscape ideal for interactive applications.'
                 ],
+                primary: { label: 'Live Link', url: 'https://proceduralterrainshader.netlify.app/' },
                 links: [
                     { label: 'Code Repo', url: 'https://github.com/Jake2508/procedural-terrain-shader/tree/main' },
-                    { label: 'Live Link', url: 'https://proceduralterrainshader.netlify.app/' },
                 ],
             },
             {
                 id: 3,
+                group: 'Games',
                 title: 'Tankeo Drift',
-                miniTitle: '2023-2024',
+                miniTitle: '2024',
                 subtitle: 'Endless Action Roguelike',
                 previewImage: '/Images/Games/Tankeo-Promo2.jpg',
                 media: [
-                    { type: 'embed', url: 'https://www.youtube.com/embed/MCiUNEL0EaY?si=5YdXJN5stWTy' },
                     { type: 'image', url: '/Images/Games/Tankeo-Promo2.jpg' },
                     { type: 'image', url: '/Images/Games/Tankeo-Promo1.jpg' },
                     { type: 'image', url: '/Images/Games/Tankeo-Promo3.jpg' },
@@ -75,22 +86,23 @@ export const projectData = [
                     'To achieve this, I implemented a procedurally generated environment. The system uses a 9-tile grid of prefabs that dynamically update based on the ' +
                     'players position, creating the illusion of an infinite level.'
                 ],
+                primary: { label: 'Download', url: 'https://jake12341234.itch.io/tankeo-drift' },
                 links: [
                     { label: 'Code Repo', url: 'https://github.com/Jake2508/Tank/tree/main/Assets/Scripts' },
-                    { label: 'Design Doc', url: '/Images/GDD/GDD-Tankeo-Drift.pdf' },
-                    { label: 'Download Game', url: 'https://jake12341234.itch.io/tankeo-drift' },
                 ],
             },
             {
                 // COMPLETE
                 id: 4,
+                group: 'Games',
                 title: 'Assembly Required',
                 miniTitle: '2022',
                 subtitle: 'Farming Roguelike Exploration',
                 previewImage: '/Images/Games/Assembly-Promo9.jpg', 
                 media: [
-                    { type: 'embed', url: 'https://www.youtube.com/embed/AQUKyF2cjNM?si=rlF7Eh-CtIbXYHyh' },
+                    // Promo still leads; the trailer sits second for anyone who wants it
                     { type: 'image', url: '/Images/Games/Assembly-Promo1.jpg' },
+                    { type: 'embed', url: 'https://www.youtube.com/embed/AQUKyF2cjNM?si=rlF7Eh-CtIbXYHyh' },
                     { type: 'image', url: '/Images/Games/Assembly-Promo3.jpg' },
                     { type: 'image', url: '/Images/Games/Assembly-Promo7.jpg' },
                     { type: 'image', url: '/Images/Games/Assembly-Promo8.jpg' },
@@ -107,25 +119,22 @@ export const projectData = [
                     'My contributions included developing core features such as the farming tool prototypes, refuel station, melee enemy, acid pools, level transitions, UI ' +
                     'implementation, sound manager, and reviewing level designs. I also assisted with bug fixing across various areas of the game.' 
                 ],
+                primary: { label: 'Download', url: 'https://tomwilkinson.itch.io/assembly-required' },
                 links: [
                     { label: 'Code Repo', url: 'https://github.com/TomWilkinsonGames/RoboFarm' },
-                    { label: 'Download Game', url: 'https://tomwilkinson.itch.io/assembly-required' },
                 ],
             },
             {
                 // COMPLETE
                 id: 5,
+                group: 'Games',
                 title: 'Deliberation',
                 miniTitle: '2024',
                 subtitle: 'A* Pathfinding Prototype',
                 previewImage: '/Images/Games/Deliberation-Promo1.jpg', 
                 media: [
-    
-                    { type: 'embed', url: 'https://www.youtube.com/embed/aU5eYhggCLU?si=ILWADHAL0GvOTq-f' },
-                    { type: 'image', url: '/Images/Games/Deliberation-Promo1.jpg' }, 
-                    { type: 'image', url: '/Images/Games/Deliberation-PromoT1.jpg' }, 
-                    { type: 'image', url: '/Images/Games/Deliberation-PromoT2.jpg' }, 
-                    { type: 'image', url: '/Images/Games/Deliberation-PromoG.gif' }, 
+                    { type: 'image', url: '/Images/Games/Deliberation-Promo1.jpg' },
+                    { type: 'image', url: '/Images/Games/Deliberation-PromoG.gif' },
                 ],
                 technologies: ['Unity', 'A* Pathfinding', 'Aseprite', 'Grid System'],
                 description: ['Deliberation is a prototype puzzle game built in Unity that showcases A* pathfinding. Click to select your characters target position ' + 
@@ -143,12 +152,12 @@ export const projectData = [
             {
                 // COMPLETE
                 id: 6,
+                group: 'Games',
                 title: 'AstroHaul',
                 miniTitle: '2024',
                 subtitle: 'Asteroids Gravity Chaos',
                 previewImage: '/Images/Games/Asteroids-Promo1.jpg', 
                 media: [
-                    { type: 'embed', url: 'https://www.youtube.com/embed/8v2ZYKTqcxE?si=w1D3grpEaoYvvMXJ' },
                     { type: 'image', url: '/Images/Games/Asteroids-Promo1.jpg' },
                     { type: 'image', url: '/Images/Games/Asteroids-Promo2.jpg' },
                     { type: 'image', url: '/Images/Games/Asteroids-Promo3.jpg' },
@@ -161,10 +170,10 @@ export const projectData = [
                 'To achieve this, I set out to make a gravitation push/pull effect usable for all objects. The idea was to add uncertainty while maintaining responsive feedback ' +
                 'so users could understand these forces. '
                 ],
+                primary: { label: 'Play on WebGL', url: 'https://jake12341234.itch.io/astrohaul' },
                 links: [
                     { label: 'Code Repo', url: 'https://github.com/Jake2508/Asteroids/tree/main/Assets/Asteroids%20Game' },
                     { label: 'Game Jam', url: 'https://itch.io/jam/typical-game-jam' },
-                    { label: 'Play on WebGL', url: 'https://jake12341234.itch.io/astrohaul' },
                 ],
             },
             // {

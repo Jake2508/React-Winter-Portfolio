@@ -1,0 +1,176 @@
+/* ==========================================================================
+   About tab — intro, experience timeline, education, tech stack
+   ========================================================================== */
+
+.aboutTab {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* -- Shared section label: [ NAME ] followed by a filling hairline -- */
+.sectionLabel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 12px;
+}
+
+.sectionLabelText {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 9.5px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.45);
+}
+
+.sectionLabelRule {
+    flex: 1;
+    height: 1px;
+    background: var(--panel-hairline);
+}
+
+/* -- Intro row: paragraph + portrait -- */
+.aboutIntro {
+    display: grid;
+    grid-template-columns: 1fr 132px;
+    gap: 20px;
+    align-items: start;
+}
+
+.aboutIntroText {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: var(--text-strong);
+    text-wrap: pretty;
+}
+
+.aboutPortrait {
+    width: 132px;
+    height: 132px;
+    object-fit: cover;
+    display: block;
+    border: 1px solid rgba(133, 193, 233, 0.28);
+}
+
+/* Monogram stand-in until a real headshot lands at profile.portrait */
+.aboutPortraitFallback {
+    display: grid;
+    place-items: center;
+    background: var(--panel-surface);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 34px;
+    letter-spacing: 2px;
+    color: rgba(133, 193, 233, 0.5);
+    user-select: none;
+}
+
+/* -- Shared row treatment for experience & education -- */
+.aboutRows {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.aboutRow {
+    display: grid;
+    grid-template-columns: 78px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    padding: 10px 12px;
+    background: var(--panel-surface);
+    border-left: 2px solid rgba(133, 193, 233, 0.35);
+}
+
+.aboutRowYear {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 10.5px;
+    letter-spacing: 0.5px;
+    color: var(--accent-blue);
+}
+
+.aboutRowTitle {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: #ffffff;
+}
+
+.aboutRowAward {
+    margin: 2px 0 0;
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: 10.5px;
+    letter-spacing: 0.4px;
+    color: var(--text-faint);
+}
+
+.aboutRowMeta {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: 11.5px;
+    letter-spacing: 0.3px;
+    color: var(--text-faint);
+    text-align: right;
+}
+
+.aboutRowLogo {
+    width: 34px;
+    height: auto;
+    display: block;
+}
+
+/* -- Tech stack: one flat wrapped run of pills -- */
+.stackRun {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.stackPill {
+    padding: 5px 9px;
+    background: rgba(133, 193, 233, 0.09);
+    border: 1px solid var(--panel-border);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 10.5px;
+    letter-spacing: 0.3px;
+    color: var(--accent-blue-text);
+    white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+    .aboutTab { gap: 24px; }
+
+    .aboutIntro {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .aboutIntroText { font-size: 14px; }
+
+    .aboutRow {
+        grid-template-columns: 70px 1fr;
+        row-gap: 4px;
+    }
+
+    /* Company / logo drops under the role rather than squeezing the row */
+    .aboutRowMeta,
+    .aboutRowLogoCell {
+        grid-column: 2;
+        text-align: left;
+    }
+}

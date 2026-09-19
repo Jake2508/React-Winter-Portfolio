@@ -1,19 +1,18 @@
 // Core Extensions
 import './style.css';
 import ReactDOM from 'react-dom/client';
-import React, { memo } from 'react';
+import React from 'react';
 import { Suspense, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 
 // Custom Hooks & Components
 import Experience from './components/Experience.jsx';
 import Loader from './components/Loader.jsx'; 
-import TitleDisplay from './components/TitleDisplay.jsx';
 import ProjectDisplay from './components/ProjectDisplay.jsx';
 import usePreventZoom from './hooks/usePreventZoom.js';  
+import usePreloadImages from './hooks/usePreloadImages.js';
+import { panelImages } from './data/siteData.js';
 
-
-const MemorisedTitleDisplay = memo(TitleDisplay); 
 
 const App = () => {
     const [loading, setLoading] = useState(true);
@@ -22,10 +21,13 @@ const App = () => {
 
     const [selectedProject, setSelectedProject] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
-    const [fadeInTitle, setFadeInTitle] = useState(false);
+    const [fadeInUI, setFadeInUI] = useState(false);
 
     // Restrict Zoom Controls
     usePreventZoom();
+
+    // Warm the panel's images while the loading screen runs
+    usePreloadImages(panelImages);
 
     const toggleVisibility = (project) => {
         if (project) {
@@ -54,7 +56,7 @@ const App = () => {
             setFadeOut(true); 
             setTimeout(() => {
                 setLoading(false); 
-                setTimeout(() => setFadeInTitle(true), 100);
+                setTimeout(() => setFadeInUI(true), 100);
             }, 1000); 
         };
         loadAssets();
@@ -81,15 +83,14 @@ const App = () => {
                     <Experience
                         onSelectProject={toggleVisibility}
                         isVisible={isVisible}
+                        showTitle={!loading && fadeInUI}
                     />
                 </Suspense>
             </Canvas>
 
             {/* UI Overlay Wrapper */}
             <div className='ui-container'>
-               {!loading && <MemorisedTitleDisplay fadeIn={fadeInTitle} />}
                 <ProjectDisplay
-                    project={selectedProject}
                     isVisible={isVisible}
                     onClose={() => toggleVisibility(null)}
                 />
@@ -97,7 +98,7 @@ const App = () => {
 
             {/* Bottom-left portfolio label */}
             {!loading && (
-                <div className={`screenLabel ${fadeInTitle && !isVisible ? 'screenHintsVisible' : ''}`}>
+                <div className={`screenLabel ${fadeInUI && !isVisible ? 'screenHintsVisible' : ''}`}>
                     <span>Winter</span>
                     <span className="screenHintsDot">·</span>
                     <span>Portfolio '26</span>
@@ -106,7 +107,7 @@ const App = () => {
 
             {/* Bottom-right control hints */}
             {!loading && (
-                <div className={`screenHints ${fadeInTitle && !isVisible ? 'screenHintsVisible' : ''}`}>
+                <div className={`screenHints ${fadeInUI && !isVisible ? 'screenHintsVisible' : ''}`}>
                     <span>drag</span>
                     <span className="screenHintsDot">·</span>
                     <span>scroll</span>

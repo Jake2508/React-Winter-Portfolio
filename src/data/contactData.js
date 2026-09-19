@@ -1,54 +1,58 @@
 // Data for contact
 
-const copyToClipboard = (text) => navigator.clipboard.writeText(text);
+import React from 'react';
+import SectionLabel from '../components/SectionLabel.jsx';
+import { contactIntro, contactPrimary, socials, cv } from './siteData.js';
+
 
 export const ContactData = () => (
-    <div className="aboutBento">
+    <div className="contactTab">
 
-        {/* Intro Card - full width */}
-        <div className="bentoCard bentoFull contactIntro">
-            <h2>Let's Chat</h2>
-            <p>
-                Thanks for taking the time to look through my portfolio! Whether you have a question,
-                an opportunity, or just want to say hello. Feel free to reach out through any of the
-                methods below.
-            </p>
-        </div>
+        {/* Availability and location are not repeated here — they live in the tab bar */}
+        <p className="contactIntro">{contactIntro}</p>
 
-        {/* Contact Links Card */}
-        <div className="bentoCard">
-            <h2>Get in Touch</h2>
-            <div className="contactList">
-                <a href="mailto:rosejake400@gmail.com" className="contactRow">
-                    <span className="contactLabel">Email</span>
-                    <span className="contactValue">rosejake400@gmail.com</span>
+        <section className="contactPrimaryGrid">
+            {contactPrimary.map((item) => (
+                <a key={item.label} href={item.href} className="contactTile">
+                    <span className="contactTileLabel">{item.label}</span>
+                    <span className="contactTileValue">{item.value}</span>
                 </a>
-                <a href="#" className="contactRow" onClick={(e) => { e.preventDefault(); copyToClipboard('07561042931') }}>
-                    <span className="contactLabel">Phone</span>
-                    <span className="contactValue">07561 042931 <span className="subInformation">(copy)</span></span>
-                </a>
-                <a href="https://www.linkedin.com/in/jake-rose123/" target="_blank" rel="noopener noreferrer" className="contactRow">
-                    <span className="contactLabel">LinkedIn</span>
-                    <span className="contactValue">jake-rose123</span>
-                </a>
-                <a href="https://github.com/Jake2508" target="_blank" rel="noopener noreferrer" className="contactRow">
-                    <span className="contactLabel">GitHub</span>
-                    <span className="contactValue">Jake2508</span>
-                </a>
+            ))}
+        </section>
+
+        <section>
+            <SectionLabel name="SOCIALS" />
+            <div className="contactRows">
+                {socials.map((social) => (
+                    <a
+                        key={social.label}
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="contactRow"
+                    >
+                        <span className="contactLabel">{social.label}</span>
+                        {/* Full URL stays visible — recruiters and ATS filters distrust bare labels */}
+                        <span className="contactValue">{social.url}</span>
+                    </a>
+                ))}
             </div>
-        </div>
+        </section>
 
-        {/* Resume Card */}
-        <div className="bentoCard resumeCard">
-            <h2>Resume</h2>
-            <div className="resumeCardInner">
-                <img src="/Images/General/pdf-icon2.png" alt="PDF" className="educationImage" />
-                <div className="resumeActions">
-                    <a href="/Images/General/Jake-Rose-CV.pdf" target="_blank" rel="noopener noreferrer" className="resumeBtn">View Online</a>
-                    <a href="/Images/General/Jake-Rose-CV.pdf" download="Jake_Rose_CV.pdf" className="resumeBtn">Download</a>
+        <section>
+            <SectionLabel name="CV" />
+            <div className="cvRow">
+                <img src={cv.icon} alt="" className="cvIcon" width="38" height="38" decoding="async" />
+                <div>
+                    <h3 className="cvTitle">{cv.title}</h3>
+                    <p className="cvMeta">{cv.meta}</p>
+                </div>
+                <div className="cvActions">
+                    <a href={cv.url} target="_blank" rel="noopener noreferrer" className="cvBtn">View</a>
+                    <a href={cv.url} download="Jake_Rose_CV.pdf" className="cvBtn">Download</a>
                 </div>
             </div>
-        </div>
+        </section>
 
     </div>
 );

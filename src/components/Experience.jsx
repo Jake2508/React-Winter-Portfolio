@@ -9,9 +9,10 @@ import { ToneMappingMode, BlendFunction } from 'postprocessing';
 // Custom Hooks & Components
 import ArcadeMachine from './ArcadeMachine.jsx';
 import OptimiseModel from './OptimiseModel.jsx';
+import SceneTitle from './SceneTitle.jsx';
 
 
-export default function Experience({ onSelectProject, isVisible }) {
+export default function Experience({ onSelectProject, isVisible, showTitle }) {
 
     const [hovered, setHovered] = useState(false);
 
@@ -76,6 +77,9 @@ export default function Experience({ onSelectProject, isVisible }) {
 
                 {/* Static Scene Objects */}
                 <OptimiseModel modelPath="/Models/WinterScene.gltf" scale={0.4} position={[0, -1.4, 0]} enableBVH={true} />
+
+                {/* World-space title — replaces the old screen-space logo */}
+                <SceneTitle visible={showTitle && !isVisible} />
 
                 {/* Interactables */}
 

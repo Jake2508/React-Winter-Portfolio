@@ -5,6 +5,14 @@ import restart from 'vite-plugin-restart'
 export default {
     root: 'src/',
     publicDir: '../public/',
+
+    // Build timestamp — the About footer readout reads this rather than a
+    // hardcoded date, so "LAST UPDATED" stays honest without anyone editing it.
+    define:
+    {
+        __BUILD_DATE__: JSON.stringify(new Date().toISOString()),
+    },
+
     plugins:
     [
         // Restart server on static/public file change

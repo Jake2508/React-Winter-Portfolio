@@ -1,4 +1,39 @@
-/* Basic styling for the .ui-container */
+/* ==========================================================================
+   Panel shell — Arcade HUD
+   Design tokens, bevelled frame, CRT overlays, header & footer plates.
+   ========================================================================== */
+
+:root {
+    /* Surfaces */
+    --panel-ground:   rgba(0, 18, 38, 0.9);
+    --panel-plate:    rgba(0, 10, 26, 0.55);
+    --panel-surface:  rgba(133, 193, 233, 0.05);
+    --panel-border:   rgba(133, 193, 233, 0.2);
+    --panel-hairline: rgba(133, 193, 233, 0.18);
+
+    /* Accents */
+    --accent-blue:      #85C1E9;
+    --accent-blue-text: #a9d5f3;
+    --accent-gold:      #FFD700;
+    --accent-green:     #7fffc4;
+    --on-gold:          #001428;
+
+    /* Text — .62 is the contrast floor against the panel ground */
+    --text-strong: rgba(255, 255, 255, 0.92);
+    --text-muted:  rgba(255, 255, 255, 0.72);
+    --text-faint:  rgba(255, 255, 255, 0.62);
+
+    /* Type */
+    --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
+    --font-mono:    'JetBrains Mono', ui-monospace, 'Cascadia Mono', monospace;
+
+    /* Motion — one curve everywhere */
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --hover-speed: 200ms;
+    --content-speed: 320ms;
+}
+
+/* Overlay wrapper — sits above the canvas, passes clicks through */
 .ui-container {
     position: absolute;
     top: 0;
@@ -18,21 +53,331 @@
     touch-action: none;
 }
 
-/* Main UI Container  */
+/*
+  Anchor centres the panel in the viewport. Kept separate from .container so
+  GSAP owns that element's transform outright and its scaleY animation cannot
+  clobber the centring translate.
+
+  Sizing fills the space available and caps at the design size, so the panel
+  scales with the viewport rather than staying rigid until it hits a clamp.
+*/
+.panelAnchor {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(724px, 95vw);
+    height: min(678px, calc(100dvh - 80px));
+    pointer-events: none;
+}
+
+/*
+  Main UI Container.
+
+  The edge is drawn as a two-layer sandwich rather than with `border`. A real
+  border cannot work here: clip-path cuts it away along the diagonals, and it
+  also insets the padding box by 1px, which pushed the absolutely positioned
+  gold brackets 1px inside the bevel and left a dark sliver along each corner.
+  Here the container's own background is the hairline and ::before covers all
+  but the outer pixel, so the edge follows the bevel exactly and the brackets
+  sit flush against the cut.
+*/
 .container {
     position: relative;
-    background-color: rgba(0, 31, 63, 0.85);
     width: 100%;
-    max-width: 850px;
-    height: calc(100vh - 50px);  /* Subtract space for top and bottom bars on mobile */
-    max-height: 1050px;
-    margin: 1vh auto 0.5vh;
-    padding: 1%;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(10px);
+    height: 100%;
+
+    /*
+      1px of padding keeps the header and footer plates off the hairline. They
+      are full-width flex children, so without it they paint over the outer
+      pixel and the edge only shows beside the content area — reading as a
+      stray blue line jutting out past the plates.
+    */
+    padding: 1px;
+    background: rgba(133, 193, 233, 0.34);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(14px);
     transform-origin: center center;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    font-family: var(--font-display);
+
+    /* Bevelled corners — deliberately not rounded */
+    clip-path: polygon(
+        7px 0, calc(100% - 7px) 0,
+        100% 7px, 100% calc(100% - 7px),
+        calc(100% - 7px) 100%, 7px 100%,
+        0 calc(100% - 7px), 0 7px
+    );
+}
+
+/* Panel ground, inset by the hairline. 6.6px keeps this chamfer parallel to
+   the outer one: a 45-degree chamfer loses (sqrt(2) - 1) per pixel of inset. */
+.container::before {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    z-index: 0;
+    background: var(--panel-ground);
+    box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.28);
+    clip-path: polygon(
+        6.6px 0, calc(100% - 6.6px) 0,
+        100% 6.6px, 100% calc(100% - 6.6px),
+        calc(100% - 6.6px) 100%, 6.6px 100%,
+        0 calc(100% - 6.6px), 0 6.6px
+    );
+}
+
+/* -- Gold corner brackets -- */
+.panelBracket {
+    position: absolute;
+    z-index: 5;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
+
+.panelBracketTL { top: 0; left: 0; }
+.panelBracketTR { top: 0; right: 0; }
+.panelBracketBL { bottom: 0; left: 0; }
+.panelBracketBR { bottom: 0; right: 0; }
+
+/* -- CRT overlays -- */
+.panelScanlines,
+.panelVignette,
+.panelSweep {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.panelScanlines {
+    z-index: 3;
+    background: repeating-linear-gradient(to bottom,
+        rgba(255, 255, 255, 0.028) 0 1px, transparent 1px 3px);
+}
+
+/* Eased off from .55 — at full strength the corners went near-black and
+   swallowed the gold brackets sitting on top of them. */
+.panelVignette {
+    z-index: 3;
+    background: radial-gradient(120% 100% at 50% 50%,
+        transparent 46%, rgba(0, 6, 16, 0.38) 100%);
+}
+
+/*
+  Luminance band that drifts down the panel once, then rests. Driven by `top`
+  rather than a translate: the panel height is viewport-dependent, so a fixed
+  pixel travel would stop short on tall screens and overshoot on short ones.
+*/
+.panelSweep {
+    z-index: 4;
+    inset: auto 0 auto 0;
+    top: -120px;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent,
+        rgba(160, 220, 255, 0.05) 45%, rgba(160, 220, 255, 0.11) 50%,
+        rgba(160, 220, 255, 0.05) 55%, transparent);
+    animation: sweep 16s linear infinite;
+}
+
+@keyframes sweep {
+    0%   { top: -120px; opacity: 0; }
+    4%   { opacity: 0.42; }
+    36%  { opacity: 0.42; }
+    40%  { top: 100%; opacity: 0; }
+    100% { top: 100%; opacity: 0; }
+}
+
+@keyframes pulseDot {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.35; }
+}
+
+/* ==========================================================================
+   Header bar
+   ========================================================================== */
+
+.panelHeader {
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 20px 13px;
+    background: var(--panel-plate);
+    border-bottom: 1px solid var(--panel-hairline);
+}
+
+.panelName {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 1.1;
+    letter-spacing: 2.6px;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-shadow: 0 0 18px rgba(170, 215, 255, 0.45);
+    border-bottom: none;
+    text-align: left;
+}
+
+.panelHeaderDivider {
+    flex-shrink: 0;
+    width: 1px;
+    height: 15px;
+    background: rgba(133, 193, 233, 0.3);
+}
+
+.panelRoles {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 9.5px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: rgba(133, 193, 233, 0.9);
+}
+
+.panelClose {
+    margin-left: auto;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    border-radius: 0;
+    background: rgba(133, 193, 233, 0.07);
+    border: 1px solid rgba(133, 193, 233, 0.3);
+    color: var(--accent-blue);
+    box-shadow: none;
+    cursor: pointer;
+    transition: background var(--hover-speed) var(--ease),
+                border-color var(--hover-speed) var(--ease),
+                color var(--hover-speed) var(--ease);
+}
+
+.panelClose:hover {
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+    color: var(--on-gold);
+    transform: none;
+    box-shadow: none;
+}
+
+/* ==========================================================================
+   Footer status bar
+   ========================================================================== */
+
+.panelFooter {
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 20px;
+    background: var(--panel-plate);
+    border-top: 1px solid var(--panel-hairline);
+}
+
+.panelReadout {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.panelReadoutDot {
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    background: var(--accent-blue);
+    animation: pulseDot 3.5s var(--ease) infinite;
+}
+
+.panelReadoutText {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 9px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.panelHints {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.panelHint {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.panelHintKey {
+    padding: 3px 5px;
+    border: 1px solid rgba(133, 193, 233, 0.3);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 8.5px;
+    letter-spacing: 1px;
+    line-height: 1;
+    color: var(--accent-blue);
+}
+
+.panelHintLabel {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: 8.5px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.66);
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .panelAnchor {
+        width: 95vw;
+        height: min(678px, calc(100dvh - 40px));
+    }
+
+    .panelHeader { gap: 9px; padding: 13px 15px 11px; }
+    .panelName   { font-size: 15px; letter-spacing: 1.8px; }
+    .panelRoles  { font-size: 8.5px; letter-spacing: 1.1px; }
+    .panelFooter { padding: 8px 15px; }
+    .panelHints  { gap: 8px; }
+}
+
+/* Roles and the DRAG hint are the first things to go on a narrow screen */
+@media (max-width: 560px) {
+    .panelRoles,
+    .panelHeaderDivider,
+    .panelHint:last-child { display: none; }
+}
+
+@media (max-width: 480px) {
+    .panelAnchor {
+        width: 95vw;
+        height: min(678px, calc(100dvh - 24px));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .panelSweep { display: none; }
+    .panelReadoutDot { animation: none; }
 }
