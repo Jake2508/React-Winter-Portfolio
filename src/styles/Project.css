@@ -1,222 +1,312 @@
-/* Project Details Layout — stacked full-width */
-.detailsContainer {
+/* ==========================================================================
+   Projects tab — grouped carousels, cards, and the project detail view
+   ========================================================================== */
+
+.projectsTab {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    text-align: left;
+    gap: 28px;
 }
 
-.detailsCarouselPanel {
-    /* Carousel centres itself via max-width + margin: auto in Carousel.css */
-}
-
-.detailsInfoPanel {
+.groupArrows {
+    flex-shrink: 0;
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-/* Title row: title+meta on left, tags on right */
-.detailsHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 10px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.detailsTitle {
-    font-size: clamp(0.95rem, 2vw, 1.1rem);
-    margin: 0 0 3px;
-    color: #ffffff;
-    line-height: 1.3;
-}
-
-.detailsMeta {
-    font-size: clamp(0.62rem, 1.2vw, 0.75rem);
-    margin: 0;
-    line-height: 1;
-}
-
-.detailsTags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    justify-content: flex-end;
-    align-content: flex-start;
-    max-width: 45%;
-}
-
-.detailsTag {
-    font-size: clamp(0.58rem, 1.1vw, 0.7rem);
-    padding: 2px 7px;
-    background-color: rgba(133, 193, 233, 0.15);
-    color: #85C1E9;
-    border-radius: 4px;
-    white-space: nowrap;
-}
-
-.detailsDescription {
-    font-size: clamp(0.65rem, 1.25vw, 0.78rem);
-    line-height: 1.55;
-}
-
-.detailsDescription p {
-    margin: 0 0 6px;
-}
-
-.detailsDescription p:last-child {
-    margin-bottom: 0;
-}
-
-.detailsLinks {
-    display: flex;
-    flex-wrap: wrap;
     gap: 6px;
-    padding-top: 6px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.detailsLinkBtn {
-    padding: 4px 12px;
-    background-color: rgba(133, 193, 233, 0.12);
-    color: #85C1E9;
-    border-radius: 5px;
-    font-size: clamp(0.62rem, 1.2vw, 0.75rem);
-    text-decoration: none;
-    border: 1px solid rgba(133, 193, 233, 0.25);
-    transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.detailsLinkBtn:hover {
-    background-color: rgba(133, 193, 233, 0.28);
-    color: #ffffff;
-}
-
-/* Back navigation */
-.backNav {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    background: none;
-    border: none;
-    color: #85C1E9;
-    font-size: clamp(0.72rem, 1.4vw, 0.85rem);
-    font-weight: 600;
-    cursor: pointer;
-    padding: 2px 0;
-    margin-bottom: 8px;
+.groupArrow {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    border: 1px solid rgba(255, 212, 0, 0.55);
+    color: var(--panel-yellow);
     box-shadow: none;
-    transition: color 0.2s ease;
-    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: background var(--hover-speed) var(--ease),
+                border-color var(--hover-speed) var(--ease),
+                color var(--hover-speed) var(--ease);
 }
 
-.backNav:hover {
-    color: #FF4500;
+.groupArrow:hover:not(:disabled) {
+    background: rgba(255, 212, 0, 0.1);
     transform: none;
     box-shadow: none;
 }
 
-/* Section headings above grids */
-.sectionHeading {
-    font-size: clamp(0.85rem, 1.8vw, 1rem);
-    font-weight: 600;
-    text-align: left;
-    margin: 4px 0 10px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    color: #e0e0e0;
-    text-shadow: none;
+.groupArrow:disabled {
+    border-color: var(--line-faint);
+    color: var(--text-disabled);
+    cursor: default;
 }
 
-/* Project Grid Layout */
+/* -- Card grid, on a sliding track -- */
+/*
+  The padding gives a hovered card room for its border without the clip
+  cutting it off, and the matching negative margin keeps the layout where it
+  was. The padding overlaps the group header, so pointer events are handed to
+  the track instead — otherwise it would swallow clicks on the page arrows.
+
+  --page-gap must exceed twice the padding, or the next page shows through the
+  room the padding opened up. The track's transform reads it, so the two cannot
+  drift apart.
+*/
+.projectTrackViewport {
+    --page-gap: 48px;
+    margin: -12px;
+    padding: 12px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.projectTrack {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--page-gap);
+    pointer-events: auto;
+    will-change: transform;
+    transition: transform 420ms var(--ease);
+}
+
 .projectGrid {
+    flex: 0 0 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 12px;
-    margin-bottom: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
 }
 
-/* Project Cards */
 .projectCard {
     position: relative;
-    border-radius: 10px;
-    height: 280px;
-    overflow: hidden;
-    cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.projectCard:hover {
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
-}
-
-/* Full-bleed image */
-.projectImage {
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.4s ease;
-}
-
-.projectCard:hover .projectImage {
-    transform: scale(1.06);
-}
-
-/* Gradient overlay with text */
-.projectCardOverlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 36px 12px 10px;
-    background: linear-gradient(
-        to top,
-        rgba(0, 10, 30, 0.92) 0%,
-        rgba(0, 10, 30, 0.55) 55%,
-        transparent 100%
-    );
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    padding: 0;
+    text-align: left;
+    background: var(--surface-raised);
+    border: 1px solid var(--line-faint);
+    border-radius: var(--radius-md);
+    box-shadow: none;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color var(--hover-speed) var(--ease);
 }
 
-.projectMiniTitle {
-    font-size: clamp(0.6rem, 1.2vw, 0.7rem);
-    margin: 0;
-    line-height: 1;
+.projectCard:hover,
+.projectCard:focus-visible {
+    border-color: rgba(255, 212, 0, 0.6);
+}
+
+.projectImage {
+    display: block;
+    width: 100%;
+    height: 104px;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+}
+
+.projectCardBody {
+    display: block;
+    padding: 11px 12px 13px;
 }
 
 .projectCardTitle {
-    font-size: clamp(0.9rem, 2vw, 1.05rem);
+    display: block;
     margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.25;
     color: #ffffff;
-    line-height: 1.2;
 }
 
-.projectCardSubtitle {
-    font-size: clamp(0.65rem, 1.4vw, 0.8rem);
+.projectCardMeta {
+    display: block;
+    margin: 4px 0 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text-secondary);
+}
+
+/* -- Closing line under the carousels -- */
+.projectsMore {
     margin: 0;
-    color: #ccc;
-    line-height: 1.3;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--text-secondary);
 }
 
-/* Gold accent line on hover */
-.projectCard::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0%;
-    height: 3px;
-    background: #FFD700;
-    transition: width 0.35s ease;
-    z-index: 1;
+.projectsMoreLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--panel-yellow);
+    font-weight: 500;
+    text-decoration: none;
 }
 
-.projectCard:hover::before {
-    width: 100%;
+.projectsMoreLink:hover,
+.projectsMoreLink:focus-visible {
+    text-decoration: underline;
+}
+
+.projectsMoreIcon {
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    color: #ffffff;
+}
+
+.projectsMoreIconGithub { background: #24292F; }
+.projectsMoreIconItch   { background: #FA5C5C; }
+
+/* ==========================================================================
+   Project detail view
+   ========================================================================== */
+
+.detailsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    text-align: left;
+}
+
+/* Back navigation */
+.backNav {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--text-secondary);
+    transition: color var(--hover-speed) var(--ease);
+}
+
+.backNav:hover,
+.backNav:focus-visible {
+    color: var(--panel-yellow);
+    transform: none;
+    box-shadow: none;
+}
+
+/* Title stands alone — nothing to justify it against, so no dead-gap risk
+   regardless of how short or long the title is */
+.detailsTitleRow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 12px;
+}
+
+.detailsTitle {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.2;
+    color: #ffffff;
+}
+
+.detailsYear {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/*
+  Tags left, actions right — pairing the buttons with the tag chips instead
+  of the title. The chips give the row enough natural width that the right-
+  aligned actions never strand themselves in a wide dead gap the way they did
+  sharing a row with a short title, and matching heights (chips ~32px,
+  .btnCompact 32px) makes the two feel like one row of equal-weight controls.
+*/
+.detailsMetaRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.detailsActions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/*
+  Scaled-down .btn for this row only, at 0.84x the Contact/CV buttons —
+  chosen so the 38px base height lands on a clean 32px. Every dimension
+  below is the base value times that same 0.84, so the two sizes stay
+  proportional rather than drifting apart as ad hoc numbers.
+*/
+.btnCompact {
+    height: 32px;
+    padding: 0 14px;
+    gap: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+/* Tech tags — same filled chip as the About tab's tech stack */
+.detailsTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.detailsTag {
+    padding: 6px 10px;
+    background: var(--line-soft);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--text-body);
+    white-space: nowrap;
+}
+
+.detailsDescription {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text-body);
+    max-width: 680px;
+    text-wrap: pretty;
+}
+
+.detailsDescription p { margin: 0 0 14px; }
+.detailsDescription p:last-child { margin-bottom: 0; }
+
+@media (max-width: 620px) {
+    .projectGrid    { grid-template-columns: repeat(2, 1fr); }
+    .detailsTitle   { font-size: 20px; }
+    .detailsMetaRow { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 420px) {
+    .projectGrid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .projectTrack { transition: none; }
 }

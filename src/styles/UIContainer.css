@@ -1,4 +1,11 @@
-/* Basic styling for the .ui-container */
+/* ==========================================================================
+   Panel shell — Arcade HUD
+   Design tokens, bevelled frame, CRT overlays, header plate.
+   ========================================================================== */
+
+/* Palette, type and motion tokens live in tokens.css */
+
+/* Overlay wrapper — sits above the canvas, passes clicks through */
 .ui-container {
     position: absolute;
     top: 0;
@@ -18,21 +25,259 @@
     touch-action: none;
 }
 
-/* Main UI Container  */
+/*
+  Centres the panel. Kept separate from .container so GSAP owns that element's
+  transform and its scaleY cannot clobber the centring translate. Sizing fills
+  the space available and caps at the design size.
+*/
+.panelAnchor {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(800px, 95vw);
+    height: min(700px, calc(100dvh - 80px));
+    pointer-events: none;
+}
+
+/*
+  Main UI Container. The edge is a two-layer sandwich, not a border: clip-path
+  cuts a real border away along the diagonals. Here the background is the
+  hairline and everything above it stops one pixel short, so the edge follows
+  the bevel exactly.
+
+  Three chamfers, all landing on the same line in page coordinates. For a layer
+  whose box starts d pixels in, the local chamfer is (bevel + sqrt(2)) - 2d —
+  a 45-degree edge does not keep its offset when you inset the box it is cut
+  from. Getting this wrong leaves the diagonals a different width to the
+  straights, which reads as a colour change rather than a size one.
+*/
 .container {
+    --bevel: 7px;            /* outer edge, on the border box   */
+    --bevel-fill: 6.414px;   /* ::before, inset 1px             */
+    --bevel-over: 8.414px;   /* overlays, inset 0               */
+
     position: relative;
-    background-color: rgba(0, 31, 63, 0.85);
     width: 100%;
-    max-width: 850px;
-    height: calc(100vh - 50px);  /* Subtract space for top and bottom bars on mobile */
-    max-height: 1050px;
-    margin: 1vh auto 0.5vh;
-    padding: 1%;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(10px);
+    height: 100%;
+
+    /* Keeps the full-width header plate off the hairline, or the edge
+       only shows beside the content and reads as a stray line */
+    padding: 1px;
+    background: var(--line-medium);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(14px);
     transform-origin: center center;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    font-family: var(--font-display);
+
+    /* Bevelled corners — deliberately not rounded */
+    clip-path: polygon(
+        var(--bevel) 0, calc(100% - var(--bevel)) 0,
+        100% var(--bevel), 100% calc(100% - var(--bevel)),
+        calc(100% - var(--bevel)) 100%, var(--bevel) 100%,
+        0 calc(100% - var(--bevel)), 0 var(--bevel)
+    );
+}
+
+/* Panel ground, inset by the hairline */
+.container::before {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    z-index: 0;
+    background: var(--panel-ground);
+    box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.28);
+    clip-path: polygon(
+        var(--bevel-fill) 0, calc(100% - var(--bevel-fill)) 0,
+        100% var(--bevel-fill), 100% calc(100% - var(--bevel-fill)),
+        calc(100% - var(--bevel-fill)) 100%, var(--bevel-fill) 100%,
+        0 calc(100% - var(--bevel-fill)), 0 var(--bevel-fill)
+    );
+}
+
+/* -- CRT overlays -- */
+.panelScanlines,
+.panelVignette,
+.panelSweep {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+/*
+  inset: 0 lands on the border box, not the padding box, so without this the
+  overlays paint straight over the hairline. The vignette is darkest at its
+  corners, which tinted the bevels and left them a different colour to the
+  straight edges.
+*/
+.panelScanlines,
+.panelVignette {
+    clip-path: polygon(
+        var(--bevel-over) 0, calc(100% - var(--bevel-over)) 0,
+        100% var(--bevel-over), 100% calc(100% - var(--bevel-over)),
+        calc(100% - var(--bevel-over)) 100%, var(--bevel-over) 100%,
+        0 calc(100% - var(--bevel-over)), 0 var(--bevel-over)
+    );
+}
+
+.panelScanlines {
+    z-index: 3;
+    background: repeating-linear-gradient(to bottom,
+        rgba(255, 255, 255, 0.028) 0 1px, transparent 1px 3px);
+}
+
+/* Light touch — enough to settle the corners without dulling the panel */
+.panelVignette {
+    z-index: 3;
+    background: radial-gradient(120% 100% at 50% 50%,
+        transparent 46%, rgba(0, 6, 16, 0.38) 100%);
+}
+
+/*
+  Luminance band that drifts down the panel once, then rests. Driven by `top`,
+  not a translate — the panel height is viewport-dependent, so a fixed pixel
+  travel would stop short on tall screens.
+*/
+.panelSweep {
+    z-index: 4;
+    inset: auto 0 auto 0;
+    top: -120px;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent,
+        rgba(160, 220, 255, 0.05) 45%, rgba(160, 220, 255, 0.11) 50%,
+        rgba(160, 220, 255, 0.05) 55%, transparent);
+    animation: sweep 16s linear infinite;
+
+    /* A moving band cannot share the polygon above — its 100% is its own
+       120px. Keeping it off the side hairline is all it needs. */
+    clip-path: inset(0 1px);
+}
+
+@keyframes sweep {
+    0%   { top: -120px; opacity: 0; }
+    4%   { opacity: 0.42; }
+    36%  { opacity: 0.42; }
+    40%  { top: 100%; opacity: 0; }
+    100% { top: 100%; opacity: 0; }
+}
+
+@keyframes pulseDot {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.35; }
+}
+
+/* ==========================================================================
+   Header bar
+   ========================================================================== */
+
+.panelHeader {
+    position: relative;
+    z-index: 2;
+    flex: 0 0 56px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0 20px;
+    background: var(--panel-plate);
+    border-bottom: 1px solid var(--panel-hairline);
+
+    /*
+      Sits at the same 1px inset as .container::before, so its top corners
+      fall inside the outer chamfer's diagonal — without a matching cut here,
+      this plate's square corner paints over that diagonal and hides the
+      outline ring that ::before otherwise reveals everywhere else (which is
+      also why only the top corners are affected, not the bottom ones).
+      Bottom corners stay square; only the top two match the bevel.
+    */
+    clip-path: polygon(
+        var(--bevel-fill) 0, calc(100% - var(--bevel-fill)) 0,
+        100% var(--bevel-fill), 100% 100%,
+        0 100%, 0 var(--bevel-fill)
+    );
+}
+
+/* Sentence case, unlike the HUD's bolder uppercase treatment of the same name */
+.panelName {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 1.1;
+    color: var(--text-white);
+    text-align: left;
+}
+
+.panelHeaderDivider {
+    flex-shrink: 0;
+    width: 1px;
+    height: 16px;
+    background: rgba(130, 170, 220, 0.3);
+}
+
+.panelRoles {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.panelClose {
+    margin-left: auto;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    color: var(--text-section);
+    box-shadow: none;
+    cursor: pointer;
+    transition: border-color var(--hover-speed) var(--ease),
+                color var(--hover-speed) var(--ease);
+}
+
+.panelClose:hover {
+    border-color: var(--panel-yellow);
+    color: var(--panel-yellow);
+    transform: none;
+    box-shadow: none;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .panelAnchor {
+        width: 95vw;
+        height: min(678px, calc(100dvh - 40px));
+    }
+
+    .panelHeader { gap: 10px; padding: 0 15px; }
+    .panelName   { font-size: 16px; }
+    .panelRoles  { font-size: 12px; }
+}
+
+/* Roles are the first thing to go on a narrow screen */
+@media (max-width: 560px) {
+    .panelRoles,
+    .panelHeaderDivider { display: none; }
+}
+
+@media (max-width: 480px) {
+    .panelAnchor {
+        width: 95vw;
+        height: min(678px, calc(100dvh - 24px));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .panelSweep { display: none; }
 }

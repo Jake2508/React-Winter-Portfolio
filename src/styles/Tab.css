@@ -1,80 +1,161 @@
-/* Unified bento nav bar */
-.tabs {
+/* ==========================================================================
+   Tab bar — underline indicator, availability & location readout
+   ========================================================================== */
+
+.panelTabBar {
     position: relative;
+    z-index: 2;
+    flex: 0 0 44px;
     display: flex;
-    flex-shrink: 0;
-    gap: 4px;
-    padding: 4px;
-    margin-bottom: 10px;
-    background-color: rgba(0, 8, 24, 0.55);
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    border-radius: 12px;
     align-items: stretch;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--panel-hairline);
 }
 
-/*
-  Sliding pill indicator.
-  Width = (full bar - 2×4px padding - 3×4px gaps) / 4 tabs.
-  translateX(calc(N * (100% + 4px))) moves it exactly N pill-widths + N gaps.
-*/
-.tabIndicator {
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    height: calc(100% - 8px);
-    width: calc((100% - 20px) / 4);
-    background: rgba(133, 193, 233, 0.2);
-    border: 1px solid rgba(133, 193, 233, 0.28);
-    border-radius: 8px;
-    pointer-events: none;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+.tabs {
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
 }
 
-/* Individual tab pill slots */
 .tab {
-    flex: 1;
-    padding: 7px 8px;
-    font-size: clamp(0.75rem, 1.6vw, 0.88rem);
-    font-weight: 600;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
     box-shadow: none;
-    color: rgba(255, 255, 255, 0.42);
-    position: relative;
-    z-index: 1;
-    transition: color 0.2s ease;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    transition: color var(--hover-speed) var(--ease),
+                border-color var(--hover-speed) var(--ease);
 }
 
 .tab:hover {
-    color: rgba(255, 255, 255, 0.82);
-    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-bright);
+    background: transparent;
     transform: none;
     box-shadow: none;
 }
 
-.active-tab {
-    color: #ffffff;
-    background: transparent;
+.active-tab,
+.active-tab:hover {
+    color: var(--panel-yellow);
+    border-bottom-color: var(--panel-yellow);
 }
 
-/* Page content area — the only scrollable region in the panel */
+/* -- Availability + location, right aligned in the same row -- */
+.tabStatus {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.tabAvailability {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.tabAvailabilityDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    animation: pulseDot 2s var(--ease) infinite;
+}
+
+.tabAvailabilityLabel {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--accent-green);
+}
+
+.tabStatusDivider {
+    width: 1px;
+    height: 11px;
+    background: var(--line-strong);
+}
+
+.tabLocation {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   Content region — the only scrollable area in the panel
+   ========================================================================== */
+
 .content {
+    position: relative;
+    z-index: 2;
     flex: 1 1 auto;
     min-height: 0;
     overflow-y: auto;
     overflow-x: hidden;
     touch-action: auto;
     scrollbar-gutter: stable;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    margin-bottom: 5px;
-    transition: opacity 0.3s ease-in-out;
+    padding: 22px 20px 28px;
+    text-align: left;
+    transition: opacity var(--content-speed) var(--ease);
 }
 
 /* Page fade effects */
-.fade-in { opacity: 1; }
+.fade-in  { opacity: 1; }
 .fade-out { opacity: 0; }
+
+.fade-in > * {
+    animation: bootIn var(--content-speed) var(--ease) both;
+}
+
+@keyframes bootIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* Focus rings match the panel's own pressable-yellow language */
+.container :focus-visible {
+    outline: 2px solid var(--panel-yellow);
+    outline-offset: 2px;
+}
+
+/* Opening the panel parks focus here; it is a scroll container, not a control */
+#panel-content:focus,
+#panel-content:focus-visible {
+    outline: none;
+}
+
+@media (max-width: 768px) {
+    .panelTabBar { padding: 0 15px; }
+    .tab         { padding: 0 11px; letter-spacing: 1.4px; }
+    .content     { padding: 15px; }
+}
+
+/* Location is the least load-bearing item in the row */
+@media (max-width: 620px) {
+    .tabStatusDivider,
+    .tabLocation { display: none; }
+}
+
+@media (max-width: 460px) {
+    .tabAvailabilityLabel { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tabAvailabilityDot { animation: none; }
+    .content { transition: none; }
+    .fade-in > * { animation: none; }
+}

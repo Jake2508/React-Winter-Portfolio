@@ -1,0 +1,123 @@
+/* ==========================================================================
+   Scene HUD — screen-space corners over the diorama.
+   Colours come from tokens.css; the spec's own palette maps onto them.
+   ========================================================================== */
+
+.hud {
+    position: fixed;
+    inset: 0;
+    z-index: 7;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0;
+    transition: opacity 180ms var(--ease);
+}
+
+/* Shown only once loading is done and the panel is closed */
+.hudVisible { opacity: 1; }
+
+/*
+  The HUD sits over bright snow as well as dark sky, so every corner carries a
+  thin solid outline for contrast. Four hard offsets rather than a blur — a
+  soft shadow reads as a glow against the sky and muddies the type.
+*/
+.hud {
+    text-shadow: -1px -1px 0 #000814, 1px -1px 0 #000814,
+                 -1px  1px 0 #000814, 1px  1px 0 #000814;
+}
+
+/* Corners translate inward while hidden */
+.hudCorner {
+    position: absolute;
+    display: flex;
+    transition: transform 180ms var(--ease);
+}
+
+.hud:not(.hudVisible) .hudTopLeft     { transform: translate(-8px, -8px); }
+.hud:not(.hudVisible) .hudTopRight    { transform: translate(8px, -8px); }
+
+.hudTopLeft    { left: 40px; top: 36px; flex-direction: column; gap: 8px; }
+.hudTopRight   { right: 40px; top: 40px; gap: 28px; align-items: center; }
+
+/* -- Identity -- */
+.hudName {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-white);
+    text-shadow: -1px -1px 0 #000814, 1px -1px 0 #000814,
+                 -1px  1px 0 #000814, 1px  1px 0 #000814,
+                 0 2px 12px rgba(0, 10, 30, 0.5);
+}
+
+.hudRoles {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-section);
+}
+
+/* -- Nav -- */
+.hudNav {
+    pointer-events: auto;
+}
+
+.hudNavItem {
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-bright);
+    transition: color var(--hover-speed) var(--ease);
+}
+
+.hudNavItem:hover {
+    color: var(--text-white);
+    background: none;
+    transform: none;
+    box-shadow: none;
+}
+
+.hudNavItem:focus-visible {
+    outline: 2px solid var(--panel-yellow);
+    outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+    .hudTopLeft    { left: 20px; top: 20px; gap: 6px; }
+    .hudTopRight   { right: 20px; top: 22px; gap: 14px; }
+
+    .hudName      { font-size: 17px; letter-spacing: 1.1px; }
+    .hudRoles     { font-size: 9px; letter-spacing: 1.2px; }
+    .hudNavItem   { font-size: 10px; letter-spacing: 1.4px; }
+}
+
+/*
+  The identity block and the nav share the top row, and below this they collide.
+  The roles line goes first — the panel header carries it anyway.
+*/
+@media (max-width: 560px) {
+    .hudRoles   { display: none; }
+    .hudName    { font-size: 15px; letter-spacing: 0.8px; }
+    .hudTopRight { gap: 11px; }
+    .hudNavItem { font-size: 9px; letter-spacing: 1px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hud,
+    .hudCorner { transition: none; }
+}
