@@ -5,7 +5,7 @@
 .panelTabBar {
     position: relative;
     z-index: 2;
-    flex-shrink: 0;
+    flex: 0 0 44px;
     display: flex;
     align-items: stretch;
     justify-content: space-between;
@@ -17,11 +17,13 @@
 .tabs {
     display: flex;
     align-items: stretch;
-    gap: 2px;
+    gap: 6px;
 }
 
 .tab {
-    padding: 8px 16px 9px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
     background: transparent;
     border: none;
     border-bottom: 2px solid transparent;
@@ -30,16 +32,16 @@
     cursor: pointer;
     font-family: var(--font-mono);
     font-weight: 500;
-    font-size: 10.5px;
-    letter-spacing: 1.8px;
+    font-size: 12px;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.55);
+    color: var(--text-secondary);
     transition: color var(--hover-speed) var(--ease),
                 border-color var(--hover-speed) var(--ease);
 }
 
 .tab:hover {
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--text-bright);
     background: transparent;
     transform: none;
     box-shadow: none;
@@ -47,9 +49,8 @@
 
 .active-tab,
 .active-tab:hover {
-    color: var(--accent-gold);
-    border-bottom-color: var(--accent-gold);
-    text-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
+    color: var(--panel-yellow);
+    border-bottom-color: var(--panel-yellow);
 }
 
 /* -- Availability + location, right aligned in the same row -- */
@@ -69,33 +70,29 @@
 .tabAvailabilityDot {
     width: 6px;
     height: 6px;
+    border-radius: 50%;
     background: var(--accent-green);
     animation: pulseDot 2s var(--ease) infinite;
 }
 
 .tabAvailabilityLabel {
-    font-family: var(--font-mono);
-    font-weight: 500;
-    font-size: 9px;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 13px;
     color: var(--accent-green);
-    text-shadow: 0 0 10px rgba(127, 255, 196, 0.45);
 }
 
 .tabStatusDivider {
     width: 1px;
     height: 11px;
-    background: rgba(133, 193, 233, 0.3);
+    background: var(--line-strong);
 }
 
 .tabLocation {
-    font-family: var(--font-mono);
+    font-family: var(--font-display);
     font-weight: 400;
-    font-size: 9px;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-    color: var(--text-faint);
+    font-size: 13px;
+    color: var(--text-secondary);
 }
 
 /* ==========================================================================
@@ -111,7 +108,7 @@
     overflow-x: hidden;
     touch-action: auto;
     scrollbar-gutter: stable;
-    padding: 20px;
+    padding: 22px 20px 28px;
     text-align: left;
     transition: opacity var(--content-speed) var(--ease);
 }
@@ -129,9 +126,9 @@
     to   { opacity: 1; transform: none; }
 }
 
-/* Focus rings match the gold hover language */
+/* Focus rings match the panel's own pressable-yellow language */
 .container :focus-visible {
-    outline: 2px solid var(--accent-gold);
+    outline: 2px solid var(--panel-yellow);
     outline-offset: 2px;
 }
 
@@ -143,7 +140,7 @@
 
 @media (max-width: 768px) {
     .panelTabBar { padding: 0 15px; }
-    .tab         { padding: 8px 11px 9px; letter-spacing: 1.2px; }
+    .tab         { padding: 0 11px; letter-spacing: 1.4px; }
     .content     { padding: 15px; }
 }
 

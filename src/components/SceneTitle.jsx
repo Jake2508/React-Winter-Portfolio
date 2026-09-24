@@ -3,22 +3,19 @@ import React, { useRef } from 'react';
 import { Text } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { a, useSpring } from '@react-spring/three';
+import { SCENE_FONT } from '../utils/sceneFont.js';
+import { COLOURS } from '../theme.js';
 
 // ── Placement tuning ─────────────────────────────────────────────────────────
-// The sign is planted in the snow in front of the cabinet. ANCHOR is the point
-// it grows from, in scene units with the diorama centred on the origin — these
-// are the only values worth touching when the camera framing changes.
-const ANCHOR     = [4.9, -1.15, -3.3];
-const TITLE_RISE = 0.78;   // height of the name above the anchor
-const TITLE_SIZE = 0.5;
-
-/*
-  Outfit is already fetched for the DOM UI, but troika needs the font file
-  itself rather than a CSS face — and it rejects woff2, so this is the ttf.
-  Drop a copy in public/Fonts and point this at it to lose the runtime CDN
-  dependency; troika falls back to its own face if the URL ever fails.
-*/
-const FONT = 'https://fonts.gstatic.com/s/outfit/v15/QGYyz_MVcBeNP4NjuGObqx1XmO1I4bCyO4a0Fg.ttf';
+// The sign is planted in the snow in front of the cabinet. `anchor` is the
+// point it grows from, in scene units with the diorama centred on the origin.
+// These are the committed values; the dev debug panel overrides them live so
+// you can dial in a framing, then paste the result back in here.
+export const TITLE_DEFAULTS = {
+    anchor: [4.9, -1.15, -3.3],
+    rise: 0.78,   // height of the name above the anchor
+    size: 0.5,
+};
 
 
 /*
@@ -33,7 +30,7 @@ const FONT = 'https://fonts.gstatic.com/s/outfit/v15/QGYyz_MVcBeNP4NjuGObqx1XmO1
   outer group while the camera-facing quaternion lands on the inner one, so the
   locks do nothing and the text tips over to face the downward-looking camera.
 */
-const SceneTitle = ({ visible }) => {
+const SceneTitle = ({ visible, anchor = TITLE_DEFAULTS.anchor, rise = TITLE_DEFAULTS.rise, size = TITLE_DEFAULTS.size }) => {
     const groupRef = useRef();
 
     const { scale } = useSpring({
@@ -44,27 +41,26 @@ const SceneTitle = ({ visible }) => {
     useFrame(({ camera }) => {
         if (!groupRef.current) return;
         groupRef.current.rotation.y = Math.atan2(
-            camera.position.x - ANCHOR[0],
-            camera.position.z - ANCHOR[2],
+            camera.position.x - anchor[0],
+            camera.position.z - anchor[2],
         );
     });
 
     return (
-        <a.group ref={groupRef} position={ANCHOR} scale={scale}>
+        <a.group ref={groupRef} position={anchor} scale={scale}>
             <Text
-                font={FONT}
-                fontSize={TITLE_SIZE}
-                fontWeight={800}
+                font={SCENE_FONT}
+                fontSize={size}
                 letterSpacing={0.12}
-                position-y={TITLE_RISE}
+                position-y={rise}
                 anchorX="center"
                 anchorY="middle"
-                color="#ffffff"
                 outlineWidth={0.022}
-                outlineColor="#04203c"
+                outlineColor={COLOURS.outline}
                 outlineOpacity={0.85}
             >
                 JAKE ROSE
+                <meshBasicMaterial color={COLOURS.white} toneMapped={false} />
             </Text>
         </a.group>
     );

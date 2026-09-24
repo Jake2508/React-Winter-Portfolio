@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Contact tab — intro, primary tiles, socials, CV
+   Contact tab — intro, Direct & Find Me Online row grids, CV row
    ========================================================================== */
 
 .contactTab {
@@ -10,109 +10,106 @@
 
 .contactIntro {
     margin: 0;
+    max-width: 620px;
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: 15.5px;
+    font-size: 15px;
     line-height: 1.65;
-    color: var(--text-strong);
+    color: var(--text-body);
     text-wrap: pretty;
 }
 
-/* -- Primary tiles: email & phone -- */
-.contactPrimaryGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-}
-
-.contactTile {
-    display: block;
-    padding: 14px 15px;
-    background: rgba(255, 215, 0, 0.08);
-    border: 1px solid rgba(255, 215, 0, 0.35);
-    text-decoration: none;
-    transition: background var(--hover-speed) var(--ease),
-                border-color var(--hover-speed) var(--ease);
-}
-
-.contactTile:hover {
-    background: rgba(255, 215, 0, 0.18);
-    border-color: var(--accent-gold);
-}
-
-.contactTileLabel {
-    display: block;
-    font-family: var(--font-mono);
-    font-weight: 500;
-    font-size: 9.5px;
-    letter-spacing: 1.6px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-}
-
-.contactTileValue {
-    display: block;
-    margin-top: 6px;
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 1.3;
-    color: var(--accent-gold);
-    text-shadow: 0 0 14px rgba(255, 215, 0, 0.35);
-    word-break: break-word;
-}
-
-/* -- Socials: full URLs stay visible for recruiters and ATS filters -- */
+/* -- Direct / Find Me Online: the same row grid as About's timeline -- */
 .contactRows {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 16px;
 }
 
 .contactRow {
     display: grid;
-    grid-template-columns: 82px 1fr;
-    gap: 12px;
+    grid-template-columns: 84px 32px minmax(0, 1fr);
     align-items: center;
-    padding: 11px 12px;
-    background: var(--panel-surface);
-    border: 1px solid var(--panel-border);
+    /* 11px top/bottom brings the touch target to ~44px without enlarging
+       the 22px icon or the text itself */
+    padding: 11px 0;
     text-decoration: none;
-    transition: background var(--hover-speed) var(--ease),
-                border-color var(--hover-speed) var(--ease);
+    cursor: pointer;
+    transition: opacity var(--hover-speed) var(--ease);
 }
 
 .contactRow:hover {
-    background: rgba(255, 215, 0, 0.12);
-    border-color: var(--accent-gold);
+    opacity: 0.85;
 }
 
-.contactLabel {
+.contactRow:focus-visible {
+    outline: 2px solid var(--panel-yellow);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+.contactRowLabel {
     font-family: var(--font-mono);
     font-weight: 500;
-    font-size: 9.5px;
-    letter-spacing: 1.6px;
-    text-transform: uppercase;
-    color: var(--text-muted);
+    font-size: 12px;
+    color: var(--text-secondary);
 }
 
-.contactValue {
-    font-family: var(--font-mono);
-    font-weight: 400;
-    font-size: 11.5px;
-    line-height: 1.45;
-    color: var(--accent-blue);
-    word-break: break-all;
+.contactIconSquare {
+    justify-self: center;
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    color: #ffffff;
+}
+
+/* Email / phone — a single accent square with a dark glyph */
+.contactIconAccent  { background: var(--panel-yellow); color: var(--panel-ink); }
+
+/* Find Me Online — each brand's own colour */
+.contactIconLinkedin { background: #0A66C2; }
+.contactIconGithub   { background: #24292F; }
+.contactIconItch     { background: #FA5C5C; }
+
+.contactRowValue {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    padding-left: 8px;
+    min-width: 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--text-white);
+}
+
+/* Direct rows: the value (and its arrow, via currentColor) read as pressable */
+.contactRowValueAccent {
+    color: var(--panel-yellow);
+}
+
+.contactRowArrow {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.contactRowValueAccent .contactRowArrow {
+    color: inherit;
 }
 
 /* -- CV row -- */
 .cvRow {
     display: flex;
     align-items: center;
-    gap: 13px;
-    padding: 11px 12px;
-    background: var(--panel-surface);
-    border: 1px solid var(--panel-border);
+    gap: 14px;
+    padding: 16px 18px;
+    background: var(--surface-subtle);
+    border: 1px solid var(--line-faint);
+    border-radius: 8px;
 }
 
 .cvIcon {
@@ -122,62 +119,41 @@
     flex-shrink: 0;
 }
 
+.cvMeta {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
 .cvTitle {
-    margin: 0;
     font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 13.5px;
+    font-weight: 500;
+    font-size: 15px;
     line-height: 1.3;
     color: #ffffff;
 }
 
-.cvMeta {
-    margin: 2px 0 0;
-    font-family: var(--font-mono);
+.cvSubtitle {
+    font-family: var(--font-display);
     font-weight: 400;
-    font-size: 10px;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: var(--text-faint);
+    font-size: 13px;
+    color: var(--text-secondary);
 }
 
 .cvActions {
     margin-left: auto;
     display: flex;
-    gap: 6px;
+    gap: 10px;
     flex-shrink: 0;
 }
 
-.cvBtn {
-    padding: 6px 12px;
-    background: transparent;
-    border: 1px solid rgba(133, 193, 233, 0.28);
-    color: var(--accent-blue);
-    text-decoration: none;
-    font-family: var(--font-mono);
-    font-weight: 500;
-    font-size: 10px;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    white-space: nowrap;
-    transition: background var(--hover-speed) var(--ease),
-                color var(--hover-speed) var(--ease);
-}
-
-.cvBtn:hover {
-    background: rgba(133, 193, 233, 0.16);
-    color: #ffffff;
+@media (max-width: 700px) {
+    .contactRow { grid-template-columns: 64px 32px minmax(0, 1fr); }
 }
 
 @media (max-width: 560px) {
-    .contactTab         { gap: 22px; }
-    .contactIntro       { font-size: 14px; }
-    .contactPrimaryGrid { grid-template-columns: 1fr; }
-
-    .contactRow {
-        grid-template-columns: 1fr;
-        gap: 4px;
-    }
+    .contactTab   { gap: 22px; }
+    .contactIntro { font-size: 15px; }
 
     .cvRow {
         flex-wrap: wrap;

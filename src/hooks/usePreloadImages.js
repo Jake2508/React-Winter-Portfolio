@@ -1,16 +1,13 @@
 import { useEffect } from 'react';
 
 /*
-  Warms the browser cache for images the panel shows the moment it opens.
-
-  Without this nothing is requested until the panel mounts and the relevant tab
-  renders, so every image visibly pops in — even the 889-byte PDF icon, because
-  the cost is the round trip rather than the bytes. Called during the loading
-  screen, which gives these several seconds to land before the panel can open.
+  Warms the cache for images the panel shows on open. Without it nothing is
+  requested until the relevant tab renders, so everything pops in — the cost is
+  the round trip, not the bytes. Run during the loading screen.
 */
 const usePreloadImages = (sources) => {
     useEffect(() => {
-        // Held in an array so the requests are not garbage collected mid-flight
+        // Held so the requests are not garbage collected mid-flight
         const images = sources.map((src) => {
             const image = new Image();
             image.decoding = 'async';

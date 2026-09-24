@@ -1,0 +1,68 @@
+/* ==========================================================================
+   DESIGN TOKENS — the site's palette, type and motion. Nothing else should
+   hardcode a brand colour.
+
+   Add one here and it is available everywhere: var(--name) in any stylesheet,
+   and COLOURS.name in any scene component via src/theme.js. Name by role.
+   ========================================================================== */
+
+:root {
+    /* -- Surfaces -------------------------------------------------------- */
+    --panel-ground:   rgba(0, 31, 63, 0.85);     /* panel background */
+    --panel-plate:    rgba(0, 18, 40, 0.5);      /* header + footer bars */
+    --panel-surface:  rgba(255, 255, 255, 0.06); /* row / card fills */
+    --panel-border:   rgba(255, 255, 255, 0.11); /* row / card borders */
+    --panel-hairline: rgba(130, 170, 220, 0.14); /* header/tab-row dividers */
+
+    /* The cabinet's CRT. Opaque because three.js materials cannot be
+       translucent here, and deliberately darker than the panel. */
+    --screen-ground:   #001226;
+    --screen-hairline: #1b3a55;
+    --scene-outline:        #04203c;  /* dark rim behind world-space text */
+
+    /* -- Accents --------------------------------------------------------- */
+    --accent-blue:      #85C1E9;  /* scene links, arrows, mono labels */
+    --accent-blue-text: #a9d5f3;  /* scene tag pills */
+    --accent-gold:      #FFD700;  /* scene cabinet text and cue */
+    --accent-green:     #7fffc4;  /* Tab.css fallback — panelData.js's status colour overrides it inline */
+    --on-gold:          #001428;  /* scene text sitting on a gold fill */
+
+    /* -- Text ------------------------------------------------------------ */
+    /* .62 is the contrast floor against the panel ground */
+    --text-strong: rgba(255, 255, 255, 0.92);
+    --text-muted:  rgba(255, 255, 255, 0.72);
+    --text-faint:  rgba(255, 255, 255, 0.62);
+    --text-white:  #ffffff;
+
+    /* -- Panel-content additions (HUD, About / Projects / Contact tab content)
+       A second, cooler text/surface/line family layered on top of the accents
+       above. Kept separate from --accent-gold / --accent-blue rather than
+       repointing them: theme.js maps those two by name into the 3D cabinet,
+       so recolouring the panel and HUD here can't bleed into the scene. */
+    --panel-yellow:   #FFD400;  /* active tab + anything pressable, panel-only */
+    --panel-ink:      #0A1628; /* text sitting on a --panel-yellow fill */
+    --text-section:   #CFDCF0; /* icons (close button), HUD role line */
+    --text-secondary: #8FA8C8; /* roles, meta, inactive tab, gutter labels */
+    --text-bright:    #EAF1FB; /* outline-button label text, HUD nav */
+    --text-body:      #DDE7F5; /* reading paragraphs, chip text */
+    --surface-raised: rgba(20, 42, 74, 0.7);  /* project cards */
+    --surface-subtle: rgba(22, 46, 80, 0.5);  /* CV row */
+    --line-soft:      rgba(130, 170, 220, 0.12); /* chip / tag backgrounds */
+    --line-faint:     rgba(130, 170, 220, 0.2);  /* card borders, disabled control border */
+    --line-medium:    rgba(130, 170, 220, 0.24); /* main panel outline */
+    --line-strong:    rgba(130, 170, 220, 0.3);  /* button + outline borders */
+    --text-disabled:  rgba(143, 168, 200, 0.5);  /* disabled control text */
+
+    /* -- Type ------------------------------------------------------------ */
+    --font-display: 'Lexend', system-ui, -apple-system, sans-serif;
+    --font-mono:    'JetBrains Mono', ui-monospace, 'Cascadia Mono', monospace;
+
+    /* -- Shape — the panel keeps its chamfer, everything inside softens --- */
+    --radius-sm: 4px;   /* pills, tags, key caps, small controls, icon squares */
+    --radius-md: 6px;   /* cards, tiles, rows, portraits, buttons */
+
+    /* -- Motion — one curve everywhere ----------------------------------- */
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --hover-speed: 200ms;
+    --content-speed: 320ms;
+}

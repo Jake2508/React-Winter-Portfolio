@@ -12,7 +12,7 @@ import "../styles/UIContainer.css";
 import { AboutData } from '../data/aboutData.js';
 import { projectData, projectGroups } from '../data/projectData.js';
 import { ContactData } from '../data/contactData.js';
-import { AVAILABILITY, availability, profile, socials } from '../data/siteData.js';
+import { AVAILABILITY, availability, profile } from '../data/panelData.js';
 
 // Custom Hooks & Components
 import ProjectDetails from '../components/ProjectDetails.js';
@@ -22,22 +22,11 @@ import useFadeTransition from '../hooks/useFadeTransition';
 
 const TABS = ['about', 'projects', 'contact'];
 
-// Injected by vite.config.js so the About readout never carries a stale hardcoded date.
-// Months are spelled out here rather than via toLocaleString, which renders
-// September as "Sept" and breaks the three-letter rhythm of the readout.
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-const BUILD_LABEL = (() => {
-    const stamp = typeof __BUILD_DATE__ === 'string' ? new Date(__BUILD_DATE__) : new Date();
-    const date = Number.isNaN(stamp.getTime()) ? new Date() : stamp;
-    return `${MONTHS[date.getMonth()]} ${date.getFullYear()}`;
-})();
-
 const FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
 
 // Main ProjectDisplay Component
-const ProjectDisplay = ({ onClose, isVisible }) => {
+const ProjectDisplay = ({ onClose, isVisible, requestedTab }) => {
     const [activeTab, setActiveTab] = useState('about');
     const [selectedProject, setSelectedProject] = useState(null);
 
@@ -55,7 +44,10 @@ const ProjectDisplay = ({ onClose, isVisible }) => {
 
     // Projects are grouped into carousels, one page of cards at a time.
     const groups = useMemo(() => projectGroups
-        .map((name) => ({ name, projects: projectData.filter((project) => project.group === name) }))
+        .map(({ name }) => ({
+            name,
+            projects: projectData.filter((project) => project.group === name),
+        }))
         .filter((group) => group.projects.length > 0), []);
 
     const [groupPages, setGroupPages] = useState({});
@@ -73,6 +65,15 @@ const ProjectDisplay = ({ onClose, isVisible }) => {
             return next === current ? previous : { ...previous, [name]: next };
         });
     }, [groups]);
+
+    // Land on the tab the scene HUD asked for, without the fade — the panel is
+    // opening at the same moment, so a transition would be invisible anyway.
+    useEffect(() => {
+        if (!requestedTab) return;
+        pendingTabRef.current = requestedTab.tab;
+        setActiveTab(requestedTab.tab);
+        setSelectedProject(null);
+    }, [requestedTab]);
 
     // Set initial collapsed state on mount
     useEffect(() => {
@@ -194,8 +195,9 @@ const ProjectDisplay = ({ onClose, isVisible }) => {
     }, [isVisible]);
 
     /*
-      Keyboard contract advertised in the footer — Esc closes, arrows step
-      through the tabs, and Tab is trapped inside the panel while it is open.
+      Keyboard contract: Esc closes, arrows step through the tabs, and Tab is
+      trapped inside the panel while it is open. Not labelled on screen —
+      the close button's title is the only visible hint now the footer is gone.
     */
     useEffect(() => {
         if (!isVisible) return undefined;
@@ -273,14 +275,6 @@ const ProjectDisplay = ({ onClose, isVisible }) => {
         return content[activeTab];
     }, [activeTab, selectedProject, handleProjectSelect, handleProjectBack, groups, groupPages, pageGroup]);
 
-    // Contextual footer readout — derived per view, never hardcoded
-    const readout = useMemo(() => {
-        if (activeTab === 'about') return `Last updated ${BUILD_LABEL}`;
-        if (activeTab === 'contact') return `Email · Phone · ${socials.length} Socials`;
-        if (selectedProject) return (selectedProject.technologies ?? []).join(' · ');
-        return `${projectData.length} Projects · ${groups.length} Groups`;
-    }, [activeTab, selectedProject, groups.length]);
-
     const status = AVAILABILITY[availability];
 
     return (
@@ -292,7 +286,6 @@ const ProjectDisplay = ({ onClose, isVisible }) => {
                 aria-modal="true"
                 aria-label={`${profile.name} — portfolio`}
             >
-                <CornerBrackets />
                 <div className="panelScanlines" aria-hidden="true" />
                 <div className="panelVignette" aria-hidden="true" />
                 <div className="panelSweep" aria-hidden="true" />
@@ -306,8 +299,8 @@ const ProjectDisplay = ({ onClose, isVisible }) => {
                         type="button"
                         className="panelClose"
                         onClick={onClose}
-                        title="Close panel (Esc)"
-                        aria-label="Close panel"
+                        title="Close portfolio (Esc)"
+                        aria-label="Close portfolio"
                     >
                         <svg width="9" height="9" viewBox="0 0 9 9" fill="none" aria-hidden="true">
                             <path d="M1 1L8 8M8 1L1 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -359,52 +352,10 @@ const ProjectDisplay = ({ onClose, isVisible }) => {
                 >
                     {memoizedContent}
                 </div>
-
-                {/* Footer status bar */}
-                <footer className="panelFooter">
-                    <div className="panelReadout">
-                        <span className="panelReadoutDot" aria-hidden="true" />
-                        <span className="panelReadoutText" aria-live="polite">{readout}</span>
-                    </div>
-
-                    <div className="panelHints">
-                        <span className="panelHint">
-                            <span className="panelHintKey">Esc</span>
-                            <span className="panelHintLabel">Close</span>
-                        </span>
-                        <span className="panelHint">
-                            <span className="panelHintKey">← →</span>
-                            <span className="panelHintLabel">Tabs</span>
-                        </span>
-                        <span className="panelHint">
-                            <span className="panelHintKey">Drag</span>
-                            <span className="panelHintLabel">Orbit</span>
-                        </span>
-                    </div>
-                </footer>
             </div>
         </div>
     );
 };
-
-
-// Four gold brackets tracing the panel's 7px bevel
-const CornerBrackets = () => (
-    <>
-        <svg className="panelBracket panelBracketTL" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M1 19V8L8 1H19" stroke="#FFD700" strokeWidth="2" />
-        </svg>
-        <svg className="panelBracket panelBracketTR" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M1 1H12L19 8V19" stroke="#FFD700" strokeWidth="2" />
-        </svg>
-        <svg className="panelBracket panelBracketBL" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M1 1V12L8 19H19" stroke="#FFD700" strokeWidth="2" />
-        </svg>
-        <svg className="panelBracket panelBracketBR" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M19 1V12L12 19H1" stroke="#FFD700" strokeWidth="2" />
-        </svg>
-    </>
-);
 
 
 export default ProjectDisplay;

@@ -1,13 +1,13 @@
 import React from 'react';
 import SectionLabel from './SectionLabel.jsx';
+import { GitHubIcon, ItchIoIcon } from './ContactIcons.jsx';
+import { socials } from '../data/panelData.js';
 
 // Cards per carousel page — the grid is 3-up, so paging moves in threes.
 export const CARDS_PER_PAGE = 3;
 
-const ELSEWHERE = [
-    { label: 'GitHub', url: 'https://github.com/Jake2508' },
-    { label: 'itch.io', url: 'https://jake12341234.itch.io/' },
-];
+const GITHUB = socials.find((social) => social.label === 'GitHub');
+const ITCH = socials.find((social) => social.label === 'itch.io');
 
 
 /*
@@ -26,23 +26,20 @@ const ProjectsTab = ({ groups, pages, onPage, onSelect }) => (
             />
         ))}
 
-        <section>
-            <SectionLabel name="EVERYTHING ELSE" />
-            <div className="elsewhereGrid">
-                {ELSEWHERE.map((item) => (
-                    <a
-                        key={item.label}
-                        href={item.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="elsewhereTile"
-                    >
-                        <span className="elsewhereLabel">{item.label} →</span>
-                        <span className="elsewhereUrl">{item.url}</span>
-                    </a>
-                ))}
-            </div>
-        </section>
+        <p className="projectsMore">
+            More on{' '}
+            <a href={GITHUB.url} target="_blank" rel="noopener noreferrer" className="projectsMoreLink">
+                <span className="projectsMoreIcon projectsMoreIconGithub"><GitHubIcon /></span>
+                GitHub<span aria-hidden="true"> ↗</span>
+                <span className="visuallyHidden"> (opens in new tab)</span>
+            </a>
+            {' '}and{' '}
+            <a href={ITCH.url} target="_blank" rel="noopener noreferrer" className="projectsMoreLink">
+                <span className="projectsMoreIcon projectsMoreIconItch"><ItchIoIcon /></span>
+                itch.io<span aria-hidden="true"> ↗</span>
+                <span className="visuallyHidden"> (opens in new tab)</span>
+            </a>
+        </p>
     </div>
 );
 
@@ -59,14 +56,15 @@ const ProjectGroup = ({ group, page, onPage, onSelect }) => {
         ? `${start + 1}–${start + visible.length} of ${total}`
         : `${total} project${total === 1 ? '' : 's'}`;
 
-    // Short final row shows where the next project in this group will land
-    const slots = CARDS_PER_PAGE - visible.length;
+    // One array per page; a short last page just renders fewer cards
+    const pageList = Array.from({ length: pageCount }, (_, index) =>
+        group.projects.slice(index * CARDS_PER_PAGE, (index + 1) * CARDS_PER_PAGE));
 
     return (
-        <section>
+        <section className="projectGroup panelSection">
             <SectionLabel
-                name={group.name.toUpperCase()}
-                className="groupHeader"
+                name={group.name}
+                count={counter}
                 trailing={(
                     <div className="groupArrows">
                         <button
@@ -93,17 +91,35 @@ const ProjectGroup = ({ group, page, onPage, onSelect }) => {
                         </button>
                     </div>
                 )}
-            >
-                <span className="groupCount" aria-live="polite">{counter}</span>
-            </SectionLabel>
+            />
 
-            <div className="projectGrid">
-                {visible.map((project) => (
-                    <ProjectCard key={project.id} project={project} onSelect={() => onSelect(project)} />
-                ))}
-                {Array.from({ length: slots }, (_, index) => (
-                    <div key={`slot-${index}`} className="projectSlot" aria-hidden="true">+ SLOT</div>
-                ))}
+            {/*
+              Every page is rendered and the track slides, so cards sweep across
+              rather than swapping in place. Off-screen pages are inert so they
+              stay out of the tab order.
+            */}
+            <div className="projectTrackViewport">
+                <div
+                    className="projectTrack"
+                    style={{ transform: `translateX(calc(${-safePage} * (100% + var(--page-gap))))` }}
+                >
+                    {pageList.map((page, pageIndex) => (
+                        <div
+                            className="projectGrid"
+                            key={pageIndex}
+                            aria-hidden={pageIndex !== safePage}
+                            inert={pageIndex !== safePage ? '' : undefined}
+                        >
+                            {page.map((project) => (
+                                <ProjectCard
+                                    key={project.id}
+                                    project={project}
+                                    onSelect={() => onSelect(project)}
+                                />
+                            ))}
+                        </div>
+                    ))}
+                </div>
             </div>
         </section>
     );

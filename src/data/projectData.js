@@ -2,12 +2,17 @@
 // Add a new ID for new projects & Style in CSS.
 //
 // `group`   places the project in one of the carousels below — must match a
-//           projectGroups entry or the project will not be rendered.
+//           projectGroups `name` or the project will not be rendered.
 // `primary` is the single gold call-to-action pinned to the detail title row.
 //           Omit it when a project has nothing to play, download or visit.
-// Remaining `links` render as secondary buttons under the description.
+// `links`   at most one — the Code Repo. Two buttons total is the limit, so
+//           nothing else (design boards, jam pages, etc.) belongs here.
 
-export const projectGroups = ['Games', 'React Three.js'];
+export const projectGroups = [
+    { name: 'Games' },
+    { name: 'React Three.js' },
+    { name: 'Apps & Tools' },
+];
 
 export const projectData = [
             {
@@ -16,9 +21,9 @@ export const projectData = [
                 title: 'Portfolio',
                 miniTitle: '2024-Present',
                 subtitle: 'React Three Fiber Application',
-                previewImage: '/Images/WebApplications/portfolio-v2.jpg',
+                previewImage: '/Images/ThreeJS/Portfolio-Promo1.jpg',
                 media: [
-                    { type: 'image', url: '/Images/WebApplications/portfolio-v2.jpg' },    
+                    { type: 'image', url: '/Images/ThreeJS/Portfolio-Promo1.jpg' },
                 ],
                 technologies: ['React', 'ThreeJs', 'JavaScript', 'Blender'],
                 description: ['This portfolio was created using React Three Fiber to showcase my game development skills through a unique and interactive design. It features ' +
@@ -29,10 +34,10 @@ export const projectData = [
         
                     'I also prioritized a dynamic user experience, combining interactive 3D elements with intuitive functionality to create an engaging and personalized website.'
                 ],
-                primary: { label: 'Visit Site', url: 'https://jake-rose.com' },
+                // No primary CTA — you're already on the site this describes, so
+                // a "Visit Site" button would just reload the page you're on.
                 links: [
                     { label: 'Code Repo', url: 'https://github.com/Jake2508/React-Winter-Portfolio/tree/main/src' },
-                    { label: 'Design Board', url: 'https://miro.com/app/board/uXjVKECWmgk=/?share_link_id=556901902113' },
                 ],
             },
             {
@@ -41,9 +46,9 @@ export const projectData = [
                 title: 'Procedural Islands',
                 miniTitle: '2024',
                 subtitle: 'Three.js Shader',
-                previewImage: '/Images/WebApplications/procedural-promo.jpg',
+                previewImage: '/Images/ThreeJS/Procedural-Promo1.jpg',
                 media: [
-                    { type: 'image', url: '/Images/WebApplications/procedural-promo.jpg' },
+                    { type: 'image', url: '/Images/ThreeJS/Procedural-Promo1.jpg' },
                 ],
                 technologies: ['Three.js', 'Three bvh', 'GLSL Shaders'],
                 description: ['This procedural terrain shader, created with Three.js, generates a realistic, customisable landscapes. ' +
@@ -173,7 +178,6 @@ export const projectData = [
                 primary: { label: 'Play on WebGL', url: 'https://jake12341234.itch.io/astrohaul' },
                 links: [
                     { label: 'Code Repo', url: 'https://github.com/Jake2508/Asteroids/tree/main/Assets/Asteroids%20Game' },
-                    { label: 'Game Jam', url: 'https://itch.io/jam/typical-game-jam' },
                 ],
             },
             // {

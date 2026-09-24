@@ -5,43 +5,25 @@
 .projectsTab {
     display: flex;
     flex-direction: column;
-    gap: 26px;
-}
-
-/* -- Group header: [ NAME ] · counter · hairline · arrows -- */
-.groupHeader {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 0 0 12px;
-}
-
-.groupCount {
-    flex-shrink: 0;
-    font-family: var(--font-mono);
-    font-weight: 400;
-    font-size: 9.5px;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: var(--text-faint);
+    gap: 28px;
 }
 
 .groupArrows {
     flex-shrink: 0;
     display: flex;
-    gap: 4px;
+    gap: 6px;
 }
 
 .groupArrow {
     display: grid;
     place-items: center;
-    width: 24px;
-    height: 22px;
+    width: 28px;
+    height: 28px;
     padding: 0;
-    border-radius: 0;
+    border-radius: var(--radius-sm);
     background: transparent;
-    border: 1px solid rgba(133, 193, 233, 0.4);
-    color: var(--accent-blue);
+    border: 1px solid rgba(255, 212, 0, 0.55);
+    color: var(--panel-yellow);
     box-shadow: none;
     cursor: pointer;
     transition: background var(--hover-speed) var(--ease),
@@ -50,46 +32,70 @@
 }
 
 .groupArrow:hover:not(:disabled) {
-    background: rgba(255, 215, 0, 0.16);
-    border-color: var(--accent-gold);
-    color: var(--accent-gold);
+    background: rgba(255, 212, 0, 0.1);
     transform: none;
     box-shadow: none;
 }
 
 .groupArrow:disabled {
-    border-color: rgba(133, 193, 233, 0.14);
-    color: rgba(133, 193, 233, 0.22);
+    border-color: var(--line-faint);
+    color: var(--text-disabled);
     cursor: default;
 }
 
-/* -- Card grid -- */
+/* -- Card grid, on a sliding track -- */
+/*
+  The padding gives a hovered card room for its border without the clip
+  cutting it off, and the matching negative margin keeps the layout where it
+  was. The padding overlaps the group header, so pointer events are handed to
+  the track instead — otherwise it would swallow clicks on the page arrows.
+
+  --page-gap must exceed twice the padding, or the next page shows through the
+  room the padding opened up. The track's transform reads it, so the two cannot
+  drift apart.
+*/
+.projectTrackViewport {
+    --page-gap: 48px;
+    margin: -12px;
+    padding: 12px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.projectTrack {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--page-gap);
+    pointer-events: auto;
+    will-change: transform;
+    transition: transform 420ms var(--ease);
+}
+
 .projectGrid {
+    flex: 0 0 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+    gap: 10px;
 }
 
 .projectCard {
+    position: relative;
     display: flex;
     flex-direction: column;
     padding: 0;
     text-align: left;
-    background: var(--panel-surface);
-    border: 1px solid var(--panel-border);
-    border-radius: 0;
+    background: var(--surface-raised);
+    border: 1px solid var(--line-faint);
+    border-radius: var(--radius-md);
     box-shadow: none;
     overflow: hidden;
     cursor: pointer;
-    transition: transform var(--hover-speed) var(--ease),
-                border-color var(--hover-speed) var(--ease),
-                box-shadow var(--hover-speed) var(--ease);
+    transition: border-color var(--hover-speed) var(--ease);
 }
 
-.projectCard:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent-gold);
-    box-shadow: 0 0 0 1px rgba(255, 215, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.5);
+.projectCard:hover,
+.projectCard:focus-visible {
+    border-color: rgba(255, 212, 0, 0.6);
 }
 
 .projectImage {
@@ -98,13 +104,12 @@
     height: 104px;
     background-size: cover;
     background-position: center;
-    opacity: 0.9;
     flex-shrink: 0;
 }
 
 .projectCardBody {
     display: block;
-    padding: 8px 9px 9px;
+    padding: 11px 12px 13px;
 }
 
 .projectCardTitle {
@@ -112,78 +117,57 @@
     margin: 0;
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 13px;
+    font-size: 15px;
     line-height: 1.25;
     color: #ffffff;
 }
 
 .projectCardMeta {
     display: block;
-    margin: 3px 0 0;
-    font-family: var(--font-mono);
+    margin: 4px 0 0;
+    font-family: var(--font-display);
     font-weight: 400;
-    font-size: 9.5px;
-    letter-spacing: 0.3px;
+    font-size: 13px;
     line-height: 1.4;
-    color: var(--text-faint);
+    color: var(--text-secondary);
 }
 
-/* Placeholder showing where the next project in a group will land */
-.projectSlot {
-    display: grid;
-    place-items: center;
-    min-height: 146px;
-    border: 1px dashed rgba(133, 193, 233, 0.22);
-    font-family: var(--font-mono);
+/* -- Closing line under the carousels -- */
+.projectsMore {
+    margin: 0;
+    font-family: var(--font-display);
     font-weight: 400;
-    font-size: 10px;
-    letter-spacing: 1.4px;
-    color: rgba(133, 193, 233, 0.3);
-    user-select: none;
+    font-size: 14px;
+    color: var(--text-secondary);
 }
 
-/* -- [ EVERYTHING ELSE ] tiles -- */
-.elsewhereGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-}
-
-.elsewhereTile {
-    display: block;
-    padding: 12px 13px;
-    background: var(--panel-surface);
-    border: 1px solid var(--panel-border);
-    text-decoration: none;
-    transition: background var(--hover-speed) var(--ease),
-                border-color var(--hover-speed) var(--ease);
-}
-
-.elsewhereTile:hover {
-    background: rgba(255, 215, 0, 0.12);
-    border-color: var(--accent-gold);
-}
-
-.elsewhereLabel {
-    display: block;
-    font-family: var(--font-mono);
+.projectsMoreLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--panel-yellow);
     font-weight: 500;
-    font-size: 10.5px;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-    color: var(--accent-gold);
+    text-decoration: none;
 }
 
-.elsewhereUrl {
-    display: block;
-    margin-top: 5px;
-    font-family: var(--font-mono);
-    font-weight: 400;
-    font-size: 10.5px;
-    line-height: 1.45;
-    color: var(--text-muted);
-    word-break: break-all;
+.projectsMoreLink:hover,
+.projectsMoreLink:focus-visible {
+    text-decoration: underline;
 }
+
+.projectsMoreIcon {
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    color: #ffffff;
+}
+
+.projectsMoreIconGithub { background: #24292F; }
+.projectsMoreIconItch   { background: #FA5C5C; }
 
 /* ==========================================================================
    Project detail view
@@ -192,7 +176,7 @@
 .detailsContainer {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 18px;
     text-align: left;
 }
 
@@ -201,154 +185,122 @@
     align-self: flex-start;
     display: inline-flex;
     align-items: center;
-    gap: 7px;
+    gap: 6px;
     padding: 0;
     background: none;
     border: none;
     border-radius: 0;
     box-shadow: none;
     cursor: pointer;
-    font-family: var(--font-mono);
-    font-weight: 500;
-    font-size: 9.5px;
-    letter-spacing: 1.6px;
-    text-transform: uppercase;
-    color: var(--accent-blue);
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--text-secondary);
     transition: color var(--hover-speed) var(--ease);
 }
 
-.backNav:hover {
-    color: var(--accent-gold);
+.backNav:hover,
+.backNav:focus-visible {
+    color: var(--panel-yellow);
     transform: none;
     box-shadow: none;
 }
 
-/* Title row: title · year · rule · primary action */
-.detailsHeader {
+/* Title stands alone — nothing to justify it against, so no dead-gap risk
+   regardless of how short or long the title is */
+.detailsTitleRow {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
+    align-items: baseline;
     gap: 12px;
 }
 
 .detailsTitle {
-    flex-shrink: 0;
     margin: 0;
     font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 21px;
+    font-weight: 600;
+    font-size: 24px;
     line-height: 1.2;
     color: #ffffff;
 }
 
 .detailsYear {
-    flex-shrink: 0;
-    font-family: var(--font-mono);
+    font-family: var(--font-display);
     font-weight: 400;
-    font-size: 10.5px;
-    letter-spacing: 1.2px;
-    color: var(--accent-blue);
+    font-size: 14px;
+    color: var(--text-secondary);
 }
 
-.detailsHeaderRule {
-    flex: 1;
-    height: 1px;
-    background: var(--panel-hairline);
+/*
+  Tags left, actions right — pairing the buttons with the tag chips instead
+  of the title. The chips give the row enough natural width that the right-
+  aligned actions never strand themselves in a wide dead gap the way they did
+  sharing a row with a short title, and matching heights (chips ~32px,
+  .btnCompact 32px) makes the two feel like one row of equal-weight controls.
+*/
+.detailsMetaRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
 }
 
-.detailsPrimary {
-    flex-shrink: 0;
-    padding: 7px 13px;
-    background: var(--accent-gold);
-    color: var(--on-gold);
-    border: 1px solid var(--accent-gold);
-    text-decoration: none;
-    font-family: var(--font-mono);
-    font-weight: 700;
-    font-size: 10.5px;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    white-space: nowrap;
-    box-shadow: 0 0 18px rgba(255, 215, 0, 0.28);
-    transition: background var(--hover-speed) var(--ease),
-                border-color var(--hover-speed) var(--ease);
+.detailsActions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.detailsPrimary:hover {
-    background: #ffffff;
-    border-color: #ffffff;
-    color: var(--on-gold);
+/*
+  Scaled-down .btn for this row only, at 0.84x the Contact/CV buttons —
+  chosen so the 38px base height lands on a clean 32px. Every dimension
+  below is the base value times that same 0.84, so the two sizes stay
+  proportional rather than drifting apart as ad hoc numbers.
+*/
+.btnCompact {
+    height: 32px;
+    padding: 0 14px;
+    gap: 5px;
+    border-radius: 5px;
+    font-size: 12px;
 }
 
-/* Tech tags */
+/* Tech tags — same filled chip as the About tab's tech stack */
 .detailsTags {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 8px;
 }
 
 .detailsTag {
-    padding: 4px 8px;
-    background: rgba(133, 193, 233, 0.09);
-    border: 1px solid var(--panel-border);
-    font-family: var(--font-mono);
-    font-weight: 500;
-    font-size: 10px;
-    letter-spacing: 0.3px;
-    color: var(--accent-blue-text);
+    padding: 6px 10px;
+    background: var(--line-soft);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--text-body);
     white-space: nowrap;
 }
 
 .detailsDescription {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.65;
-    color: var(--text-strong);
+    color: var(--text-body);
+    max-width: 680px;
     text-wrap: pretty;
 }
 
-.detailsDescription p { margin: 0 0 9px; }
+.detailsDescription p { margin: 0 0 14px; }
 .detailsDescription p:last-child { margin-bottom: 0; }
-
-/* Secondary links */
-.detailsLinks {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-}
-
-.detailsLinkBtn {
-    padding: 6px 12px;
-    background: transparent;
-    border: 1px solid rgba(133, 193, 233, 0.28);
-    color: var(--accent-blue);
-    text-decoration: none;
-    font-family: var(--font-mono);
-    font-weight: 500;
-    font-size: 10px;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    transition: background var(--hover-speed) var(--ease),
-                color var(--hover-speed) var(--ease);
-}
-
-.detailsLinkBtn:hover {
-    background: rgba(133, 193, 233, 0.16);
-    color: #ffffff;
-}
 
 @media (max-width: 620px) {
     .projectGrid    { grid-template-columns: repeat(2, 1fr); }
-    .elsewhereGrid  { grid-template-columns: 1fr; }
-    .detailsTitle   { font-size: 18px; }
-
-    .detailsHeader {
-        flex-wrap: wrap;
-        row-gap: 9px;
-    }
-
-    .detailsHeaderRule { display: none; }
-    .detailsPrimary    { margin-left: auto; }
+    .detailsTitle   { font-size: 20px; }
+    .detailsMetaRow { flex-direction: column; align-items: flex-start; }
 }
 
 @media (max-width: 420px) {
@@ -356,5 +308,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .projectCard:hover { transform: none; }
+    .projectTrack { transition: none; }
 }
