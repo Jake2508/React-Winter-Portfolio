@@ -43,7 +43,7 @@ export const projectData = [
             {
                 id: 2,
                 group: 'React Three.js',
-                title: 'Procedural Islands',
+                title: 'Procedural Terrain Shader',
                 miniTitle: '2024',
                 subtitle: 'Three.js Shader',
                 previewImage: '/Images/ThreeJS/Procedural-Promo1.jpg',
@@ -64,7 +64,7 @@ export const projectData = [
                 ],
                 primary: { label: 'Live Link', url: 'https://proceduralterrainshader.netlify.app/' },
                 links: [
-                    { label: 'Code Repo', url: 'https://github.com/Jake2508/procedural-terrain-shader/tree/main' },
+                    { label: 'Code Repo', url: 'https://github.com/Jake2508/ThreeJS-Procedural-Terrain' },
                 ],
             },
             {
@@ -91,9 +91,9 @@ export const projectData = [
                     'To achieve this, I implemented a procedurally generated environment. The system uses a 9-tile grid of prefabs that dynamically update based on the ' +
                     'players position, creating the illusion of an infinite level.'
                 ],
-                primary: { label: 'Download', url: 'https://jake12341234.itch.io/tankeo-drift' },
+                primary: { label: 'Play on WebGL', url: 'https://jake12341234.itch.io/tankeo-drift' },
                 links: [
-                    { label: 'Code Repo', url: 'https://github.com/Jake2508/Tank/tree/main/Assets/Scripts' },
+                    { label: 'Code Repo', url: 'https://github.com/Jake2508/Game-3D-Tankeo-Drift' },
                 ],
             },
             {
@@ -151,7 +151,7 @@ export const projectData = [
                     'To achieve this, I expanded on an A* project I developed during university, incorporating pixel art and animations to bring the game to life.'
                 ],
                 links: [
-                    { label: 'Code Repo', url: 'https://github.com/Jake2508/Deliberation/tree/main/Assets/Deliberation' },
+                    { label: 'Code Repo', url: 'https://github.com/Jake2508/Game-2D-Deliberation' },
                 ],
             },
             {
@@ -177,7 +177,7 @@ export const projectData = [
                 ],
                 primary: { label: 'Play on WebGL', url: 'https://jake12341234.itch.io/astrohaul' },
                 links: [
-                    { label: 'Code Repo', url: 'https://github.com/Jake2508/Asteroids/tree/main/Assets/Asteroids%20Game' },
+                    { label: 'Code Repo', url: 'https://github.com/Jake2508/Game-2D-AstroHaul' },
                 ],
             },
             // {

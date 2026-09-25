@@ -15,7 +15,7 @@ export const contactPrimary = [
 // panelData.js's preload list needs this too, hence the export.
 export const cv = {
     title: 'Jake Rose — CV',
-    meta: 'PDF · 2 pages',
+    meta: 'PDF · 1 page',
     url: '/Files/Jake-Rose-CV.pdf',
     icon: '/Images/General/pdf-icon.png',
 };
