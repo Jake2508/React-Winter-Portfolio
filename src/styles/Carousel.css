@@ -20,7 +20,10 @@
     position: absolute;
     inset: 0;
     background-size: cover;
-    background-position: center;
+
+    /* Matches the card thumbnails: anything taller than the frame loses its
+       bottom rather than its heading */
+    background-position: center top;
 }
 
 /* Re-keyed on index change so each slide fades in */

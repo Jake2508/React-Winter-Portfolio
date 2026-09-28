@@ -9,12 +9,58 @@
 //           nothing else (design boards, jam pages, etc.) belongs here.
 
 export const projectGroups = [
+    { name: 'Apps & Tools' },
     { name: 'Games' },
     { name: 'React Three.js' },
-    { name: 'Apps & Tools' },
 ];
 
 export const projectData = [
+            {
+                id: 9,
+                group: 'Apps & Tools',
+                title: 'Booked',
+                miniTitle: '2026',
+                subtitle: 'Reading Habits Dashboard',
+                previewImage: '/Images/Apps/Booked-Promo1.jpg',
+                media: [
+                    { type: 'image', url: '/Images/Apps/Booked-Promo1.jpg' },
+                    { type: 'image', url: '/Images/Apps/Booked-Promo2.jpg' },
+                    { type: 'image', url: '/Images/Apps/Booked-Promo3.jpg' },
+                ],
+                technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Recharts', 'Open Library API'],
+                description: ['Booked is a dashboard that tracks the books I have read and turns them into statistics. It covers pages and estimated words, top authors and genres, alongside a filterable library view.',
+
+                    'The aim of this project was to see how far careful planning could carry a build handed over to AI coding assistance. I wrote the requirements as three markdown specification files, then orchestrated the implementation from those rather than writing the site line by line, which got a clean and complete site standing up in a fraction of the usual time.',
+
+                    'Book details come from the Open Library API with Google Books as a fallback, and the reading data is managed locally through a small Node and SQLite admin. The published site is a static export of that data, so it runs on Netlify with nothing to keep alive behind it.'
+                ],
+                primary: { label: 'Live Link', url: 'https://reading-dashboard.netlify.app/' },
+                links: [
+                    { label: 'View Code', url: 'https://github.com/Jake2508/Web-Reading-Metrics' },
+                ],
+            },
+            {
+                id: 8,
+                group: 'Apps & Tools',
+                title: 'Web Health Monitor',
+                miniTitle: '2026',
+                subtitle: 'Self-Hosted Uptime Dashboard',
+                previewImage: '/Images/Apps/WebHealth-Promo1.jpg',
+                media: [
+                    { type: 'image', url: '/Images/Apps/WebHealth-Promo1.jpg' },
+                ],
+                technologies: ['C#', '.NET 10', 'Blazor', 'SQLite', 'EF Core'],
+                description: ['Web Health Monitor is a self-hosted dashboard that checks a list of sites every minute and reports whether each one is responding, the status code it returned, and how long it took.',
+
+                    'The aim of this project was to build something I would actually run against my own sites rather than a worked example, so it had to handle the failure cases properly. A 404, a slow response and a domain that never resolves are three different problems, and the dashboard separates them rather than showing one red light.',
+
+                    'To achieve this, a .NET background worker runs the checks and writes to SQLite through EF Core, keeping seven days of history and clearing anything older automatically. SQLite keeps the whole thing to a single file with no database server to host or pay for, which is why it runs locally rather than as a site I keep online.'
+                ],
+                // No primary CTA — it is a tool you clone and run, not a hosted site
+                links: [
+                    { label: 'View Code', url: 'https://github.com/Jake2508/Web-Health-Monitor' },
+                ],
+            },
             {
                 id: 1,
                 group: 'React Three.js',

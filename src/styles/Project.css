@@ -103,7 +103,10 @@
     width: 100%;
     height: 104px;
     background-size: cover;
-    background-position: center;
+
+    /* Top, not centre: a screenshot's heading and nav live at the top, and
+       that is the part that says what the project is */
+    background-position: center top;
     flex-shrink: 0;
 }
 
