@@ -2,7 +2,7 @@ import React from 'react';
 import Carousel from '../components/Carousel';
 
 
-const ProjectDetails = ({ project, onBack }) => {
+const ProjectDetails = ({ project, onBack, next, onSelectNext }) => {
     if (!project) return null;
 
     return (
@@ -37,7 +37,7 @@ const ProjectDetails = ({ project, onBack }) => {
                                     href={link.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="btn btnSecondary btnCompact"
+                                    className="btn btnSecondary"
                                 >
                                     {link.label}<span aria-hidden="true"> ↗</span>
                                     <span className="visuallyHidden"> (opens in new tab)</span>
@@ -48,7 +48,7 @@ const ProjectDetails = ({ project, onBack }) => {
                                     href={project.primary.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="btn btnPrimary btnCompact"
+                                    className="btn btnPrimary"
                                 >
                                     {project.primary.label}
                                     <span className="visuallyHidden"> (opens in new tab)</span>
@@ -69,6 +69,24 @@ const ProjectDetails = ({ project, onBack }) => {
 
             {project.media?.length > 0 && (
                 <Carousel media={project.media} title={project.title} />
+            )}
+
+            {/*
+              Closes the sub-page by pointing at the next project in the same
+              group, wrapping at the end. Absent when the group holds one
+              project, because it would only ever link back to this page.
+            */}
+            {next && (
+                <div className="detailsNext">
+                    <span className="detailsNextLabel">Next in {project.group}</span>
+                    <button
+                        type="button"
+                        className="detailsNextLink"
+                        onClick={() => onSelectNext(next)}
+                    >
+                        {next.title}<span aria-hidden="true"> →</span>
+                    </button>
+                </div>
             )}
 
         </div>

@@ -107,9 +107,9 @@
     align-items: center;
     gap: 14px;
     padding: 16px 18px;
-    background: var(--surface-subtle);
-    border: 1px solid var(--line-faint);
-    border-radius: 8px;
+    background: var(--surface-raised);
+    border: 1px solid var(--line-medium);
+    border-radius: var(--radius-md);
 }
 
 .cvIcon {

@@ -108,7 +108,7 @@
     overflow-x: hidden;
     touch-action: auto;
     scrollbar-gutter: stable;
-    padding: 22px 20px 28px;
+    padding: 24px 20px 28px;
     text-align: left;
     transition: opacity var(--content-speed) var(--ease);
 }

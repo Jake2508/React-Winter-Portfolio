@@ -38,7 +38,7 @@
 }
 
 .groupArrow:disabled {
-    border-color: var(--line-faint);
+    border-color: var(--line-medium);
     color: var(--text-disabled);
     cursor: default;
 }
@@ -85,7 +85,7 @@
     padding: 0;
     text-align: left;
     background: var(--surface-raised);
-    border: 1px solid var(--line-faint);
+    border: 1px solid var(--line-medium);
     border-radius: var(--radius-md);
     box-shadow: none;
     overflow: hidden;
@@ -137,7 +137,7 @@
     margin: 0;
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: 14px;
+    font-size: 15px;
     color: var(--text-secondary);
 }
 
@@ -227,7 +227,7 @@
 .detailsYear {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: 14px;
+    font-size: 13px;
     color: var(--text-secondary);
 }
 
@@ -235,8 +235,7 @@
   Tags left, actions right — pairing the buttons with the tag chips instead
   of the title. The chips give the row enough natural width that the right-
   aligned actions never strand themselves in a wide dead gap the way they did
-  sharing a row with a short title, and matching heights (chips ~32px,
-  .btnCompact 32px) makes the two feel like one row of equal-weight controls.
+  sharing a row with a short title.
 */
 .detailsMetaRow {
     display: flex;
@@ -250,20 +249,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-}
-
-/*
-  Scaled-down .btn for this row only, at 0.84x the Contact/CV buttons —
-  chosen so the 38px base height lands on a clean 32px. Every dimension
-  below is the base value times that same 0.84, so the two sizes stay
-  proportional rather than drifting apart as ad hoc numbers.
-*/
-.btnCompact {
-    height: 32px;
-    padding: 0 14px;
-    gap: 5px;
-    border-radius: 5px;
-    font-size: 12px;
 }
 
 /* Tech tags — same filled chip as the About tab's tech stack */
@@ -296,6 +281,44 @@
 
 .detailsDescription p { margin: 0 0 14px; }
 .detailsDescription p:last-child { margin-bottom: 0; }
+
+/* -- Next project, closing the sub-page -- */
+.detailsNext {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    border-top: 1px solid var(--panel-hairline);
+    padding-top: 20px;
+}
+
+.detailsNextLabel {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--text-secondary);
+}
+
+.detailsNextLink {
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 15px;
+    text-align: right;
+    color: var(--panel-yellow);
+    transition: opacity var(--hover-speed) var(--ease);
+}
+
+.detailsNextLink:hover {
+    opacity: 0.85;
+    background: none;
+    transform: none;
+    box-shadow: none;
+}
 
 @media (max-width: 620px) {
     .projectGrid    { grid-template-columns: repeat(2, 1fr); }

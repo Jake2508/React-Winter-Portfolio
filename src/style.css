@@ -143,3 +143,37 @@ button {
     .arcadeTooltip,
     .arcadeTooltipArrow { animation: none; }
 }
+
+/*
+  Stands in for the canvas when WebGL is unavailable. Same position and size as
+  the canvas itself, so the HUD lands over it exactly as it does over the scene.
+*/
+.sceneFallback {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* The still sits over a gradient matching the scene's own sky, so a
+       missing or slow file still reads as the site rather than a flat block */
+    background-image: url('/scene-still.jpg'),
+                      linear-gradient(180deg, #071630 0%, #1b4a7a 55%, #8fc7e8 100%);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.sceneFallbackNote {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 22px;
+    margin: 0;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1.4px;
+    color: rgba(255, 255, 255, 0.5);
+    text-shadow: 0 2px 12px rgba(0, 10, 30, 0.5);
+}

@@ -5,7 +5,7 @@
 //           projectGroups `name` or the project will not be rendered.
 // `primary` is the single gold call-to-action pinned to the detail title row.
 //           Omit it when a project has nothing to play, download or visit.
-// `links`   at most one — the Code Repo. Two buttons total is the limit, so
+// `links`   at most one — the code repo. Two buttons total is the limit, so
 //           nothing else (design boards, jam pages, etc.) belongs here.
 
 export const projectGroups = [
@@ -37,7 +37,7 @@ export const projectData = [
                 // No primary CTA — you're already on the site this describes, so
                 // a "Visit Site" button would just reload the page you're on.
                 links: [
-                    { label: 'Code Repo', url: 'https://github.com/Jake2508/React-Winter-Portfolio/tree/main/src' },
+                    { label: 'View Code', url: 'https://github.com/Jake2508/React-Winter-Portfolio/tree/main/src' },
                 ],
             },
             {
@@ -64,7 +64,7 @@ export const projectData = [
                 ],
                 primary: { label: 'Live Link', url: 'https://proceduralterrainshader.netlify.app/' },
                 links: [
-                    { label: 'Code Repo', url: 'https://github.com/Jake2508/ThreeJS-Procedural-Terrain' },
+                    { label: 'View Code', url: 'https://github.com/Jake2508/ThreeJS-Procedural-Terrain' },
                 ],
             },
             {
@@ -93,7 +93,7 @@ export const projectData = [
                 ],
                 primary: { label: 'Play on WebGL', url: 'https://jake12341234.itch.io/tankeo-drift' },
                 links: [
-                    { label: 'Code Repo', url: 'https://github.com/Jake2508/Game-3D-Tankeo-Drift' },
+                    { label: 'View Code', url: 'https://github.com/Jake2508/Game-3D-Tankeo-Drift' },
                 ],
             },
             {
@@ -126,7 +126,7 @@ export const projectData = [
                 ],
                 primary: { label: 'Download', url: 'https://tomwilkinson.itch.io/assembly-required' },
                 links: [
-                    { label: 'Code Repo', url: 'https://github.com/TomWilkinsonGames/RoboFarm' },
+                    { label: 'View Code', url: 'https://github.com/TomWilkinsonGames/RoboFarm' },
                 ],
             },
             {
@@ -151,7 +151,7 @@ export const projectData = [
                     'To achieve this, I expanded on an A* project I developed during university, incorporating pixel art and animations to bring the game to life.'
                 ],
                 links: [
-                    { label: 'Code Repo', url: 'https://github.com/Jake2508/Game-2D-Deliberation' },
+                    { label: 'View Code', url: 'https://github.com/Jake2508/Game-2D-Deliberation' },
                 ],
             },
             {
@@ -177,7 +177,7 @@ export const projectData = [
                 ],
                 primary: { label: 'Play on WebGL', url: 'https://jake12341234.itch.io/astrohaul' },
                 links: [
-                    { label: 'Code Repo', url: 'https://github.com/Jake2508/Game-2D-AstroHaul' },
+                    { label: 'View Code', url: 'https://github.com/Jake2508/Game-2D-AstroHaul' },
                 ],
             },
             // {

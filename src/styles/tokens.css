@@ -39,17 +39,15 @@
        above. Kept separate from --accent-gold / --accent-blue rather than
        repointing them: theme.js maps those two by name into the 3D cabinet,
        so recolouring the panel and HUD here can't bleed into the scene. */
-    --panel-yellow:   #FFD400;  /* active tab + anything pressable, panel-only */
+    --panel-yellow:   #FFD400;  /* active tab, anything pressable, HUD nav hover */
     --panel-ink:      #0A1628; /* text sitting on a --panel-yellow fill */
     --text-section:   #CFDCF0; /* icons (close button), HUD role line */
     --text-secondary: #8FA8C8; /* roles, meta, inactive tab, gutter labels */
     --text-bright:    #EAF1FB; /* outline-button label text, HUD nav */
     --text-body:      #DDE7F5; /* reading paragraphs, chip text */
-    --surface-raised: rgba(20, 42, 74, 0.7);  /* project cards */
-    --surface-subtle: rgba(22, 46, 80, 0.5);  /* CV row */
+    --surface-raised: rgba(20, 42, 74, 0.7);  /* project cards, CV row */
     --line-soft:      rgba(130, 170, 220, 0.12); /* chip / tag backgrounds */
-    --line-faint:     rgba(130, 170, 220, 0.2);  /* card borders, disabled control border */
-    --line-medium:    rgba(130, 170, 220, 0.24); /* main panel outline */
+    --line-medium:    rgba(130, 170, 220, 0.24); /* container borders: panel, cards, CV row */
     --line-strong:    rgba(130, 170, 220, 0.3);  /* button + outline borders */
     --text-disabled:  rgba(143, 168, 200, 0.5);  /* disabled control text */
 

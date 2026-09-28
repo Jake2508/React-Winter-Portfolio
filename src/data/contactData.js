@@ -13,10 +13,16 @@ export const contactPrimary = [
 ];
 
 // panelData.js's preload list needs this too, hence the export.
+// Bump these two whenever the PDF below is replaced, so the row never
+// advertises a stale date or page count.
+const CV_PAGES = 1;
+const CV_UPDATED = 'Sep 2026';
+
 export const cv = {
     title: 'Jake Rose — CV',
-    meta: 'PDF · 1 page',
     url: '/Files/Jake-Rose-CV.pdf',
+    filename: 'Jake-Rose-CV.pdf',
+    meta: `PDF · ${CV_PAGES} page${CV_PAGES === 1 ? '' : 's'} · Updated ${CV_UPDATED}`,
     icon: '/Images/General/pdf-icon.png',
 };
 
@@ -103,7 +109,7 @@ export const ContactData = () => (
                 <a href={cv.url} target="_blank" rel="noopener noreferrer" className="btn btnSecondary">
                     View<span className="visuallyHidden"> (opens in new tab)</span>
                 </a>
-                <a href={cv.url} download="Jake_Rose_CV.pdf" className="btn btnPrimary">Download</a>
+                <a href={cv.url} download={cv.filename} className="btn btnPrimary">Download</a>
             </div>
         </div>
 

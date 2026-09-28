@@ -18,6 +18,9 @@ import { AVAILABILITY, availability, profile } from '../data/panelData.js';
 import ProjectDetails from '../components/ProjectDetails.js';
 import ProjectsTab, { CARDS_PER_PAGE } from '../components/ProjectsTab.jsx';
 import useFadeTransition from '../hooks/useFadeTransition';
+import { assertUniqueSlugs, findBySlug, hashFor, parseHash, slugify, titleFor } from '../utils/routes.js';
+
+assertUniqueSlugs(projectData);
 
 
 const TABS = ['about', 'projects', 'contact'];
@@ -26,7 +29,7 @@ const FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [ta
 
 
 // Main ProjectDisplay Component
-const ProjectDisplay = ({ onClose, isVisible, requestedTab }) => {
+const ProjectDisplay = ({ onClose, onRequestOpen, isVisible, requestedTab }) => {
     const [activeTab, setActiveTab] = useState('about');
     const [selectedProject, setSelectedProject] = useState(null);
 
@@ -66,14 +69,50 @@ const ProjectDisplay = ({ onClose, isVisible, requestedTab }) => {
         });
     }, [groups]);
 
+    /*
+      -- URL ----------------------------------------------------------------
+      The hash mirrors whichever view is showing. Handlers write it, popstate
+      reads it back, and nothing writes while handling a popstate, so the two
+      never chase each other.
+
+      pushDepth counts the entries this session added, so the close button can
+      unwind them in one step and leave the user where they were before the
+      panel opened rather than stranding them mid-stack.
+    */
+    const pushDepthRef = useRef(0);
+    const projectPushedRef = useRef(false);
+
+    const writeRoute = useCallback((route, { replace }) => {
+        const url = hashFor(route) || `${window.location.pathname}${window.location.search}`;
+
+        if (replace) {
+            window.history.replaceState(null, '', url);
+        } else {
+            window.history.pushState(null, '', url);
+            pushDepthRef.current += 1;
+        }
+
+        document.title = titleFor(route, projectData);
+    }, []);
+
     // Land on the tab the scene HUD asked for, without the fade — the panel is
     // opening at the same moment, so a transition would be invisible anyway.
+    // A slug comes from the URL and picks the sub-page straight away.
     useEffect(() => {
         if (!requestedTab) return;
         pendingTabRef.current = requestedTab.tab;
         setActiveTab(requestedTab.tab);
-        setSelectedProject(null);
-    }, [requestedTab]);
+        setSelectedProject(requestedTab.slug
+            ? findBySlug(projectData, requestedTab.slug)
+            : null);
+
+        // Opened by a click, so this view is new to the history. Opened from
+        // the URL, the entry is already there and pushing would double it.
+        if (!requestedTab.fromHistory) {
+            writeRoute({ tab: requestedTab.tab, slug: requestedTab.slug }, { replace: false });
+            projectPushedRef.current = Boolean(requestedTab.slug);
+        }
+    }, [requestedTab, writeRoute]);
 
     // Set initial collapsed state on mount
     useEffect(() => {
@@ -105,14 +144,22 @@ const ProjectDisplay = ({ onClose, isVisible, requestedTab }) => {
         if (tab === pendingTabRef.current) return;
 
         pendingTabRef.current = tab;
+        // Replaced, not pushed: Back should leave the panel, not walk back
+        // through every tab the visitor happened to look at.
+        writeRoute({ tab, slug: null }, { replace: true });
+        projectPushedRef.current = false;
+
         applyTransition(() => {
             setActiveTab(tab);
             setSelectedProject(null);  // Reset project selection
         });
-    }, [applyTransition]);
+    }, [applyTransition, writeRoute]);
 
     const handleProjectSelect = useCallback((project) => {
         setScrollPosition(contentRef.current.scrollTop);
+        writeRoute({ tab: 'projects', slug: slugify(project.title) }, { replace: false });
+        projectPushedRef.current = true;
+
         applyTransition(() => {
             setSelectedProject(project);
             if (contentRef.current)
@@ -121,9 +168,43 @@ const ProjectDisplay = ({ onClose, isVisible, requestedTab }) => {
                 contentRef.current.scrollTop = 0;
             }
         });
+    }, [applyTransition, writeRoute]);
+
+    /*
+      The next project in the same group, wrapping at the end — same order the
+      grid lays them out in. Null for a single-project group, where the link
+      would only point back at the page you are on.
+    */
+    const nextProject = useMemo(() => {
+        if (!selectedProject) return null;
+        const group = groups.find((entry) => entry.name === selectedProject.group);
+        if (!group || group.projects.length < 2) return null;
+
+        const index = group.projects.findIndex((entry) => entry.id === selectedProject.id);
+        if (index === -1) return null;
+        return group.projects[(index + 1) % group.projects.length];
+    }, [groups, selectedProject]);
+
+    // Moving between sub-pages leaves `scrollPosition` alone: it holds where the
+    // grid was, and Back still has to land there however many projects you step
+    // through first.
+    const showProject = useCallback((project) => {
+        applyTransition(() => {
+            setSelectedProject(project);
+            if (contentRef.current) contentRef.current.scrollTop = 0;
+        });
     }, [applyTransition]);
 
-    const handleProjectBack = useCallback(() => {
+    const handleNextProject = useCallback((project) => {
+        // Replaced, so Back still lands on the grid however many projects you
+        // step through rather than retracing each one.
+        writeRoute({ tab: 'projects', slug: slugify(project.title) }, { replace: true });
+        showProject(project);
+    }, [showProject, writeRoute]);
+
+    // Shared by the Back button and by popstate; the latter must not write the
+    // URL again, which is what `fromHistory` suppresses.
+    const showProjectGrid = useCallback(() => {
         applyTransition(() => {
             setSelectedProject(null); // Go back to grid view
             if (contentRef.current)
@@ -134,12 +215,94 @@ const ProjectDisplay = ({ onClose, isVisible, requestedTab }) => {
         }, 300);
     }, [applyTransition, scrollPosition]);
 
+    /*
+      Back mirrors however the sub-page was reached. Opened from the grid, it
+      steps the history entry off so the browser's own Back agrees with the
+      button; arrived at by URL, there is nothing to step off, so the entry is
+      replaced instead.
+    */
+    const handleProjectBack = useCallback(() => {
+        if (projectPushedRef.current) {
+            projectPushedRef.current = false;
+            window.history.back();   // popstate calls showProjectGrid
+            return;
+        }
+
+        writeRoute({ tab: 'projects', slug: null }, { replace: true });
+        showProjectGrid();
+    }, [showProjectGrid, writeRoute]);
+
+    /*
+      Closing unwinds every entry this session pushed in one step, so the
+      visitor lands where they were before the panel opened rather than part
+      way up the stack. Arrived by URL with nothing pushed, the hash is simply
+      dropped instead.
+    */
+    const handleClose = useCallback(() => {
+        const depth = pushDepthRef.current;
+        pushDepthRef.current = 0;
+        projectPushedRef.current = false;
+
+        if (depth > 0) {
+            window.history.go(-depth);  // popstate does the closing
+            return;
+        }
+
+        writeRoute(null, { replace: true });
+        onClose();
+    }, [onClose, writeRoute]);
+
+    /*
+      The browser's own Back is the one thing that moves the panel without a
+      handler above running, so this is where the URL drives the state rather
+      than following it. Nothing here writes to history.
+    */
+    useEffect(() => {
+        const handlePopState = () => {
+            const route = parseHash(window.location.hash, projectData);
+            document.title = titleFor(route, projectData);
+            pushDepthRef.current = Math.max(0, pushDepthRef.current - 1);
+
+            if (!route) {
+                pushDepthRef.current = 0;
+                projectPushedRef.current = false;
+                onClose();
+                return;
+            }
+
+            const target = route.slug ? findBySlug(projectData, route.slug) : null;
+            projectPushedRef.current = false;
+
+            // Closed, so the whole view has to be built from the URL
+            if (!isVisible) {
+                onRequestOpen(route.tab, route.slug);
+                return;
+            }
+
+            if (route.tab !== pendingTabRef.current) {
+                pendingTabRef.current = route.tab;
+                applyTransition(() => {
+                    setActiveTab(route.tab);
+                    setSelectedProject(target);
+                });
+                return;
+            }
+
+            // Same tab, so only the sub-page can have changed
+            if (target) showProject(target);
+            else showProjectGrid();
+        };
+
+        window.addEventListener('popstate', handlePopState);
+        return () => window.removeEventListener('popstate', handlePopState);
+    }, [isVisible, onClose, onRequestOpen, applyTransition, showProject, showProjectGrid]);
+
 
     // Close UI Panel
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (containerRef.current && !containerRef.current.contains(event.target)) {
-                onClose(); // Call onClose if clicked outside
+                handleClose(); // Call handleClose if clicked outside
             }
         };
 
@@ -147,7 +310,7 @@ const ProjectDisplay = ({ onClose, isVisible, requestedTab }) => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [onClose]);
+    }, [handleClose]);
 
     /*
       Keep the closed panel out of the tab order. It stays mounted at
@@ -205,7 +368,7 @@ const ProjectDisplay = ({ onClose, isVisible, requestedTab }) => {
         const handleKeyDown = (event) => {
             if (event.key === 'Escape') {
                 event.preventDefault();
-                onClose();
+                handleClose();
                 return;
             }
 
@@ -253,14 +416,21 @@ const ProjectDisplay = ({ onClose, isVisible, requestedTab }) => {
 
         document.addEventListener('keydown', handleKeyDown);
         return () => document.removeEventListener('keydown', handleKeyDown);
-    }, [isVisible, onClose, handleTabChange]);
+    }, [isVisible, handleClose, handleTabChange]);
 
     // Tab Main Sections
     const memoizedContent = useMemo(() => {
         const content = {
             about: <AboutData />,
             projects: selectedProject
-                ? <ProjectDetails project={selectedProject} onBack={handleProjectBack} />
+                ? (
+                    <ProjectDetails
+                        project={selectedProject}
+                        onBack={handleProjectBack}
+                        next={nextProject}
+                        onSelectNext={handleNextProject}
+                    />
+                )
                 : (
                     <ProjectsTab
                         groups={groups}
@@ -273,7 +443,8 @@ const ProjectDisplay = ({ onClose, isVisible, requestedTab }) => {
         };
 
         return content[activeTab];
-    }, [activeTab, selectedProject, handleProjectSelect, handleProjectBack, groups, groupPages, pageGroup]);
+    }, [activeTab, selectedProject, handleProjectSelect, handleProjectBack, handleNextProject,
+        nextProject, groups, groupPages, pageGroup]);
 
     const status = AVAILABILITY[availability];
 
@@ -298,7 +469,7 @@ const ProjectDisplay = ({ onClose, isVisible, requestedTab }) => {
                     <button
                         type="button"
                         className="panelClose"
-                        onClick={onClose}
+                        onClick={handleClose}
                         title="Close portfolio (Esc)"
                         aria-label="Close portfolio"
                     >

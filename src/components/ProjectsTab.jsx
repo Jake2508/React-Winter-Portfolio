@@ -51,10 +51,9 @@ const ProjectGroup = ({ group, page, onPage, onSelect }) => {
     const start = safePage * CARDS_PER_PAGE;
     const visible = group.projects.slice(start, start + CARDS_PER_PAGE);
 
-    // "1–3 of 4" while paging, "2 projects" when the whole group fits
-    const counter = pageCount > 1
-        ? `${start + 1}–${start + visible.length} of ${total}`
-        : `${total} project${total === 1 ? '' : 's'}`;
+    // Always the group total. The arrows show position well enough on their
+    // own, and a range reads as a filter rather than a count.
+    const counter = `${total} project${total === 1 ? '' : 's'}`;
 
     // One array per page; a short last page just renders fewer cards
     const pageList = Array.from({ length: pageCount }, (_, index) =>

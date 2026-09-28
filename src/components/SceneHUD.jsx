@@ -16,6 +16,8 @@ const NAV_TABS = ['about', 'projects', 'contact'];
 const SceneHUD = ({ visible, onNavigate }) => (
     <div className={`hud ${visible ? 'hudVisible' : ''}`} aria-hidden={!visible}>
 
+        <div className="hudScrim" aria-hidden="true" />
+
         <div className="hudCorner hudTopLeft">
             <p className="hudName">{profile.name}</p>
             <p className="hudRoles">{profile.roles}</p>

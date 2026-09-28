@@ -5,7 +5,7 @@ import './styles/tokens.css';
 import './style.css';
 import ReactDOM from 'react-dom/client';
 import React from 'react';
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 
 // Custom Hooks & Components
@@ -21,6 +21,10 @@ import { timeline } from './data/aboutData.js';
 import { cv } from './data/contactData.js';
 import { projectData } from './data/projectData.js';
 import { DPR_RANGE } from './utils/deviceProfile.js';
+import { parseHash, titleFor } from './utils/routes.js';
+import { hasWebGL } from './utils/webgl.js';
+import SceneErrorBoundary from './components/SceneErrorBoundary.jsx';
+import SceneFallback from './components/SceneFallback.jsx';
 import { TITLE_DEFAULTS } from './components/SceneTitle.jsx';
 
 // Every image the panel can show without scrolling or navigating. Warmed
@@ -97,6 +101,14 @@ const App = () => {
     // nav item twice still re-targets it.
     const [requestedTab, setRequestedTab] = useState(null);
 
+    /*
+        Checked once before the Canvas mounts. `contextLost` covers the other
+        case: a context that started fine and was later dropped by the driver
+        or by the tab being backgrounded on a low-memory device.
+      */
+    const [contextLost, setContextLost] = useState(false);
+    const canRender3D = hasWebGL() && !contextLost;
+
     // Dev-only scene tuning
     const [debug, setDebug] = useState(DEBUG_DEFAULTS);
     const cameraReadout = useRef({ x: 0, y: 0, z: 0, fov: 0, distance: 0 });
@@ -111,17 +123,39 @@ const App = () => {
         if (project) {
             // Show Project Display
             setSelectedProject(project);
-            setRequestedTab({ tab: project.tab ?? 'about', at: Date.now() });
+            setRequestedTab({
+                tab: project.tab ?? 'about',
+                slug: project.slug ?? null,
+                at: Date.now(),
+            });
             setIsVisible(true);
         } else {
             // Hide Project Display
             setIsVisible(false);
-            setTimeout(() => setSelectedProject(null), 500); 
+            setTimeout(() => setSelectedProject(null), 500);
         }
     };
 
     // Top-right nav opens the panel straight onto a tab
-    const openTab = (tab) => toggleVisibility({ title: 'Nav', tab });
+    const openTab = (tab, slug = null) => toggleVisibility({ title: 'Nav', tab, slug });
+
+    /*
+      Opened by the URL rather than by a click — browser Back, or a link pasted
+      into a fresh tab. The history entry already exists, so `fromHistory` stops
+      the panel pushing a second one on top of it.
+    */
+    const openFromRoute = useCallback((tab, slug = null) => {
+        setRequestedTab({ tab, slug, at: Date.now(), fromHistory: true });
+        setIsVisible(true);
+    }, []);
+
+    // A shared link lands on its view once the scene is up
+    useEffect(() => {
+        if (loading) return;
+        const route = parseHash(window.location.hash, projectData);
+        document.title = titleFor(route, projectData);
+        if (route) openFromRoute(route.tab, route.slug);
+    }, [loading, openFromRoute]);
 
     // Random load delay addition modifier — averages ~10ms so the 101 steps
     // land around 1s total, just enough for the hex-draw animation to read
@@ -155,11 +189,37 @@ const App = () => {
                 </div>
             )}
 
-            {/* Main Canvas */}
+            {/* Main Canvas — or a still of it where WebGL cannot run */}
+            {!canRender3D ? <SceneFallback /> : (
+            <SceneErrorBoundary fallback={<SceneFallback />}>
             <Canvas
                 className='r3f'
                 camera={CAMERA}
-                gl={{ antialias: false, powerPreference: 'high-performance' }}
+                onCreated={({ gl }) => {
+                    gl.domElement.addEventListener('webglcontextlost', (event) => {
+                        // Default is a silent freeze; the still says what happened
+                        event.preventDefault();
+                        setContextLost(true);
+                    });
+                }}
+                /*
+                  Stop rendering entirely behind the open panel — the last frame
+                  stays on screen, so nothing visibly changes. 'always' rather
+                  than 'demand' on resume because the scene drives itself:
+                  OrbitControls auto-rotates and three components run useFrame.
+                */
+                frameloop={isVisible ? 'never' : 'always'}
+                /*
+                  preserveDrawingBuffer only under ?still, where the canvas has
+                  to survive long enough to be read back for scene-still.jpg.
+                  It costs an extra buffer copy per frame, so it stays off for
+                  everyone who is not capturing one.
+                */
+                gl={{
+                    antialias: false,
+                    powerPreference: 'high-performance',
+                    preserveDrawingBuffer: window.location.search.includes('still'),
+                }}
                 dpr={DPR_RANGE} // Capped lower on handhelds — see utils/deviceProfile.js
             >
                 <Suspense fallback={null}>
@@ -174,6 +234,8 @@ const App = () => {
                     />
                 </Suspense>
             </Canvas>
+            </SceneErrorBoundary>
+            )}
 
             {/* UI Overlay Wrapper */}
             <div className='ui-container'>
@@ -181,6 +243,7 @@ const App = () => {
                     isVisible={isVisible}
                     requestedTab={requestedTab}
                     onClose={() => toggleVisibility(null)}
+                    onRequestOpen={openFromRoute}
                 />
             </div>
 
