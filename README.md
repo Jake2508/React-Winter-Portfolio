@@ -12,7 +12,7 @@ This portfolio features an interactive winter diorama created in Blender, select
 
 ---
 
-![Portfolio Promo](public/Images/WebApplications/portfolio-v2.jpg)
+![Portfolio Promo](public/Images/ThreeJS/Portfolio-Promo1.jpg)
 
 ---
 
