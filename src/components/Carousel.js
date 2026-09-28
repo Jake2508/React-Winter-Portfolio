@@ -8,19 +8,26 @@ const youTubeId = (url) => url.split('/embed/')[1]?.split('?')[0] ?? '';
 const Carousel = ({ media, title = 'project' }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    if (!media?.length) return null;
+
+    /*
+      Clamped rather than read straight. The key in ProjectDetails should mean
+      the index always belongs to this media list, but reading past the end
+      here throws during render, and an error in the panel takes the whole app
+      down with it — there is no boundary around the DOM tree. A carousel that
+      falls back to its first slide is a much better failure than a blank site.
+    */
+    const slideIndex = Math.min(currentIndex, media.length - 1);
+
     // Single-item projects render no chrome at all
     const hasChrome = media.length > 1;
-    const current = media[currentIndex];
+    const current = media[slideIndex];
     const isImage = current.type === 'image';
 
+    // Steps from the clamped value, not from state, so a carried-over index
+    // cannot walk the carousel somewhere that does not exist.
     const changeImage = (direction) =>
-    {
-        setCurrentIndex((prevIndex) =>
-        {
-            const totalMedia = media.length;
-            return (prevIndex + direction + totalMedia) % totalMedia;
-        });
-    };
+        setCurrentIndex((slideIndex + direction + media.length) % media.length);
 
 
     return (
@@ -31,11 +38,11 @@ const Carousel = ({ media, title = 'project' }) => {
                   keyboard focus stays put while paging.
                 */}
                 <div
-                    key={currentIndex}
+                    key={slideIndex}
                     className="carouselSlide carouselFade"
                     style={isImage ? { backgroundImage: `url(${current.url})` } : undefined}
                     role={isImage ? 'img' : undefined}
-                    aria-label={isImage ? `${title} — screenshot ${currentIndex + 1} of ${media.length}` : undefined}
+                    aria-label={isImage ? `${title} — screenshot ${slideIndex + 1} of ${media.length}` : undefined}
                 >
                     {!isImage && <VideoSlide url={current.url} title={title} />}
                 </div>
@@ -63,7 +70,7 @@ const Carousel = ({ media, title = 'project' }) => {
                             </svg>
                         </button>
                         <span className="carouselCounter" aria-live="polite">
-                            {currentIndex + 1} / {media.length}
+                            {slideIndex + 1} / {media.length}
                         </span>
                     </>
                 )}
@@ -76,9 +83,9 @@ const Carousel = ({ media, title = 'project' }) => {
                             key={item.url}
                             type="button"
                             onClick={() => setCurrentIndex(index)}
-                            className={`carouselIndicator ${currentIndex === index ? 'active' : ''}`}
+                            className={`carouselIndicator ${slideIndex === index ? 'active' : ''}`}
                             aria-label={`Go to image ${index + 1}`}
-                            aria-current={currentIndex === index}
+                            aria-current={slideIndex === index}
                         />
                     ))}
                 </div>
