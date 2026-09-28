@@ -67,8 +67,14 @@ const ProjectDetails = ({ project, onBack, next, onSelectNext }) => {
                 </div>
             )}
 
+            {/*
+              Keyed on the project so the carousel remounts rather than being
+              reused. Without it React keeps the same instance when the next
+              project link swaps the sub-page underneath, and its slide index
+              carries over to a project that may have fewer images.
+            */}
             {project.media?.length > 0 && (
-                <Carousel media={project.media} title={project.title} />
+                <Carousel key={project.id} media={project.media} title={project.title} />
             )}
 
             {/*
