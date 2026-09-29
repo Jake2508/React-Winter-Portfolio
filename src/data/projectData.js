@@ -21,7 +21,7 @@ export const projectData = [
                 title: 'Booked',
                 miniTitle: '2026',
                 subtitle: 'Reading Habits Dashboard',
-                previewImage: '/Images/Apps/Booked-Promo1.jpg',
+                previewImage: '/Images/Apps/Booked-Card.jpg',
                 media: [
                     { type: 'image', url: '/Images/Apps/Booked-Promo1.jpg' },
                     { type: 'image', url: '/Images/Apps/Booked-Promo2.jpg' },
@@ -45,7 +45,7 @@ export const projectData = [
                 title: 'Web Health Monitor',
                 miniTitle: '2026',
                 subtitle: 'Self-Hosted Uptime Dashboard',
-                previewImage: '/Images/Apps/WebHealth-Promo1.jpg',
+                previewImage: '/Images/Apps/WebHealth-Card.jpg',
                 media: [
                     { type: 'image', url: '/Images/Apps/WebHealth-Promo1.jpg' },
                 ],
@@ -114,35 +114,6 @@ export const projectData = [
                 ],
             },
             {
-                id: 3,
-                group: 'Games',
-                title: 'Tankeo Drift',
-                miniTitle: '2024',
-                subtitle: 'Endless Action Roguelike',
-                previewImage: '/Images/Games/Tankeo-Promo2.jpg',
-                media: [
-                    { type: 'image', url: '/Images/Games/Tankeo-Promo2.jpg' },
-                    { type: 'image', url: '/Images/Games/Tankeo-Promo1.jpg' },
-                    { type: 'image', url: '/Images/Games/Tankeo-Promo3.jpg' },
-                    { type: 'image', url: '/Images/Games/Tankeo-Promo4.jpg' },
-                    { type: 'image', url: '/Images/Games/Tankeo-Promo5.jpg' },
-                    { type: 'image', url: '/Images/Games/Tankeo-Promo6.jpg' },
-                ],
-                technologies: ['Unity', 'C#', 'Blender', 'Photoshop'],
-                description: ['Tankeo Drift is an action-packed rogue-like game built in Unity, where you battle endless waves of enemies, gather experience, and upgrade your tank as you progress.',
-    
-                    'The aim of this project was to develop an endless rogue-like experience, inspired by Vampire Survivor, with a focus on an engaging upgrade system. ' +
-                    'Additionally, I wanted to improve my 3D modelling skills.',
-        
-                    'To achieve this, I implemented a procedurally generated environment. The system uses a 9-tile grid of prefabs that dynamically update based on the ' +
-                    'players position, creating the illusion of an infinite level.'
-                ],
-                primary: { label: 'Play on WebGL', url: 'https://jake12341234.itch.io/tankeo-drift' },
-                links: [
-                    { label: 'View Code', url: 'https://github.com/Jake2508/Game-3D-Tankeo-Drift' },
-                ],
-            },
-            {
                 // COMPLETE
                 id: 4,
                 group: 'Games',
@@ -176,6 +147,62 @@ export const projectData = [
                 ],
             },
             {
+                id: 7,
+                group: 'Games',
+                title: 'Construction Catastrophe',
+                miniTitle: '2023',
+                subtitle: 'Four Player Co-Op Party',
+                previewImage: '/Images/Games/Construction-Card.jpg',
+                media: [
+                    { type: 'image', url: '/Images/Games/Construction-Promo1.jpg' },
+                    { type: 'image', url: '/Images/Games/Construction-Promo2.jpg' },
+                    { type: 'image', url: '/Images/Games/Construction-Promo3.jpg' },
+                    { type: 'image', url: '/Images/Games/Construction-Promo4.jpg' },
+                    { type: 'image', url: '/Images/Games/Construction-Promo5.jpg' },
+                    { type: 'image', url: '/Images/Games/Construction-Promo6.jpg' },
+                ],
+                technologies: ['Unreal Engine 5', 'Blueprint', 'Local Multiplayer'],
+                description: ['Construction Catastrophe is a four-player local co-op party game built in Unreal Engine, where teams race to build their construction site before earthquakes, floods and meteor strikes bring it back down.',
+
+                    'I came onto this university project as tech lead, and ended up covering producer and design lead as well when the team ran into difficulty. Alongside the code that meant running the schedule, mentoring two junior programmers and the design team, and keeping communication moving between tech, design and art across a group of fifteen.',
+
+                    'On the technical side I owned the game logic, building the game manager that drives the build phase, the action phase and the menus between them. I also set up local multiplayer controller support for four players and built the character selection and customisation screens, and a good share of the remaining time went on unpicking issues across the juniors work so the build stayed shippable.'
+                ],
+                primary: { label: 'Download', url: 'https://mreaston.itch.io/constructioncatastrophe' },
+                links: [
+                    { label: 'View Code', url: 'https://github.com/Jake2508/Game-3D-Construction-Catastrophe' },
+                ],
+            },
+            {
+                id: 3,
+                group: 'Games',
+                title: 'Tankeo Drift',
+                miniTitle: '2024',
+                subtitle: 'Endless Action Roguelike',
+                previewImage: '/Images/Games/Tankeo-Promo2.jpg',
+                media: [
+                    { type: 'image', url: '/Images/Games/Tankeo-Promo2.jpg' },
+                    { type: 'image', url: '/Images/Games/Tankeo-Promo1.jpg' },
+                    { type: 'image', url: '/Images/Games/Tankeo-Promo3.jpg' },
+                    { type: 'image', url: '/Images/Games/Tankeo-Promo4.jpg' },
+                    { type: 'image', url: '/Images/Games/Tankeo-Promo5.jpg' },
+                    { type: 'image', url: '/Images/Games/Tankeo-Promo6.jpg' },
+                ],
+                technologies: ['Unity', 'C#', 'Blender', 'Photoshop'],
+                description: ['A solo project, covering the design, programming, art and audio. Tankeo Drift is an action-packed rogue-like game built in Unity, where you battle endless waves of enemies, gather experience, and upgrade your tank as you progress.',
+    
+                    'The aim of this project was to develop an endless rogue-like experience, inspired by Vampire Survivor, with a focus on an engaging upgrade system. ' +
+                    'Additionally, I wanted to improve my 3D modelling skills.',
+        
+                    'To achieve this, I implemented a procedurally generated environment. The system uses a 9-tile grid of prefabs that dynamically update based on the ' +
+                    'players position, creating the illusion of an infinite level.'
+                ],
+                primary: { label: 'Play on WebGL', url: 'https://jake12341234.itch.io/tankeo-drift' },
+                links: [
+                    { label: 'View Code', url: 'https://github.com/Jake2508/Game-3D-Tankeo-Drift' },
+                ],
+            },
+            {
                 // COMPLETE
                 id: 5,
                 group: 'Games',
@@ -188,7 +215,7 @@ export const projectData = [
                     { type: 'image', url: '/Images/Games/Deliberation-PromoG.gif' },
                 ],
                 technologies: ['Unity', 'A* Pathfinding', 'Aseprite', 'Grid System'],
-                description: ['Deliberation is a prototype puzzle game built in Unity that showcases A* pathfinding. Click to select your characters target position ' + 
+                description: ['A solo project, covering the design, programming, art and audio. Deliberation is a prototype puzzle game built in Unity that showcases A* pathfinding. Click to select your characters target position ' + 
                     'and watch the pathfinding in action.',
     
                     'The goal of this project was to explore different pathfinding algorithms, such as A*, Dijkstra, Depth-first, and Breadth-first and integrate them ' + 
@@ -214,7 +241,7 @@ export const projectData = [
                     { type: 'image', url: '/Images/Games/Asteroids-Promo3.jpg' },
                 ],
                 technologies: ['Unity', 'C#', 'Aseprite'],
-                description: ['AstroHaul is a 2D retro arcade game created in Unity based on the classic Asteroids game. This project was created as part of the Typical Game Jam (within 3 days).',
+                description: ['A solo project, covering the design, programming, art and audio. AstroHaul is a 2D retro arcade game created in Unity based on the classic Asteroids game. This project was created as part of the Typical Game Jam (within 3 days).',
     
                 'My goal for this project was to create a classic I enjoyed and give it a fresh look. I chose to utilise volatile gravitational fields and collection mechanics.',
     
@@ -226,30 +253,4 @@ export const projectData = [
                     { label: 'View Code', url: 'https://github.com/Jake2508/Game-2D-AstroHaul' },
                 ],
             },
-            // {
-            //     // MAYBE RE-ADD AT A LATER DATE - Afer we add another pixel project
-            //     id: 7,
-            //     title: 'Ascent',
-            //     miniTitle: '2022',
-            //     subtitle: 'Race to the end party board game',
-            //     previewImage: '/Images/Games/Ascent-Promo1.jpg', 
-            //     media: [
-            //         { type: 'image', url: '/Images/Games/Ascent-Promo2.jpg' },
-            //         { type: 'image', url: '/Images/Games/Ascent-Promo3.jpg' },
-            //         { type: 'image', url: '/Images/Games/Ascent-Promo4.jpg' },
-            //     ],
-            //     technologies: ['Photoshop', 'Google Forms'],
-            //     description: ['AstroHaul is a 2D retro arcade game created in Unity based on the classic Asteroids game. This project was created as part of the Typical Game Jam (within 3 days).',
-    
-            //     'My goal for this project was to create a classic I enjoyed and give it a fresh look. I chose to utilise volatile gravitational fields and collection mechanics.',
-    
-            //     'To achieve this, I set out to make a gravitation push/pull effect usable for all objects. The idea was to add uncertainty while maintaining responsive feedback ' +
-            //     'so users could understand these forces. '
-            //     ],
-            //     links: [
-            //         { label: 'Rulebook', url: '/Images/Games/Ascent - Rulebook.pdf' },
-            //         { label: 'Development Blog', url: '/Images/Games/Ascent Development Blog.pdf' },
-            //         { label: 'Board Games Maker', url: 'https://www.boardgamesmaker.com/' },
-            //     ],
-            // },
     ];
